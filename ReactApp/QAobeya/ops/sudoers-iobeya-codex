@@ -1,0 +1,14 @@
+# /etc/sudoers.d/iobeya-codex
+# Allow user bvarisellaz to run iObeya control commands without password.
+# Install with: sudo cp ops/sudoers-iobeya-codex /etc/sudoers.d/iobeya-codex && sudo chmod 440 /etc/sudoers.d/iobeya-codex
+
+bvarisellaz ALL=(root) NOPASSWD: \
+  /usr/bin/systemctl start iobeya, \
+  /usr/bin/systemctl stop iobeya, \
+  /usr/bin/systemctl restart iobeya, \
+  /usr/bin/systemctl status iobeya, \
+  /home/bvarisellaz/Assistant\ Pro/ReactApp/QAobeya/scripts/iobeyactl.sh start, \
+  /home/bvarisellaz/Assistant\ Pro/ReactApp/QAobeya/scripts/iobeyactl.sh stop, \
+  /home/bvarisellaz/Assistant\ Pro/ReactApp/QAobeya/scripts/iobeyactl.sh restart, \
+  /home/bvarisellaz/Assistant\ Pro/ReactApp/QAobeya/scripts/iobeyactl.sh status, \
+  /home/bvarisellaz/Assistant\ Pro/ReactApp/QAobeya/scripts/iobeyactl.sh ps

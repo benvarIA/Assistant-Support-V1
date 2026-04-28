@@ -1,0 +1,4 @@
+interface:
+  display_name: "Microsoft 365 Workspace"
+  short_description: "Pilote Microsoft Graph pour agenda, Outlook et SharePoint."
+  default_prompt: "Utiliser ce skill pour connecter un compte Microsoft et gérer agenda, mails Outlook et fichiers SharePoint via Microsoft Graph de façon sûre."

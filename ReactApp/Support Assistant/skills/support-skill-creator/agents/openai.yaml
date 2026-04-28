@@ -1,0 +1,4 @@
+interface:
+  display_name: "SupportSkillCreator"
+  short_description: "Concevoir un skill support robuste pour l'analyseur."
+  default_prompt: "Définis ou challenge un skill support pour l'analyseur en cadrant déclencheur, périmètre, prérequis, ressources, playbook, garde-fous, validations humaines et résultat structuré pour l'orchestrateur."

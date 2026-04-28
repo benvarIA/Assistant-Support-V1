@@ -1,0 +1,4 @@
+interface:
+  display_name: "JiraYah"
+  short_description: "Créer un ticket JiraYah depuis un email Outlook sélectionné."
+  default_prompt: "Analyse l’email sélectionné, propose la classification Jira, puis crée le ticket après validation explicite. Ne fais pas de synchro de réponses / mise à jour ticket (utiliser Orochimaru pour ça)."

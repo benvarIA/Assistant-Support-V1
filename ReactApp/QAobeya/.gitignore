@@ -1,0 +1,9 @@
+# Runtime/generated instance data
+instances/*
+!instances/.keep
+!instances/.keepdir/
+seeds/*
+!seeds/.keep
+
+# Local env overrides
+.env

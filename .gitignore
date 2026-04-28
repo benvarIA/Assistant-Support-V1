@@ -1,0 +1,38 @@
+# Secrets / local tokens
+.env
+.env.*
+!.env.example
+.codex/persistant/token/
+**/.codex/persistant/token/
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+dist-ssr/
+
+# Runtime/generated data
+logs/
+*.log
+*.pid
+.cache/
+instances/
+seeds/*
+!seeds/.keep
+
+# Python/cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# OS/editor
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.sw?
+
+# Local nested Git backup (created while publishing this folder as one repo)
+.git.nested-backup*/

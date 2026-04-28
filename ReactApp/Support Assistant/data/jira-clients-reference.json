@@ -1,0 +1,2038 @@
+{
+  "updatedAt": "2026-04-28T12:27:24.404Z",
+  "count": 406,
+  "values": [
+    "_PROSPECT_",
+    "_TRIAL_",
+    "ABB Finland",
+    "ABB Italy",
+    "Abbott - Ireland",
+    "Accenture Business Agility",
+    "Achmea",
+    "ACL",
+    "ACT",
+    "Adaptivity",
+    "Adi – Askea Design Ingenierie",
+    "Adragos Pharma",
+    "AFITEXINOV via POP",
+    "AGC Glass Europe SA",
+    "Agence du numérique de la sécurité civile",
+    "Aik Lee Solutions - Partner",
+    "Air France Industries",
+    "Air Liquide",
+    "Airbus Aerostructures (ex Premium Aerotech)",
+    "Airbus Defence & Space",
+    "Airbus OneWeb Satellites",
+    "Airbus Operation SAS",
+    "Airnov",
+    "AISG",
+    "AITO LM CONSULTING - PARTNERS",
+    "Alix Partners",
+    "Alkegen",
+    "Allianz Trade ( ex Euler Hermes)",
+    "Allstate",
+    "Alten",
+    "Amicus Therapeutics",
+    "Amneal Pharmaceuticals",
+    "ANTAI",
+    "APEM",
+    "Aptiphar",
+    "Astrea Pharma",
+    "Ateliers Perrault via Cubik",
+    "Atlantic LNG",
+    "ATR Aircraft",
+    "Atryon - PARTNER",
+    "Aubert & Duval",
+    "Aviagroup",
+    "Axens",
+    "Axima",
+    "AZQORE",
+    "B Braun Medical",
+    "B2Wise",
+    "Ballance Agri-Nutrients Ltd",
+    "Baxter Pharma Singapore",
+    "BCAC - MinArm Intradef",
+    "BEARING POINT Inc - PARTNER",
+    "Beckman Coulter Life Sciences",
+    "Becton Dickinson",
+    "BelEnergia via Considi",
+    "Beologic NV",
+    "Bien-Air Surgery SA",
+    "BIJOU via Cubik Team+",
+    "bioMérieux",
+    "Bleucloud",
+    "BNP BDDF",
+    "Bolloré Logistics",
+    "Boralex",
+    "Bouygues Construction",
+    "BPCE",
+    "Bruker Biospin",
+    "BT Blue via POP",
+    "Bystronic Laser AG - TEAM",
+    "C.MENDES - SAINT LAURENT",
+    "CA des Savoie Cloud",
+    "CA-GIP (ex SILCA) - Crédit Agricole",
+    "Cabot Corporation",
+    "Campbells",
+    "CAPGEMINI ABL",
+    "CapGemini Invent",
+    "Cartier Horlogerie",
+    "Cartier Joaillerie International",
+    "CEA",
+    "Cebi Motors S.p.A.",
+    "Celltrion Branchburg LLC",
+    "CEVA",
+    "Chantier de l'atlantique (ex STX)",
+    "CLUB CAR",
+    "CNP Assurances",
+    "CODECHAMP via La GROWBOX",
+    "Coeff - PARTNER",
+    "Coeff LPC",
+    "Coleg Cambria",
+    "Considi - PARTNER",
+    "Constellium",
+    "CONSULT ING - Partners",
+    "Continental ADC",
+    "Continental Fr",
+    "Corteva Agriscience",
+    "COVEA",
+    "CREDIT AGRICOLE - PACIFICA DOMMAGES",
+    "Crédit Agricole Assurances",
+    "Crédit Agricole CIB (CA CIB)",
+    "Crédit Agricole Technologies & Services (CATS)",
+    "Crispr Therapeutics",
+    "CUBIK (ex POP)",
+    "CureVac",
+    "CYCLIFE",
+    "Cylad Consulting",
+    "D'IETEREN",
+    "Daher",
+    "DAIKIN",
+    "Dalenys",
+    "Dassault Aviation",
+    "Daunat",
+    "DB NETZ AG",
+    "Deloitte Canada",
+    "Demathieu Bard",
+    "Devillé ASC",
+    "DEXCOM",
+    "DHL",
+    "DIANEGO RH",
+    "Dictu (EZK)",
+    "Dirickx",
+    "Donaldson POC",
+    "DSM Firmenich",
+    "DTNUM",
+    "Dutch Tax Office - Belastingdienst",
+    "Dyno Nobel",
+    "E-T-A",
+    "EACOP",
+    "EATON",
+    "EDF DSIT",
+    "Edrington Distillers Ltd",
+    "Eiffage Metal - Team",
+    "Electrolux Italia S.p.A. TEAM",
+    "Electropoli Isigny",
+    "Eli Lilly",
+    "EliteOrga",
+    "EMELEAN",
+    "EMS Cognito PARTNER - Team",
+    "Epredia",
+    "EQUIPE INGENIERIE (via POP)",
+    "ERAMET",
+    "Eraneos Switzerland - Partner",
+    "ESCO Technologies via TBM",
+    "EUROAPI",
+    "European Space Agency (ESA)",
+    "EUTELSAT",
+    "EvidenS de Beauté",
+    "Factories of Future",
+    "Fahrzeuginstandhaltung GmbH",
+    "FAMAT",
+    "FENETREA - Team",
+    "Fichly",
+    "Fitness Boutique - NetQuattro",
+    "Fives",
+    "Fives  Machining",
+    "FLEURETTE via CUBIK PARTNERS",
+    "FLOW4U",
+    "Fluidra",
+    "Ford",
+    "Framatome (ex Areva NP - Digital transformation)",
+    "Game Changer",
+    "GCA",
+    "GCI Communication Corp.",
+    "GE Power & Grid",
+    "GE Vernova",
+    "Gemeente Den Haag",
+    "Genfar",
+    "Genmab NL",
+    "Gepsa",
+    "Getelec",
+    "Getinge",
+    "GOLDING CAPITAL Partners",
+    "GREG WOODS - Partner",
+    "Groupe Boulle",
+    "Groupe HDN",
+    "GROUPE SII",
+    "Gualapack (via Considi)",
+    "GXO Logistics",
+    "Hartmann",
+    "Hendrix Genetics via Cubik Partners",
+    "HFR HOPITAL FRIBOURGEOIS (via XL Group)",
+    "Hilti",
+    "Hitachi Rails GTS France",
+    "Hitachy Energy",
+    "HOFOR",
+    "HOSHIN PARTNERS",
+    "Hutchinson (Etanchéité)",
+    "Hutchinson (Research Center)",
+    "Hutchinson ADI",
+    "Hutchinson Defense & Mobility - Persan",
+    "Hutchinson INC (ex Hutchinson industrie USA)",
+    "Hutchinson Mexico",
+    "I-Interim Rijk",
+    "IB Consulting",
+    "ID LOGISTICS",
+    "ID Logistics - USA",
+    "IDEMIA",
+    "INEMA ROUEN",
+    "ING",
+    "Integrated DNA Technologies",
+    "Invest Cloud",
+    "iObeya TPC (ex. iObeya Thales Groupe)",
+    "Jaeger Lecoultre POC",
+    "KAEFER",
+    "Kaiser Permanente",
+    "Kaizen Reliability",
+    "Kanban University",
+    "KELVION via CUBIK PARTNERS",
+    "Keolis Dijon",
+    "Kimberly-Clark",
+    "Knab",
+    "KNDS (ex Nexter)",
+    "KPConsulting",
+    "Kreios Space",
+    "Kroger",
+    "Kuehne Nagel QCD",
+    "KWIK TRIP",
+    "La Banque Postale",
+    "La Grow BOX",
+    "LA MANUFACTURE",
+    "La Poste DTN - Team",
+    "Laboratorios Silanes",
+    "LBL Brenta",
+    "LEANXVERSE",
+    "Les Fermiers (Via POP)",
+    "Lesaffre",
+    "Life & Mobility",
+    "Lilly France (MQ)",
+    "Lilly IBU",
+    "Lithespeed - Partner",
+    "LNAsanté",
+    "Longchamp - TEAM",
+    "LVMH Recherche",
+    "Lynred",
+    "Mahindra Aerospace",
+    "MARK & SPENCER UK",
+    "Mars",
+    "Mars Space Ltd",
+    "MBDA",
+    "MBDA Corporate Private Cloud",
+    "MBDA UK",
+    "Medline Add-on",
+    "Merck (USA)",
+    "Merck Irvine",
+    "Merck Serono",
+    "Mesea",
+    "Mews Partners - PARTNER",
+    "MGTECH via POP",
+    "Michelin",
+    "Milwaukee Tool",
+    "MIN ARM DIRISI Lyon",
+    "MIN JUSTICE",
+    "MinArm-Internet",
+    "MinArm-Intradef",
+    "Ministerie van Defensie",
+    "Mirion",
+    "Monique Ranou SCO",
+    "Moog",
+    "Movella (ex Xsens)",
+    "MSA4485",
+    "N+P SUBCOAL PRODUCTION FRM B.V. via EMS COGNITO",
+    "NATIONAL DUTCH POLICE",
+    "Naval Group - DCNS",
+    "NHIndustries",
+    "Nictiz",
+    "North British Distillery",
+    "NorthStar Nuclear Medicine",
+    "NSE via Stanwick",
+    "NUTRIEN",
+    "NV Equipement via POP",
+    "O² via Cubik",
+    "OBEYA ASSOCIATION",
+    "Obeya Builder - PARTNER",
+    "Olimpia Splendid",
+    "Ominlytics - PARTNERS",
+    "Orange - Enterprise",
+    "Orano - ex New Areva",
+    "Orsted Telte A/S",
+    "OSE group",
+    "Ovale Performance - Partner",
+    "Pella Corp",
+    "Pernod Ricard",
+    "Pfeiffer Vaccum",
+    "PGB Pensioendiensten",
+    "Philip Morris International - UK",
+    "Pierre Fabre",
+    "PiveteauBois",
+    "PMI Services",
+    "PRATICIMA",
+    "Pratt and Whitney",
+    "Project7 - PARTNER",
+    "Prysmian",
+    "PSA",
+    "PwC",
+    "radiall",
+    "Radiometer",
+    "Rapido",
+    "RATP",
+    "RATP Metro",
+    "RATP MOP",
+    "Reading Scientific Services",
+    "Rehlko (ex Kohler Co.)",
+    "Richemont MUT",
+    "Richemont Valfleurier",
+    "RIVACOLD",
+    "RIVM",
+    "RLG International - PARTNER",
+    "Rockwool",
+    "Rolls Royce (via Project 7)",
+    "Rolls Royce Civil Aerospace Derby via Project 7",
+    "Safran Aerosystems",
+    "Safran Aircraft Engines France",
+    "Safran Corp",
+    "Safran Electronics & Defense",
+    "Saft Batteries",
+    "SANOFI GROUP",
+    "Sansera",
+    "Sartorius",
+    "Satys",
+    "Schneider Electric",
+    "Schueco (via Visine Consulting)",
+    "SCIEX",
+    "Sekisui Aerospace",
+    "SEPRO - Team",
+    "Serac Enterprise Online",
+    "SG ABS ( Société Générale African Business Services)",
+    "SHELL",
+    "Shell Deer Park",
+    "Shell International",
+    "Sherbourne Recycling Ltd (from EMS Cognito)",
+    "SIAE - Atelier Industriel de l’Aéronautique AIA",
+    "Siemens Healthineers Gmbh",
+    "Silent Aire",
+    "SiO",
+    "SKF",
+    "SMARTER START",
+    "SNCF Réseau Online",
+    "Sofrilog Ouest",
+    "SOGITEC",
+    "SOITEC",
+    "Souriau",
+    "Spie Batignolles",
+    "Stago",
+    "Stanwick",
+    "Staubli",
+    "STEF",
+    "Sterigenics",
+    "STMicroElectronics",
+    "StoryLane",
+    "STRADAL",
+    "STULZ",
+    "Subsea 7",
+    "Suez",
+    "Syngenta",
+    "Talcott Ridge Consulting",
+    "Taura via Stanwick",
+    "TBM Consulting Group",
+    "TECHNIP Energies - France",
+    "TechnipFMC",
+    "Terega",
+    "Thales Alenia Space",
+    "Thales Australia",
+    "Thales Castle",
+    "Thales DIS USA",
+    "Thalès DMS",
+    "Thales Mexico",
+    "Thales NEST",
+    "Thales Netherlands - spvw8884",
+    "Thales Netherlands (FedSS)",
+    "Thales Netherlands Blue",
+    "Thales Netherlands CEG",
+    "Thales Netherlands Tacticos",
+    "Thales SIDR",
+    "Thales UK.",
+    "The Jackson Laboratory",
+    "Thermo Fisher",
+    "Tiofarma via Stanwick",
+    "Tipiak",
+    "TO BE DEFINED",
+    "Topsoe",
+    "Total - TGITS",
+    "Toyota HQ",
+    "Toyota Material Handling France",
+    "Toyota of North America",
+    "Tron Consulting",
+    "UAPL Loire Propriétés",
+    "UGAP via Capgemini",
+    "Ultragenyx",
+    "UST",
+    "Vaillant Group",
+    "Vantive",
+    "Vaupell",
+    "Veolia via POP",
+    "Versum Materials",
+    "Viasat USA",
+    "Vibracoustic",
+    "Vinci Energies",
+    "Vitec Imaging Solutions",
+    "VOLAC",
+    "VOLTALIS",
+    "Volvo",
+    "Wahl Clipper",
+    "WATES via PROJECT 7",
+    "WESTERN DIGITAL",
+    "Wilo Salmson France",
+    "WorkSafeBC",
+    "XL Groupe - PARTNER",
+    "XPO Logistics",
+    "YKK Germany"
+  ],
+  "entries": [
+    {
+      "id": "17062",
+      "value": "_PROSPECT_"
+    },
+    {
+      "id": "15558",
+      "value": "_TRIAL_"
+    },
+    {
+      "id": "10601",
+      "value": "ABB Finland"
+    },
+    {
+      "id": "10602",
+      "value": "ABB Italy"
+    },
+    {
+      "id": "15641",
+      "value": "Abbott - Ireland"
+    },
+    {
+      "id": "15900",
+      "value": "Accenture Business Agility"
+    },
+    {
+      "id": "16228",
+      "value": "Achmea"
+    },
+    {
+      "id": "16110",
+      "value": "ACL"
+    },
+    {
+      "id": "15528",
+      "value": "ACT"
+    },
+    {
+      "id": "16015",
+      "value": "Adaptivity"
+    },
+    {
+      "id": "14801",
+      "value": "Adi – Askea Design Ingenierie"
+    },
+    {
+      "id": "18623",
+      "value": "Adragos Pharma"
+    },
+    {
+      "id": "16103",
+      "value": "AFITEXINOV via POP"
+    },
+    {
+      "id": "16021",
+      "value": "AGC Glass Europe SA"
+    },
+    {
+      "id": "16033",
+      "value": "Agence du numérique de la sécurité civile"
+    },
+    {
+      "id": "16140",
+      "value": "Aik Lee Solutions - Partner"
+    },
+    {
+      "id": "15518",
+      "value": "Air France Industries"
+    },
+    {
+      "id": "10610",
+      "value": "Air Liquide"
+    },
+    {
+      "id": "15402",
+      "value": "Airbus Aerostructures (ex Premium Aerotech)"
+    },
+    {
+      "id": "10606",
+      "value": "Airbus Defence & Space"
+    },
+    {
+      "id": "10665",
+      "value": "Airbus OneWeb Satellites"
+    },
+    {
+      "id": "10608",
+      "value": "Airbus Operation SAS"
+    },
+    {
+      "id": "15658",
+      "value": "Airnov"
+    },
+    {
+      "id": "17986",
+      "value": "AISG"
+    },
+    {
+      "id": "16151",
+      "value": "AITO LM CONSULTING - PARTNERS"
+    },
+    {
+      "id": "18657",
+      "value": "Alix Partners"
+    },
+    {
+      "id": "15922",
+      "value": "Alkegen"
+    },
+    {
+      "id": "15391",
+      "value": "Allianz Trade ( ex Euler Hermes)"
+    },
+    {
+      "id": "15200",
+      "value": "Allstate"
+    },
+    {
+      "id": "15873",
+      "value": "Alten"
+    },
+    {
+      "id": "16183",
+      "value": "Amicus Therapeutics"
+    },
+    {
+      "id": "18187",
+      "value": "Amneal Pharmaceuticals"
+    },
+    {
+      "id": "15620",
+      "value": "ANTAI"
+    },
+    {
+      "id": "16699",
+      "value": "APEM"
+    },
+    {
+      "id": "16126",
+      "value": "Aptiphar"
+    },
+    {
+      "id": "17689",
+      "value": "Astrea Pharma"
+    },
+    {
+      "id": "16219",
+      "value": "Ateliers Perrault via Cubik"
+    },
+    {
+      "id": "15534",
+      "value": "Atlantic LNG"
+    },
+    {
+      "id": "15400",
+      "value": "ATR Aircraft"
+    },
+    {
+      "id": "15556",
+      "value": "Atryon - PARTNER"
+    },
+    {
+      "id": "15911",
+      "value": "Aubert & Duval"
+    },
+    {
+      "id": "16222",
+      "value": "Aviagroup"
+    },
+    {
+      "id": "10616",
+      "value": "Axens"
+    },
+    {
+      "id": "15883",
+      "value": "Axima"
+    },
+    {
+      "id": "15654",
+      "value": "AZQORE"
+    },
+    {
+      "id": "15778",
+      "value": "B Braun Medical"
+    },
+    {
+      "id": "15557",
+      "value": "B2Wise"
+    },
+    {
+      "id": "15832",
+      "value": "Ballance Agri-Nutrients Ltd"
+    },
+    {
+      "id": "15852",
+      "value": "Baxter Pharma Singapore"
+    },
+    {
+      "id": "15885",
+      "value": "BCAC - MinArm Intradef"
+    },
+    {
+      "id": "15335",
+      "value": "BEARING POINT Inc - PARTNER"
+    },
+    {
+      "id": "15415",
+      "value": "Beckman Coulter Life Sciences"
+    },
+    {
+      "id": "15445",
+      "value": "Becton Dickinson"
+    },
+    {
+      "id": "16018",
+      "value": "BelEnergia via Considi"
+    },
+    {
+      "id": "15777",
+      "value": "Beologic NV"
+    },
+    {
+      "id": "15666",
+      "value": "Bien-Air Surgery SA"
+    },
+    {
+      "id": "16732",
+      "value": "BIJOU via Cubik Team+"
+    },
+    {
+      "id": "15299",
+      "value": "bioMérieux"
+    },
+    {
+      "id": "18053",
+      "value": "Bleucloud"
+    },
+    {
+      "id": "10618",
+      "value": "BNP BDDF"
+    },
+    {
+      "id": "15417",
+      "value": "Bolloré Logistics"
+    },
+    {
+      "id": "16149",
+      "value": "Boralex"
+    },
+    {
+      "id": "17524",
+      "value": "Bouygues Construction"
+    },
+    {
+      "id": "15339",
+      "value": "BPCE"
+    },
+    {
+      "id": "10621",
+      "value": "Bruker Biospin"
+    },
+    {
+      "id": "16090",
+      "value": "BT Blue via POP"
+    },
+    {
+      "id": "15593",
+      "value": "Bystronic Laser AG - TEAM"
+    },
+    {
+      "id": "15403",
+      "value": "C.MENDES - SAINT LAURENT"
+    },
+    {
+      "id": "17359",
+      "value": "CA des Savoie Cloud"
+    },
+    {
+      "id": "15394",
+      "value": "CA-GIP (ex SILCA) - Crédit Agricole"
+    },
+    {
+      "id": "15751",
+      "value": "Cabot Corporation"
+    },
+    {
+      "id": "16181",
+      "value": "Campbells"
+    },
+    {
+      "id": "15699",
+      "value": "CAPGEMINI ABL"
+    },
+    {
+      "id": "15480",
+      "value": "CapGemini Invent"
+    },
+    {
+      "id": "15252",
+      "value": "Cartier Horlogerie"
+    },
+    {
+      "id": "15694",
+      "value": "Cartier Joaillerie International"
+    },
+    {
+      "id": "15880",
+      "value": "CEA"
+    },
+    {
+      "id": "15755",
+      "value": "Cebi Motors S.p.A."
+    },
+    {
+      "id": "18690",
+      "value": "Celltrion Branchburg LLC"
+    },
+    {
+      "id": "15721",
+      "value": "CEVA"
+    },
+    {
+      "id": "14803",
+      "value": "Chantier de l'atlantique (ex STX)"
+    },
+    {
+      "id": "18355",
+      "value": "CLUB CAR"
+    },
+    {
+      "id": "15311",
+      "value": "CNP Assurances"
+    },
+    {
+      "id": "18220",
+      "value": "CODECHAMP via La GROWBOX"
+    },
+    {
+      "id": "15357",
+      "value": "Coeff - PARTNER"
+    },
+    {
+      "id": "15831",
+      "value": "Coeff LPC"
+    },
+    {
+      "id": "16087",
+      "value": "Coleg Cambria"
+    },
+    {
+      "id": "10817",
+      "value": "Considi - PARTNER"
+    },
+    {
+      "id": "15716",
+      "value": "Constellium"
+    },
+    {
+      "id": "16633",
+      "value": "CONSULT ING - Partners"
+    },
+    {
+      "id": "15744",
+      "value": "Continental ADC"
+    },
+    {
+      "id": "15772",
+      "value": "Continental Fr"
+    },
+    {
+      "id": "16153",
+      "value": "Corteva Agriscience"
+    },
+    {
+      "id": "15451",
+      "value": "COVEA"
+    },
+    {
+      "id": "15291",
+      "value": "CREDIT AGRICOLE - PACIFICA DOMMAGES"
+    },
+    {
+      "id": "15412",
+      "value": "Crédit Agricole Assurances"
+    },
+    {
+      "id": "10622",
+      "value": "Crédit Agricole CIB (CA CIB)"
+    },
+    {
+      "id": "12501",
+      "value": "Crédit Agricole Technologies & Services (CATS)"
+    },
+    {
+      "id": "15848",
+      "value": "Crispr Therapeutics"
+    },
+    {
+      "id": "16011",
+      "value": "CUBIK (ex POP)"
+    },
+    {
+      "id": "15867",
+      "value": "CureVac"
+    },
+    {
+      "id": "15928",
+      "value": "CYCLIFE"
+    },
+    {
+      "id": "10801",
+      "value": "Cylad Consulting"
+    },
+    {
+      "id": "15926",
+      "value": "D'IETEREN"
+    },
+    {
+      "id": "15273",
+      "value": "Daher"
+    },
+    {
+      "id": "16435",
+      "value": "DAIKIN"
+    },
+    {
+      "id": "15631",
+      "value": "Dalenys"
+    },
+    {
+      "id": "16194",
+      "value": "Dassault Aviation"
+    },
+    {
+      "id": "12103",
+      "value": "Daunat"
+    },
+    {
+      "id": "15854",
+      "value": "DB NETZ AG"
+    },
+    {
+      "id": "17392",
+      "value": "Deloitte Canada"
+    },
+    {
+      "id": "15265",
+      "value": "Demathieu Bard"
+    },
+    {
+      "id": "12102",
+      "value": "Devillé ASC"
+    },
+    {
+      "id": "18762",
+      "value": "DEXCOM"
+    },
+    {
+      "id": "16197",
+      "value": "DHL"
+    },
+    {
+      "id": "16016",
+      "value": "DIANEGO RH"
+    },
+    {
+      "id": "15839",
+      "value": "Dictu (EZK)"
+    },
+    {
+      "id": "15734",
+      "value": "Dirickx"
+    },
+    {
+      "id": "17491",
+      "value": "Donaldson POC"
+    },
+    {
+      "id": "17821",
+      "value": "DSM Firmenich"
+    },
+    {
+      "id": "16208",
+      "value": "DTNUM"
+    },
+    {
+      "id": "15881",
+      "value": "Dutch Tax Office - Belastingdienst"
+    },
+    {
+      "id": "10865",
+      "value": "Dyno Nobel"
+    },
+    {
+      "id": "18086",
+      "value": "E-T-A"
+    },
+    {
+      "id": "15913",
+      "value": "EACOP"
+    },
+    {
+      "id": "16147",
+      "value": "EATON"
+    },
+    {
+      "id": "11202",
+      "value": "EDF DSIT"
+    },
+    {
+      "id": "16221",
+      "value": "Edrington Distillers Ltd"
+    },
+    {
+      "id": "15842",
+      "value": "Eiffage Metal - Team"
+    },
+    {
+      "id": "15525",
+      "value": "Electrolux Italia S.p.A. TEAM"
+    },
+    {
+      "id": "16167",
+      "value": "Electropoli Isigny"
+    },
+    {
+      "id": "10634",
+      "value": "Eli Lilly"
+    },
+    {
+      "id": "18388",
+      "value": "EliteOrga"
+    },
+    {
+      "id": "17854",
+      "value": "EMELEAN"
+    },
+    {
+      "id": "15618",
+      "value": "EMS Cognito PARTNER - Team"
+    },
+    {
+      "id": "15663",
+      "value": "Epredia"
+    },
+    {
+      "id": "16130",
+      "value": "EQUIPE INGENIERIE (via POP)"
+    },
+    {
+      "id": "15284",
+      "value": "ERAMET"
+    },
+    {
+      "id": "16009",
+      "value": "Eraneos Switzerland - Partner"
+    },
+    {
+      "id": "18691",
+      "value": "ESCO Technologies via TBM"
+    },
+    {
+      "id": "15845",
+      "value": "EUROAPI"
+    },
+    {
+      "id": "11402",
+      "value": "European Space Agency (ESA)"
+    },
+    {
+      "id": "17458",
+      "value": "EUTELSAT"
+    },
+    {
+      "id": "16141",
+      "value": "EvidenS de Beauté"
+    },
+    {
+      "id": "15868",
+      "value": "Factories of Future"
+    },
+    {
+      "id": "18761",
+      "value": "Fahrzeuginstandhaltung GmbH"
+    },
+    {
+      "id": "15861",
+      "value": "FAMAT"
+    },
+    {
+      "id": "15713",
+      "value": "FENETREA - Team"
+    },
+    {
+      "id": "18454",
+      "value": "Fichly"
+    },
+    {
+      "id": "15320",
+      "value": "Fitness Boutique - NetQuattro"
+    },
+    {
+      "id": "15820",
+      "value": "Fives"
+    },
+    {
+      "id": "16220",
+      "value": "Fives  Machining"
+    },
+    {
+      "id": "16223",
+      "value": "FLEURETTE via CUBIK PARTNERS"
+    },
+    {
+      "id": "16233",
+      "value": "FLOW4U"
+    },
+    {
+      "id": "16143",
+      "value": "Fluidra"
+    },
+    {
+      "id": "16089",
+      "value": "Ford"
+    },
+    {
+      "id": "10612",
+      "value": "Framatome (ex Areva NP - Digital transformation)"
+    },
+    {
+      "id": "15891",
+      "value": "Game Changer"
+    },
+    {
+      "id": "16212",
+      "value": "GCA"
+    },
+    {
+      "id": "15703",
+      "value": "GCI Communication Corp."
+    },
+    {
+      "id": "10611",
+      "value": "GE Power & Grid"
+    },
+    {
+      "id": "15602",
+      "value": "GE Vernova"
+    },
+    {
+      "id": "18590",
+      "value": "Gemeente Den Haag"
+    },
+    {
+      "id": "16146",
+      "value": "Genfar"
+    },
+    {
+      "id": "15510",
+      "value": "Genmab NL"
+    },
+    {
+      "id": "16231",
+      "value": "Gepsa"
+    },
+    {
+      "id": "16468",
+      "value": "Getelec"
+    },
+    {
+      "id": "16184",
+      "value": "Getinge"
+    },
+    {
+      "id": "16122",
+      "value": "GOLDING CAPITAL Partners"
+    },
+    {
+      "id": "16131",
+      "value": "GREG WOODS - Partner"
+    },
+    {
+      "id": "16402",
+      "value": "Groupe Boulle"
+    },
+    {
+      "id": "16114",
+      "value": "Groupe HDN"
+    },
+    {
+      "id": "10712",
+      "value": "GROUPE SII"
+    },
+    {
+      "id": "16201",
+      "value": "Gualapack (via Considi)"
+    },
+    {
+      "id": "17788",
+      "value": "GXO Logistics"
+    },
+    {
+      "id": "16182",
+      "value": "Hartmann"
+    },
+    {
+      "id": "16215",
+      "value": "Hendrix Genetics via Cubik Partners"
+    },
+    {
+      "id": "16081",
+      "value": "HFR HOPITAL FRIBOURGEOIS (via XL Group)"
+    },
+    {
+      "id": "15463",
+      "value": "Hilti"
+    },
+    {
+      "id": "16234",
+      "value": "Hitachi Rails GTS France"
+    },
+    {
+      "id": "15892",
+      "value": "Hitachy Energy"
+    },
+    {
+      "id": "10645",
+      "value": "HOFOR"
+    },
+    {
+      "id": "17755",
+      "value": "HOSHIN PARTNERS"
+    },
+    {
+      "id": "10647",
+      "value": "Hutchinson (Etanchéité)"
+    },
+    {
+      "id": "10648",
+      "value": "Hutchinson (Research Center)"
+    },
+    {
+      "id": "15388",
+      "value": "Hutchinson ADI"
+    },
+    {
+      "id": "16132",
+      "value": "Hutchinson Defense & Mobility - Persan"
+    },
+    {
+      "id": "15921",
+      "value": "Hutchinson INC (ex Hutchinson industrie USA)"
+    },
+    {
+      "id": "16101",
+      "value": "Hutchinson Mexico"
+    },
+    {
+      "id": "16199",
+      "value": "I-Interim Rijk"
+    },
+    {
+      "id": "17953",
+      "value": "IB Consulting"
+    },
+    {
+      "id": "15739",
+      "value": "ID LOGISTICS"
+    },
+    {
+      "id": "16133",
+      "value": "ID Logistics - USA"
+    },
+    {
+      "id": "15882",
+      "value": "IDEMIA"
+    },
+    {
+      "id": "16229",
+      "value": "INEMA ROUEN"
+    },
+    {
+      "id": "14800",
+      "value": "ING"
+    },
+    {
+      "id": "15674",
+      "value": "Integrated DNA Technologies"
+    },
+    {
+      "id": "17526",
+      "value": "Invest Cloud"
+    },
+    {
+      "id": "15774",
+      "value": "iObeya TPC (ex. iObeya Thales Groupe)"
+    },
+    {
+      "id": "15380",
+      "value": "Jaeger Lecoultre POC"
+    },
+    {
+      "id": "16236",
+      "value": "KAEFER"
+    },
+    {
+      "id": "15203",
+      "value": "Kaiser Permanente"
+    },
+    {
+      "id": "18656",
+      "value": "Kaizen Reliability"
+    },
+    {
+      "id": "16074",
+      "value": "Kanban University"
+    },
+    {
+      "id": "16200",
+      "value": "KELVION via CUBIK PARTNERS"
+    },
+    {
+      "id": "15456",
+      "value": "Keolis Dijon"
+    },
+    {
+      "id": "10654",
+      "value": "Kimberly-Clark"
+    },
+    {
+      "id": "15603",
+      "value": "Knab"
+    },
+    {
+      "id": "11403",
+      "value": "KNDS (ex Nexter)"
+    },
+    {
+      "id": "16102",
+      "value": "KPConsulting"
+    },
+    {
+      "id": "18289",
+      "value": "Kreios Space"
+    },
+    {
+      "id": "16567",
+      "value": "Kroger"
+    },
+    {
+      "id": "15321",
+      "value": "Kuehne Nagel QCD"
+    },
+    {
+      "id": "16195",
+      "value": "KWIK TRIP"
+    },
+    {
+      "id": "15723",
+      "value": "La Banque Postale"
+    },
+    {
+      "id": "16336",
+      "value": "La Grow BOX"
+    },
+    {
+      "id": "15925",
+      "value": "LA MANUFACTURE"
+    },
+    {
+      "id": "15678",
+      "value": "La Poste DTN - Team"
+    },
+    {
+      "id": "18322",
+      "value": "Laboratorios Silanes"
+    },
+    {
+      "id": "15386",
+      "value": "LBL Brenta"
+    },
+    {
+      "id": "17887",
+      "value": "LEANXVERSE"
+    },
+    {
+      "id": "15910",
+      "value": "Les Fermiers (Via POP)"
+    },
+    {
+      "id": "16155",
+      "value": "Lesaffre"
+    },
+    {
+      "id": "15544",
+      "value": "Life & Mobility"
+    },
+    {
+      "id": "11101",
+      "value": "Lilly France (MQ)"
+    },
+    {
+      "id": "15607",
+      "value": "Lilly IBU"
+    },
+    {
+      "id": "16075",
+      "value": "Lithespeed - Partner"
+    },
+    {
+      "id": "15462",
+      "value": "LNAsanté"
+    },
+    {
+      "id": "15493",
+      "value": "Longchamp - TEAM"
+    },
+    {
+      "id": "15718",
+      "value": "LVMH Recherche"
+    },
+    {
+      "id": "13801",
+      "value": "Lynred"
+    },
+    {
+      "id": "16210",
+      "value": "Mahindra Aerospace"
+    },
+    {
+      "id": "16109",
+      "value": "MARK & SPENCER UK"
+    },
+    {
+      "id": "15588",
+      "value": "Mars"
+    },
+    {
+      "id": "17722",
+      "value": "Mars Space Ltd"
+    },
+    {
+      "id": "15752",
+      "value": "MBDA"
+    },
+    {
+      "id": "16198",
+      "value": "MBDA Corporate Private Cloud"
+    },
+    {
+      "id": "16134",
+      "value": "MBDA UK"
+    },
+    {
+      "id": "15383",
+      "value": "Medline Add-on"
+    },
+    {
+      "id": "16196",
+      "value": "Merck (USA)"
+    },
+    {
+      "id": "15838",
+      "value": "Merck Irvine"
+    },
+    {
+      "id": "15740",
+      "value": "Merck Serono"
+    },
+    {
+      "id": "12601",
+      "value": "Mesea"
+    },
+    {
+      "id": "10807",
+      "value": "Mews Partners - PARTNER"
+    },
+    {
+      "id": "16026",
+      "value": "MGTECH via POP"
+    },
+    {
+      "id": "10660",
+      "value": "Michelin"
+    },
+    {
+      "id": "15779",
+      "value": "Milwaukee Tool"
+    },
+    {
+      "id": "15835",
+      "value": "MIN ARM DIRISI Lyon"
+    },
+    {
+      "id": "15843",
+      "value": "MIN JUSTICE"
+    },
+    {
+      "id": "15442",
+      "value": "MinArm-Internet"
+    },
+    {
+      "id": "15319",
+      "value": "MinArm-Intradef"
+    },
+    {
+      "id": "15642",
+      "value": "Ministerie van Defensie"
+    },
+    {
+      "id": "15704",
+      "value": "Mirion"
+    },
+    {
+      "id": "15316",
+      "value": "Monique Ranou SCO"
+    },
+    {
+      "id": "15306",
+      "value": "Moog"
+    },
+    {
+      "id": "15765",
+      "value": "Movella (ex Xsens)"
+    },
+    {
+      "id": "15738",
+      "value": "MSA4485"
+    },
+    {
+      "id": "16180",
+      "value": "N+P SUBCOAL PRODUCTION FRM B.V. via EMS COGNITO"
+    },
+    {
+      "id": "15840",
+      "value": "NATIONAL DUTCH POLICE"
+    },
+    {
+      "id": "10630",
+      "value": "Naval Group - DCNS"
+    },
+    {
+      "id": "15876",
+      "value": "NHIndustries"
+    },
+    {
+      "id": "16086",
+      "value": "Nictiz"
+    },
+    {
+      "id": "16237",
+      "value": "North British Distillery"
+    },
+    {
+      "id": "16501",
+      "value": "NorthStar Nuclear Medicine"
+    },
+    {
+      "id": "18019",
+      "value": "NSE via Stanwick"
+    },
+    {
+      "id": "15742",
+      "value": "NUTRIEN"
+    },
+    {
+      "id": "15864",
+      "value": "NV Equipement via POP"
+    },
+    {
+      "id": "16225",
+      "value": "O² via Cubik"
+    },
+    {
+      "id": "16025",
+      "value": "OBEYA ASSOCIATION"
+    },
+    {
+      "id": "17557",
+      "value": "Obeya Builder - PARTNER"
+    },
+    {
+      "id": "15398",
+      "value": "Olimpia Splendid"
+    },
+    {
+      "id": "16152",
+      "value": "Ominlytics - PARTNERS"
+    },
+    {
+      "id": "15675",
+      "value": "Orange - Enterprise"
+    },
+    {
+      "id": "15441",
+      "value": "Orano - ex New Areva"
+    },
+    {
+      "id": "15217",
+      "value": "Orsted Telte A/S"
+    },
+    {
+      "id": "15329",
+      "value": "OSE group"
+    },
+    {
+      "id": "15550",
+      "value": "Ovale Performance - Partner"
+    },
+    {
+      "id": "15411",
+      "value": "Pella Corp"
+    },
+    {
+      "id": "15824",
+      "value": "Pernod Ricard"
+    },
+    {
+      "id": "11801",
+      "value": "Pfeiffer Vaccum"
+    },
+    {
+      "id": "15614",
+      "value": "PGB Pensioendiensten"
+    },
+    {
+      "id": "15720",
+      "value": "Philip Morris International - UK"
+    },
+    {
+      "id": "10668",
+      "value": "Pierre Fabre"
+    },
+    {
+      "id": "15619",
+      "value": "PiveteauBois"
+    },
+    {
+      "id": "15846",
+      "value": "PMI Services"
+    },
+    {
+      "id": "15927",
+      "value": "PRATICIMA"
+    },
+    {
+      "id": "18421",
+      "value": "Pratt and Whitney"
+    },
+    {
+      "id": "15387",
+      "value": "Project7 - PARTNER"
+    },
+    {
+      "id": "16230",
+      "value": "Prysmian"
+    },
+    {
+      "id": "10672",
+      "value": "PSA"
+    },
+    {
+      "id": "10823",
+      "value": "PwC"
+    },
+    {
+      "id": "15382",
+      "value": "radiall"
+    },
+    {
+      "id": "12400",
+      "value": "Radiometer"
+    },
+    {
+      "id": "15754",
+      "value": "Rapido"
+    },
+    {
+      "id": "15000",
+      "value": "RATP"
+    },
+    {
+      "id": "15813",
+      "value": "RATP Metro"
+    },
+    {
+      "id": "15841",
+      "value": "RATP MOP"
+    },
+    {
+      "id": "15776",
+      "value": "Reading Scientific Services"
+    },
+    {
+      "id": "15760",
+      "value": "Rehlko (ex Kohler Co.)"
+    },
+    {
+      "id": "14400",
+      "value": "Richemont MUT"
+    },
+    {
+      "id": "15422",
+      "value": "Richemont Valfleurier"
+    },
+    {
+      "id": "15592",
+      "value": "RIVACOLD"
+    },
+    {
+      "id": "15745",
+      "value": "RIVM"
+    },
+    {
+      "id": "15554",
+      "value": "RLG International - PARTNER"
+    },
+    {
+      "id": "15224",
+      "value": "Rockwool"
+    },
+    {
+      "id": "16035",
+      "value": "Rolls Royce (via Project 7)"
+    },
+    {
+      "id": "16125",
+      "value": "Rolls Royce Civil Aerospace Derby via Project 7"
+    },
+    {
+      "id": "15397",
+      "value": "Safran Aerosystems"
+    },
+    {
+      "id": "10684",
+      "value": "Safran Aircraft Engines France"
+    },
+    {
+      "id": "15449",
+      "value": "Safran Corp"
+    },
+    {
+      "id": "10675",
+      "value": "Safran Electronics & Defense"
+    },
+    {
+      "id": "15407",
+      "value": "Saft Batteries"
+    },
+    {
+      "id": "10676",
+      "value": "SANOFI GROUP"
+    },
+    {
+      "id": "16303",
+      "value": "Sansera"
+    },
+    {
+      "id": "15680",
+      "value": "Sartorius"
+    },
+    {
+      "id": "15902",
+      "value": "Satys"
+    },
+    {
+      "id": "13302",
+      "value": "Schneider Electric"
+    },
+    {
+      "id": "16113",
+      "value": "Schueco (via Visine Consulting)"
+    },
+    {
+      "id": "12101",
+      "value": "SCIEX"
+    },
+    {
+      "id": "15643",
+      "value": "Sekisui Aerospace"
+    },
+    {
+      "id": "15750",
+      "value": "SEPRO - Team"
+    },
+    {
+      "id": "15541",
+      "value": "Serac Enterprise Online"
+    },
+    {
+      "id": "15560",
+      "value": "SG ABS ( Société Générale African Business Services)"
+    },
+    {
+      "id": "10838",
+      "value": "SHELL"
+    },
+    {
+      "id": "15652",
+      "value": "Shell Deer Park"
+    },
+    {
+      "id": "15563",
+      "value": "Shell International"
+    },
+    {
+      "id": "16007",
+      "value": "Sherbourne Recycling Ltd (from EMS Cognito)"
+    },
+    {
+      "id": "11300",
+      "value": "SIAE - Atelier Industriel de l’Aéronautique AIA"
+    },
+    {
+      "id": "15519",
+      "value": "Siemens Healthineers Gmbh"
+    },
+    {
+      "id": "16271",
+      "value": "Silent Aire"
+    },
+    {
+      "id": "15204",
+      "value": "SiO"
+    },
+    {
+      "id": "10681",
+      "value": "SKF"
+    },
+    {
+      "id": "16082",
+      "value": "SMARTER START"
+    },
+    {
+      "id": "16038",
+      "value": "SNCF Réseau Online"
+    },
+    {
+      "id": "15898",
+      "value": "Sofrilog Ouest"
+    },
+    {
+      "id": "15496",
+      "value": "SOGITEC"
+    },
+    {
+      "id": "16173",
+      "value": "SOITEC"
+    },
+    {
+      "id": "15207",
+      "value": "Souriau"
+    },
+    {
+      "id": "16112",
+      "value": "Spie Batignolles"
+    },
+    {
+      "id": "16227",
+      "value": "Stago"
+    },
+    {
+      "id": "16108",
+      "value": "Stanwick"
+    },
+    {
+      "id": "15390",
+      "value": "Staubli"
+    },
+    {
+      "id": "16166",
+      "value": "STEF"
+    },
+    {
+      "id": "16270",
+      "value": "Sterigenics"
+    },
+    {
+      "id": "10860",
+      "value": "STMicroElectronics"
+    },
+    {
+      "id": "17029",
+      "value": "StoryLane"
+    },
+    {
+      "id": "17623",
+      "value": "STRADAL"
+    },
+    {
+      "id": "15566",
+      "value": "STULZ"
+    },
+    {
+      "id": "13200",
+      "value": "Subsea 7"
+    },
+    {
+      "id": "16170",
+      "value": "Suez"
+    },
+    {
+      "id": "10688",
+      "value": "Syngenta"
+    },
+    {
+      "id": "16765",
+      "value": "Talcott Ridge Consulting"
+    },
+    {
+      "id": "18020",
+      "value": "Taura via Stanwick"
+    },
+    {
+      "id": "16226",
+      "value": "TBM Consulting Group"
+    },
+    {
+      "id": "10689",
+      "value": "TECHNIP Energies - France"
+    },
+    {
+      "id": "15702",
+      "value": "TechnipFMC"
+    },
+    {
+      "id": "15334",
+      "value": "Terega"
+    },
+    {
+      "id": "10690",
+      "value": "Thales Alenia Space"
+    },
+    {
+      "id": "15649",
+      "value": "Thales Australia"
+    },
+    {
+      "id": "16209",
+      "value": "Thales Castle"
+    },
+    {
+      "id": "16121",
+      "value": "Thales DIS USA"
+    },
+    {
+      "id": "15923",
+      "value": "Thalès DMS"
+    },
+    {
+      "id": "16123",
+      "value": "Thales Mexico"
+    },
+    {
+      "id": "15914",
+      "value": "Thales NEST"
+    },
+    {
+      "id": "15605",
+      "value": "Thales Netherlands - spvw8884"
+    },
+    {
+      "id": "15446",
+      "value": "Thales Netherlands (FedSS)"
+    },
+    {
+      "id": "16136",
+      "value": "Thales Netherlands Blue"
+    },
+    {
+      "id": "15553",
+      "value": "Thales Netherlands CEG"
+    },
+    {
+      "id": "16137",
+      "value": "Thales Netherlands Tacticos"
+    },
+    {
+      "id": "15648",
+      "value": "Thales SIDR"
+    },
+    {
+      "id": "15597",
+      "value": "Thales UK."
+    },
+    {
+      "id": "16156",
+      "value": "The Jackson Laboratory"
+    },
+    {
+      "id": "17920",
+      "value": "Thermo Fisher"
+    },
+    {
+      "id": "16138",
+      "value": "Tiofarma via Stanwick"
+    },
+    {
+      "id": "15768",
+      "value": "Tipiak"
+    },
+    {
+      "id": "18120",
+      "value": "TO BE DEFINED"
+    },
+    {
+      "id": "15547",
+      "value": "Topsoe"
+    },
+    {
+      "id": "12000",
+      "value": "Total - TGITS"
+    },
+    {
+      "id": "15706",
+      "value": "Toyota HQ"
+    },
+    {
+      "id": "15780",
+      "value": "Toyota Material Handling France"
+    },
+    {
+      "id": "16216",
+      "value": "Toyota of North America"
+    },
+    {
+      "id": "16235",
+      "value": "Tron Consulting"
+    },
+    {
+      "id": "15877",
+      "value": "UAPL Loire Propriétés"
+    },
+    {
+      "id": "15635",
+      "value": "UGAP via Capgemini"
+    },
+    {
+      "id": "17656",
+      "value": "Ultragenyx"
+    },
+    {
+      "id": "15906",
+      "value": "UST"
+    },
+    {
+      "id": "16084",
+      "value": "Vaillant Group"
+    },
+    {
+      "id": "16224",
+      "value": "Vantive"
+    },
+    {
+      "id": "16150",
+      "value": "Vaupell"
+    },
+    {
+      "id": "16017",
+      "value": "Veolia via POP"
+    },
+    {
+      "id": "15308",
+      "value": "Versum Materials"
+    },
+    {
+      "id": "17525",
+      "value": "Viasat USA"
+    },
+    {
+      "id": "16369",
+      "value": "Vibracoustic"
+    },
+    {
+      "id": "16014",
+      "value": "Vinci Energies"
+    },
+    {
+      "id": "15664",
+      "value": "Vitec Imaging Solutions"
+    },
+    {
+      "id": "15736",
+      "value": "VOLAC"
+    },
+    {
+      "id": "16272",
+      "value": "VOLTALIS"
+    },
+    {
+      "id": "10703",
+      "value": "Volvo"
+    },
+    {
+      "id": "10704",
+      "value": "Wahl Clipper"
+    },
+    {
+      "id": "16207",
+      "value": "WATES via PROJECT 7"
+    },
+    {
+      "id": "10644",
+      "value": "WESTERN DIGITAL"
+    },
+    {
+      "id": "15473",
+      "value": "Wilo Salmson France"
+    },
+    {
+      "id": "15640",
+      "value": "WorkSafeBC"
+    },
+    {
+      "id": "15202",
+      "value": "XL Groupe - PARTNER"
+    },
+    {
+      "id": "18487",
+      "value": "XPO Logistics"
+    },
+    {
+      "id": "16232",
+      "value": "YKK Germany"
+    }
+  ]
+}

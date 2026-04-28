@@ -1,0 +1,4 @@
+interface:
+  display_name: "Orochimaru"
+  short_description: "Mettre à jour un ticket Jira existant avec la synchro des réponses email."
+  default_prompt: "À partir d’un ticket Jira existant, retrouve le bon thread email, synchronise les réponses manquantes en commentaires Jira (avec images inline/PJ), puis renvoie un récapitulatif clair des actions."

@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Seed iObeya - Console Simple</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --ink: #1d2935;
+      --muted: #5f6f7d;
+      --card: #ffffff;
+      --line: #d5dde4;
+      --primary: #0a6e67;
+      --primary-2: #0d4d70;
+      --ok: #0f7a3f;
+      --warn: #9a6500;
+      --bad: #9f2230;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(160deg, #e9f1f2 0%, #f7f9fa 45%, #edf2f5 100%);
+    }
+    .page { max-width: 1180px; margin: 18px auto; padding: 0 12px 28px; }
+    .head {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .head h1 { margin: 0; font-size: 18px; letter-spacing: .2px; }
+    .muted { color: var(--muted); font-size: 12px; }
+    .chip {
+      font-size: 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      padding: 4px 10px;
+      background: #f7fbfc;
+      color: var(--muted);
+    }
+    .chip.ok { color: var(--ok); border-color: #bddfc9; background: #edf8f2; }
+    .chip.warn { color: var(--warn); border-color: #ead29c; background: #fff8e8; }
+    .chip.bad { color: var(--bad); border-color: #efc2c8; background: #fff1f3; }
+    .advanced { display: none; }
+    body.show-advanced .advanced { display: block; }
+
+    .grid {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+    }
+    .step {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .35px;
+      color: var(--primary-2);
+      margin: 0 0 10px;
+      font-weight: 700;
+    }
+    .span-12 { grid-column: span 12; }
+    .span-8 { grid-column: span 8; }
+    .span-6 { grid-column: span 6; }
+    .span-4 { grid-column: span 4; }
+    .span-3 { grid-column: span 3; }
+
+    .form {
+      display: grid;
+      gap: 8px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .f12 { grid-column: span 12; }
+    .f8 { grid-column: span 8; }
+    .f6 { grid-column: span 6; }
+    .f4 { grid-column: span 4; }
+    .f3 { grid-column: span 3; }
+    .f2 { grid-column: span 2; }
+
+    label { font-size: 11px; color: var(--muted); display: block; margin-bottom: 3px; }
+    input, select, button {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      padding: 8px 9px;
+      font-size: 13px;
+      color: var(--ink);
+      background: #fff;
+    }
+    .btn {
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 650;
+      background: linear-gradient(180deg, #0b8e86, var(--primary));
+    }
+    .btn.alt { background: linear-gradient(180deg, #2f6785, var(--primary-2)); }
+    .btn.ghost {
+      background: #eff5f8;
+      color: var(--primary-2);
+      border: 1px solid var(--line);
+    }
+    button:disabled { opacity: .55; cursor: wait; }
+
+    .info {
+      display: grid;
+      gap: 6px;
+      grid-template-columns: repeat(4, 1fr);
+      margin-top: 8px;
+    }
+    .kpi {
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      padding: 8px;
+      background: #f9fbfd;
+    }
+    .kpi .v { font-size: 16px; font-weight: 700; }
+    .kpi .k { font-size: 11px; color: var(--muted); }
+
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th, td { border-bottom: 1px solid var(--line); padding: 7px 6px; text-align: left; }
+    th { color: var(--muted); font-weight: 600; }
+    .tiny { font-size: 11px; color: var(--muted); }
+    pre {
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #f7fbff;
+      max-height: 220px;
+      overflow: auto;
+      padding: 8px;
+      font-size: 11px;
+    }
+
+    @media (max-width: 980px) {
+      .span-8, .span-6, .span-4, .span-3 { grid-column: span 12; }
+      .f8, .f6, .f4, .f3, .f2 { grid-column: span 12; }
+      .info { grid-template-columns: repeat(2, 1fr); }
+      .head { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="head">
+      <div>
+        <h1>Seed iObeya - Console Simple</h1>
+        <div class="muted">Créer des users, rooms et boards en 3 étapes, avec un minimum de paramètres.</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span id="statusChip" class="chip">Hors ligne</span>
+        <button id="btnToggleAdvanced" class="btn ghost" style="width:auto;padding:8px 12px;">Afficher avancé</button>
+        <button id="btnRefreshAll" class="btn ghost" style="width:auto;padding:8px 12px;">Scanner maintenant</button>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="card span-12">
+        <h2 class="step">Mode Noob - 1 clic</h2>
+        <div class="form">
+          <div class="f2"><label>Nb users</label><input id="noobUsers" type="number" min="0" max="100" value="5" /></div>
+          <div class="f2"><label>Nb rooms</label><input id="noobRooms" type="number" min="0" max="50" value="2" /></div>
+          <div class="f2"><label>Nb boards/room</label><input id="noobBoards" type="number" min="0" max="50" value="3" /></div>
+          <div class="f2"><label>&nbsp;</label><button id="btnNoobUsers" class="btn">Créer users</button></div>
+          <div class="f2"><label>&nbsp;</label><button id="btnNoobRooms" class="btn">Créer rooms</button></div>
+          <div class="f2"><label>&nbsp;</label><button id="btnNoobBoards" class="btn">Créer boards</button></div>
+          <div class="f2"><label>&nbsp;</label><button id="btnNoobAll" class="btn alt">Tout générer</button></div>
+        </div>
+        <div class="tiny">Si tu ne remplis aucun nom, des valeurs auto avec timestamp sont utilisées.</div>
+      </section>
+
+      <section class="card span-12">
+        <h2 class="step">Etape 1 - Connexion</h2>
+        <div class="form">
+          <div class="f4"><label>URL iObeya</label><input id="cfgBaseUrl" /></div>
+          <div class="f3"><label>Login path</label><input id="cfgLoginPath" /></div>
+          <div class="f2"><label>Admin user</label><input id="cfgUsername" /></div>
+          <div class="f2"><label>Admin password</label><input id="cfgPassword" type="password" placeholder="laisser vide pour garder" /></div>
+          <div class="f1"><label>Token (optionnel)</label><input id="cfgToken" /></div>
+          <div class="f3"><label>&nbsp;</label><button id="btnSaveCfg" class="btn alt">Sauver la config</button></div>
+          <div class="f3"><label>&nbsp;</label><button id="btnHealth" class="btn ghost">Tester la connexion</button></div>
+        </div>
+      </section>
+
+      <section class="card span-8 advanced">
+        <h2 class="step">Etape 2 - Choisir le contexte</h2>
+        <div class="form">
+          <div class="f4"><label>Domaine</label><select id="domainSelect"></select></div>
+          <div class="f4"><label>Room</label><select id="roomSelect"></select></div>
+          <div class="f4"><label>Board source</label><select id="boardSelect"></select></div>
+        </div>
+        <div class="info">
+          <div class="kpi"><div id="kpiDomains" class="v">0</div><div class="k">Domaines</div></div>
+          <div class="kpi"><div id="kpiRooms" class="v">0</div><div class="k">Rooms</div></div>
+          <div class="kpi"><div id="kpiBoards" class="v">0</div><div class="k">Boards</div></div>
+          <div class="kpi"><div id="kpiUsers" class="v">-</div><div class="k">Users créés (session)</div></div>
+        </div>
+      </section>
+
+      <section class="card span-4 advanced">
+        <h2 class="step">Raccourci</h2>
+        <div class="form">
+          <div class="f12"><label>Type de notes par board</label>
+            <select id="templateKey">
+              <option value="standup">Standup (Action / Risque / Decision)</option>
+              <option value="risk">Risk review (Risque / Impact / Mitigation)</option>
+              <option value="kaizen">Kaizen (Idee / Gain / Owner)</option>
+            </select>
+          </div>
+          <div class="f12"><label>&nbsp;</label><button id="btnScanOnly" class="btn ghost">Recharger listes</button></div>
+        </div>
+      </section>
+
+      <section class="card span-6 advanced">
+        <h2 class="step">Etape 3A - Ajouter un utilisateur</h2>
+        <div class="form">
+          <div class="f4"><label>Login</label><input id="userLogin" placeholder="ex: qa.nouveau" /></div>
+          <div class="f4"><label>Prénom</label><input id="userFirst" value="Test" /></div>
+          <div class="f4"><label>Nom</label><input id="userLast" value="User" /></div>
+          <div class="f8"><label>Email</label><input id="userEmail" placeholder="vide = auto" /></div>
+          <div class="f4"><label>&nbsp;</label><button id="btnCreateUser" class="btn">Créer utilisateur</button></div>
+        </div>
+        <div class="tiny">Le résultat indique explicitement: <b>créé</b> ou <b>déjà existant</b>.</div>
+      </section>
+
+      <section class="card span-6 advanced">
+        <h2 class="step">Etape 3B - Ajouter room/board</h2>
+        <div class="form">
+          <div class="f8"><label>Nom room</label><input id="roomName" placeholder="ex: Room Qualité 1" /></div>
+          <div class="f4"><label>&nbsp;</label><button id="btnCreateRoom" class="btn">Créer room</button></div>
+
+          <div class="f8"><label>Nom board</label><input id="boardName" placeholder="ex: KPI Quotidien" /></div>
+          <div class="f4"><label>&nbsp;</label><button id="btnCreateBoard" class="btn">Créer board + notes</button></div>
+        </div>
+      </section>
+
+      <section class="card span-12 advanced">
+        <h2 class="step">Etape 3C - Génération rapide d'instance test</h2>
+        <div class="form">
+          <div class="f3"><label>Prefix rooms</label><input id="quickRoomPrefix" value="Auto Room" /></div>
+          <div class="f3"><label>Prefix users</label><input id="quickUserPrefix" value="auto.user" /></div>
+          <div class="f2"><label>Nb users</label><input id="quickUsers" type="number" min="0" max="50" value="6" /></div>
+          <div class="f2"><label>Nb rooms</label><input id="quickRooms" type="number" min="1" max="20" value="3" /></div>
+          <div class="f2"><label>Boards/room</label><input id="quickBoards" type="number" min="1" max="20" value="4" /></div>
+          <div class="f3"><label>&nbsp;</label><button id="btnQuickPopulate" class="btn alt">Générer tout</button></div>
+          <div class="f3"><label>&nbsp;</label><button id="btnQuickNoUsers" class="btn ghost">Générer sans users</button></div>
+        </div>
+        <div class="tiny">Cette action crée des noms uniques (timestamp), évite les collisions, et injecte des notes métier.</div>
+      </section>
+
+      <section class="card span-8 advanced">
+        <h2 class="step">Résultats récents</h2>
+        <table>
+          <thead><tr><th>Heure</th><th>Action</th><th>Statut</th><th>Détail</th></tr></thead>
+          <tbody id="resultRows"></tbody>
+        </table>
+      </section>
+
+      <section class="card span-4 advanced">
+        <h2 class="step">Debug JSON</h2>
+        <pre id="debugBox"></pre>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const state = {
+      busy: false,
+      domains: [],
+      rooms: [],
+      boards: [],
+      usersCreatedSession: 0,
+      results: [],
+    };
+
+    const $ = (id) => document.getElementById(id);
+
+    function setBusy(v) {
+      state.busy = v;
+      document.querySelectorAll('button').forEach((b) => { b.disabled = v; });
+    }
+
+    function setStatus(text, kind = '') {
+      const el = $('statusChip');
+      el.textContent = text;
+      el.className = `chip ${kind}`.trim();
+    }
+
+    function pushResult(action, ok, detail) {
+      const row = {
+        time: new Date().toLocaleTimeString(),
+        action,
+        ok,
+        detail,
+      };
+      state.results.unshift(row);
+      state.results = state.results.slice(0, 30);
+      renderResults();
+    }
+
+    function renderResults() {
+      const tbody = $('resultRows');
+      tbody.innerHTML = '';
+      for (const r of state.results) {
+        const tr = document.createElement('tr');
+        const status = r.ok ? 'OK' : 'Erreur';
+        tr.innerHTML = `<td>${r.time}</td><td>${escapeHtml(r.action)}</td><td>${status}</td><td>${escapeHtml(String(r.detail || ''))}</td>`;
+        tbody.appendChild(tr);
+      }
+      if (state.results.length === 0) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = '<td colspan="4" class="tiny">Aucun résultat pour le moment.</td>';
+        tbody.appendChild(tr);
+      }
+    }
+
+    function escapeHtml(s) {
+      return s
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    function setDebug(obj) {
+      $('debugBox').textContent = JSON.stringify(obj, null, 2);
+    }
+
+    async function api(path, method = 'GET', body) {
+      const options = { method, headers: { 'Content-Type': 'application/json' } };
+      if (body !== undefined) options.body = JSON.stringify(body);
+      const res = await fetch(path, options);
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || data.message || `HTTP ${res.status}`);
+      }
+      return data;
+    }
+
+    function fillSelect(selectEl, items, placeholder) {
+      selectEl.innerHTML = '';
+      const empty = document.createElement('option');
+      empty.value = '';
+      empty.textContent = placeholder;
+      selectEl.appendChild(empty);
+
+      for (const item of items) {
+        const o = document.createElement('option');
+        o.value = item.id;
+        o.textContent = item.name;
+        selectEl.appendChild(o);
+      }
+    }
+
+    function refreshKpis() {
+      $('kpiDomains').textContent = String(state.domains.length);
+      $('kpiRooms').textContent = String(state.rooms.length);
+      $('kpiBoards').textContent = String(state.boards.length);
+      $('kpiUsers').textContent = String(state.usersCreatedSession);
+    }
+
+    async function loadConfig() {
+      const cfg = await api('/api/config');
+      $('cfgBaseUrl').value = cfg.baseUrl || '';
+      $('cfgLoginPath').value = cfg.loginPath || '';
+      $('cfgUsername').value = cfg.username || '';
+      $('cfgToken').value = cfg.token || '';
+    }
+
+    async function saveConfig() {
+      const out = await api('/api/config', 'POST', {
+        baseUrl: $('cfgBaseUrl').value.trim(),
+        loginPath: $('cfgLoginPath').value.trim(),
+        username: $('cfgUsername').value.trim(),
+        password: $('cfgPassword').value,
+        token: $('cfgToken').value.trim(),
+      });
+      $('cfgPassword').value = '';
+      setDebug(out);
+      pushResult('Sauvegarde config', true, 'Configuration mise à jour');
+    }
+
+    async function checkHealth() {
+      const out = await api('/api/health');
+      setStatus('Connecté', 'ok');
+      setDebug(out);
+      pushResult('Test connexion', true, `HTTP ${out.status}`);
+    }
+
+    async function scanAll() {
+      const domains = await api('/api/domains');
+      state.domains = domains.data || [];
+      fillSelect($('domainSelect'), state.domains, 'Choisir un domaine');
+
+      if (state.domains[0]) {
+        $('domainSelect').value = state.domains[0].id;
+        await scanRooms();
+      } else {
+        state.rooms = [];
+        state.boards = [];
+        fillSelect($('roomSelect'), [], 'Aucune room');
+        fillSelect($('boardSelect'), [], 'Aucun board source');
+      }
+
+      refreshKpis();
+      pushResult('Scan global', true, `${state.domains.length} domaine(s)`);
+    }
+
+    async function scanRooms() {
+      const domainId = $('domainSelect').value;
+      if (!domainId) return;
+      const out = await api(`/api/rooms?domainId=${encodeURIComponent(domainId)}`);
+      state.rooms = out.data || [];
+      fillSelect($('roomSelect'), state.rooms, 'Choisir une room');
+
+      if (state.rooms[0]) {
+        $('roomSelect').value = state.rooms[0].id;
+        await scanBoards();
+      } else {
+        state.boards = [];
+        fillSelect($('boardSelect'), [], 'Aucun board source');
+      }
+      refreshKpis();
+    }
+
+    async function scanBoards() {
+      const roomId = $('roomSelect').value;
+      if (!roomId) return;
+      const out = await api(`/api/boards?roomId=${encodeURIComponent(roomId)}`);
+      state.boards = out.data || [];
+      fillSelect($('boardSelect'), state.boards, 'Board source auto');
+      refreshKpis();
+      if (out.droppedInvalidBoards) {
+        pushResult('Scan boards', true, `${out.droppedInvalidBoards} board(s) invalide(s) ignoré(s)`);
+      }
+    }
+
+    async function createUser() {
+      const ts = Date.now();
+      const login = $('userLogin').value.trim() || `user.${ts}`;
+      const out = await api('/api/create-user', 'POST', {
+        username: login,
+        firstName: $('userFirst').value.trim() || 'Auto',
+        lastName: $('userLast').value.trim() || 'User',
+        email: $('userEmail').value.trim(),
+        language: 'fr',
+        country: 'FR',
+      });
+      if (out.state === 'created') state.usersCreatedSession += 1;
+      refreshKpis();
+      setDebug(out);
+      pushResult('Créer utilisateur', out.ok, `${login} - ${out.state || 'ok'}`);
+      setStatus(out.ok ? 'Utilisateur traité' : 'Erreur user', out.ok ? 'ok' : 'bad');
+    }
+
+    async function createRoom() {
+      const ts = Date.now();
+      const name = $('roomName').value.trim() || `Room ${ts}`;
+      const domainId = $('domainSelect').value;
+      if (!domainId) throw new Error('Sélectionner un domaine');
+
+      const out = await api('/api/create-room', 'POST', { domainId, name, description: '' });
+      setDebug(out);
+      pushResult('Créer room', out.ok, name);
+      await scanRooms();
+      if (out.foundRoom?.id) {
+        $('roomSelect').value = out.foundRoom.id;
+        await scanBoards();
+      }
+      setStatus(out.ok ? 'Room créée' : 'Erreur room', out.ok ? 'ok' : 'bad');
+    }
+
+    async function createBoard() {
+      const ts = Date.now();
+      const name = $('boardName').value.trim() || `Board ${ts}`;
+      const roomId = $('roomSelect').value;
+      if (!roomId) throw new Error('Sélectionner une room');
+
+      const out = await api('/api/create-board', 'POST', {
+        roomId,
+        sourceBoardId: $('boardSelect').value || null,
+        name,
+        addDefaultNotes: true,
+        templateKey: $('templateKey').value,
+      });
+      setDebug(out);
+      pushResult('Créer board', out.ok, name);
+      await scanBoards();
+      setStatus(out.ok ? 'Board créé' : 'Erreur board', out.ok ? 'ok' : 'bad');
+    }
+
+    async function quickPopulate(includeUsers) {
+      const domainId = $('domainSelect').value;
+      if (!domainId) throw new Error('Sélectionner un domaine');
+
+      const out = await api('/api/quick-populate', 'POST', {
+        domainId,
+        includeUsers,
+        roomPrefix: $('quickRoomPrefix').value.trim() || 'Auto Room',
+        userPrefix: $('quickUserPrefix').value.trim() || 'auto.user',
+        usersCount: Number($('quickUsers').value || 0),
+        roomsCount: Number($('quickRooms').value || 1),
+        boardsPerRoom: Number($('quickBoards').value || 1),
+        boardTemplateKey: $('templateKey').value,
+      });
+
+      setDebug(out);
+      const s = out.summary || {};
+      const detail = `users +${s.usersCreated || 0} (existants ${s.usersExisting || 0}), rooms +${s.roomsCreated || 0}, boards +${s.boardsCreated || 0}`;
+      pushResult('Génération rapide', out.ok, detail);
+      state.usersCreatedSession += Number(s.usersCreated || 0);
+      refreshKpis();
+      await scanRooms();
+      setStatus(out.ok ? 'Génération terminée' : 'Génération partielle', out.ok ? 'ok' : 'warn');
+    }
+
+    async function noobUsersOnly() {
+      const n = Math.max(0, Number($('noobUsers').value || 0));
+      const ts = Date.now();
+      let created = 0;
+      for (let i = 1; i <= n; i += 1) {
+        const login = `user.${ts}.${i}`;
+        const out = await api('/api/create-user', 'POST', {
+          username: login,
+          firstName: 'Auto',
+          lastName: 'User',
+          email: `${login}@example.com`,
+          language: 'fr',
+          country: 'FR',
+        });
+        if (out.state === 'created') created += 1;
+      }
+      state.usersCreatedSession += created;
+      refreshKpis();
+      pushResult('Mode noob users', true, `${created}/${n} créés`);
+      setStatus('Users créés', 'ok');
+    }
+
+    async function noobRoomsOnly() {
+      const n = Math.max(0, Number($('noobRooms').value || 0));
+      const domainId = $('domainSelect').value;
+      if (!domainId) throw new Error('Sélectionner un domaine');
+      const ts = Date.now();
+      let created = 0;
+      for (let i = 1; i <= n; i += 1) {
+        const name = `Room ${ts}.${i}`;
+        const out = await api('/api/create-room', 'POST', { domainId, name, description: '' });
+        if (out.ok) created += 1;
+      }
+      await scanRooms();
+      pushResult('Mode noob rooms', true, `${created}/${n} créées`);
+      setStatus('Rooms créées', 'ok');
+    }
+
+    async function noobBoardsOnly() {
+      const n = Math.max(0, Number($('noobBoards').value || 0));
+      const roomId = $('roomSelect').value;
+      if (!roomId) throw new Error('Sélectionner une room');
+      const ts = Date.now();
+      let created = 0;
+      for (let i = 1; i <= n; i += 1) {
+        const name = `Board ${ts}.${i}`;
+        const out = await api('/api/create-board', 'POST', {
+          roomId,
+          sourceBoardId: $('boardSelect').value || null,
+          name,
+          addDefaultNotes: true,
+          templateKey: $('templateKey').value,
+        });
+        if (out.ok) created += 1;
+      }
+      await scanBoards();
+      pushResult('Mode noob boards', true, `${created}/${n} créés`);
+      setStatus('Boards créés', 'ok');
+    }
+
+    async function noobAll() {
+      $('quickUsers').value = $('noobUsers').value;
+      $('quickRooms').value = $('noobRooms').value;
+      $('quickBoards').value = $('noobBoards').value;
+      await quickPopulate(true);
+    }
+
+    async function run(actionName, fn) {
+      if (state.busy) return;
+      setBusy(true);
+      try {
+        await fn();
+      } catch (e) {
+        setStatus('Erreur', 'bad');
+        setDebug({ error: e.message || String(e) });
+        pushResult(actionName, false, e.message || String(e));
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    $('btnSaveCfg').addEventListener('click', () => run('Save config', saveConfig));
+    $('btnHealth').addEventListener('click', () => run('Health', checkHealth));
+    $('btnRefreshAll').addEventListener('click', () => run('Scan', scanAll));
+    $('btnToggleAdvanced').addEventListener('click', () => {
+      document.body.classList.toggle('show-advanced');
+      $('btnToggleAdvanced').textContent = document.body.classList.contains('show-advanced')
+        ? 'Masquer avancé'
+        : 'Afficher avancé';
+    });
+    $('btnScanOnly').addEventListener('click', () => run('Scan', scanAll));
+    $('domainSelect').addEventListener('change', () => run('Scan rooms', scanRooms));
+    $('roomSelect').addEventListener('change', () => run('Scan boards', scanBoards));
+
+    $('btnCreateUser').addEventListener('click', () => run('Create user', createUser));
+    $('btnCreateRoom').addEventListener('click', () => run('Create room', createRoom));
+    $('btnCreateBoard').addEventListener('click', () => run('Create board', createBoard));
+    $('btnQuickPopulate').addEventListener('click', () => run('Quick populate', () => quickPopulate(true)));
+    $('btnQuickNoUsers').addEventListener('click', () => run('Quick populate no users', () => quickPopulate(false)));
+    $('btnNoobUsers').addEventListener('click', () => run('Noob users', noobUsersOnly));
+    $('btnNoobRooms').addEventListener('click', () => run('Noob rooms', noobRoomsOnly));
+    $('btnNoobBoards').addEventListener('click', () => run('Noob boards', noobBoardsOnly));
+    $('btnNoobAll').addEventListener('click', () => run('Noob all', noobAll));
+
+    (async () => {
+      await run('Initial load', async () => {
+        await loadConfig();
+        await checkHealth();
+        await scanAll();
+      });
+      renderResults();
+    })();
+  </script>
+</body>
+</html>

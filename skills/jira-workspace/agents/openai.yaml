@@ -1,0 +1,4 @@
+interface:
+  display_name: "Jira Workspace"
+  short_description: "Pilote Jira pour tickets, projets et commentaires."
+  default_prompt: "Utiliser ce skill pour connecter Jira de facon perenne et gerer tickets, projets et commentaires via API REST."

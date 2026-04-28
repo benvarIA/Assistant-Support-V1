@@ -1,0 +1,580 @@
+source_client_name,source_setup,jira_client_name,jira_deploiement_field,match_type
+Danaher,Mutualised NA  (deprecated for new customers),Danaher,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Argo Consulting USA,Mutualised NA  (deprecated for new customers),Argo Consulting USA,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Beckman Coulter Informatics,Mutualised NA  (deprecated for new customers),Beckman Coulter Informatics,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Nictiz NextGen,Online NextGen - Enterprise,Nictiz NextGen,Online,fallback_source_name
+Eaton NextGen,Online NextGen - Enterprise,Eaton NextGen,Online,fallback_source_name
+ADI NextGen,Online NextGen - Enterprise,ADI NextGen,Online,fallback_source_name
+STRADAL NextGen,Online NextGen - Enterprise,STRADAL NextGen,Online,fallback_source_name
+Campbells-Test,Online NextGen - Trial,Campbells-Test,Online,fallback_source_name
+hartmann-ng-demo2,Online NextGen - Trial,hartmann-ng-demo2,Online,fallback_source_name
+stradal-demofactory-nextgen,Online NextGen - Trial,stradal-demofactory-nextgen,Online,fallback_source_name
+girbaudemo,Online NextGen - Trial,girbaudemo,Online,fallback_source_name
+girbaunew,Online NextGen - Trial,girbaunew,Online,fallback_source_name
+testforchris,Online NextGen - Trial,testforchris,Online,fallback_source_name
+MBDA,Online NextGen - Trial,MBDA,Online,exact
+sscdemo,Online NextGen - Trial,sscdemo,Online,fallback_source_name
+nimrod,Online NextGen - Trial,nimrod,Online,fallback_source_name
+eiffage construction,Online NextGen - Trial,eiffage construction,Online,fallback_source_name
+getelec260126,Online NextGen - Trial,getelec260126,Online,fallback_source_name
+mars-demo,Online NextGen - Trial,mars-demo,Online,fallback_source_name
+iobeyaconsultants,Online NextGen - Trial,iobeyaconsultants,Online,fallback_source_name
+obeya-association,Online NextGen - Trial,OBEYA ASSOCIATION,Online,exact
+Considi,Mutualised PARTNERS,Considi,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+BearingPoint,Mutualised PARTNERS,BearingPoint,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+IMMA,Mutualised PARTNERS,IMMA,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Lecko,Mutualised PARTNERS,Lecko,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+IUT NANTES,Mutualised PARTNERS,IUT NANTES,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Factories of Future,Mutualised PARTNERS,Factories of Future,"Mutualisée (Team+, Team, Partners)",exact
+Greg Woods,Mutualised PARTNERS,Greg Woods,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Partners,Mutualised PARTNERS,Partners,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+BISQI - Partners,Mutualised PARTNERS,BISQI - Partners,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Atryon,Mutualised PARTNERS,Atryon,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+DIANEGO ON PARTNERS,Mutualised PARTNERS,DIANEGO ON PARTNERS,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Project 7 on Partners,Mutualised PARTNERS,Project 7 on Partners,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+BearingPoint on Partners,Mutualised PARTNERS,BearingPoint on Partners,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+ICAM Strasbourg on Partners,Mutualised PARTNERS,ICAM Strasbourg on Partners,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Musubi Consulting,Mutualised PARTNERS,Musubi Consulting,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+LeanCoaching,Mutualised PARTNERS,LeanCoaching,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Ifohra,Mutualised PARTNERS,Ifohra,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Coleg Cambria,Mutualised PARTNERS,Coleg Cambria,"Mutualisée (Team+, Team, Partners)",exact
+Macom GmbH,Mutualised PARTNERS,Macom GmbH,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Factories of Future,Mutualised PARTNERS,Factories of Future,"Mutualisée (Team+, Team, Partners)",exact
+Stanwick,Mutualised PARTNERS,Stanwick,"Mutualisée (Team+, Team, Partners)",exact
+Aptiphar,Mutualised PARTNERS,Aptiphar,"Mutualisée (Team+, Team, Partners)",exact
+Aik Lee Solutions,Mutualised PARTNERS,Aik Lee Solutions,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Scaled Agile Inc.,Mutualised PARTNERS,Scaled Agile Inc.,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Kettering University,Mutualised PARTNERS,Kettering University,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Ominlytics,Mutualised PARTNERS,Ominlytics,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+AITO LM CONSULTING,Mutualised PARTNERS,AITO LM CONSULTING,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+RLG-PartnerPlatform,Mutualised PARTNERS,RLG-PartnerPlatform,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+TBMConsulting,Mutualised PARTNERS,TBMConsulting,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+INEMA ROUEN,Mutualised PARTNERS,INEMA ROUEN,"Mutualisée (Team+, Team, Partners)",exact
+FLOW4U,Mutualised PARTNERS,FLOW4U,"Mutualisée (Team+, Team, Partners)",exact
+McEwan Consulting,Mutualised PARTNERS,McEwan Consulting,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Evolve Partners,Mutualised PARTNERS,Evolve Partners,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Tron Consulting,Mutualised PARTNERS,Tron Consulting,"Mutualisée (Team+, Team, Partners)",exact
+La Grow BOX,Mutualised PARTNERS,La Grow BOX,"Mutualisée (Team+, Team, Partners)",exact
+UPD,Mutualised PARTNERS,UPD,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+SmartLeanMFG,Mutualised PARTNERS,SmartLeanMFG,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+CONSULT ING,Mutualised PARTNERS,CONSULT ING,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Agile Agilist,Mutualised PARTNERS,Agile Agilist,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Talcott Ridge Consulting,Mutualised PARTNERS,Talcott Ridge Consulting,"Mutualisée (Team+, Team, Partners)",exact
+XE PARTNERS,Mutualised PARTNERS,XE PARTNERS,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Obeya Builder,Mutualised PARTNERS,Obeya Builder,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Global Lean Summit,Mutualised PARTNERS,Global Lean Summit,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Lean Sigma Projects LTD,Mutualised PARTNERS,Lean Sigma Projects LTD,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+HOSHIN PARTNERS,Mutualised PARTNERS,HOSHIN PARTNERS,"Mutualisée (Team+, Team, Partners)",exact
+IBConsultants,Mutualised PARTNERS,IBConsultants,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+EMELEAN,Mutualised PARTNERS,EMELEAN,"Mutualisée (Team+, Team, Partners)",exact
+LEANXVERSE,Mutualised PARTNERS,LEANXVERSE,"Mutualisée (Team+, Team, Partners)",exact
+CIMPA Germany,Mutualised PARTNERS,CIMPA Germany,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+FICHLY,Mutualised PARTNERS,Fichly,"Mutualisée (Team+, Team, Partners)",exact
+KPC on Partners,Mutualised PARTNERS,KPC on Partners,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+EliteOrga,Mutualised PARTNERS,EliteOrga,"Mutualisée (Team+, Team, Partners)",exact
+Alix Partners - Partner Platform,Mutualised PARTNERS,Alix Partners - Partner Platform,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+CARTIER HORLOGERIE,Mutualised TEAMPLUS,Cartier Horlogerie,"Mutualisée (Team+, Team, Partners)",exact
+Devillé ASC,Mutualised TEAMPLUS,Devillé ASC,"Mutualisée (Team+, Team, Partners)",exact
+LBL Brenta,Mutualised TEAMPLUS,LBL Brenta,"Mutualisée (Team+, Team, Partners)",exact
+MSA4485,Mutualised TEAMPLUS,MSA4485,"Mutualisée (Team+, Team, Partners)",exact
+NV Equipement via POP,Mutualised TEAMPLUS,NV Equipement via POP,"Mutualisée (Team+, Team, Partners)",exact
+Sherbourne Recycling Ltd via EMS Cognito,Mutualised TEAMPLUS,Sherbourne Recycling Ltd via EMS Cognito,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+BelEnergia via Considi,Mutualised TEAMPLUS,BelEnergia via Considi,"Mutualisée (Team+, Team, Partners)",exact
+Rolls Royce via Project 7,Mutualised TEAMPLUS,Rolls Royce (via Project 7),"Mutualisée (Team+, Team, Partners)",exact
+LBL Brenta via POP,Mutualised TEAMPLUS,LBL Brenta via POP,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Smarter Start - Cloud,Mutualised TEAMPLUS,Smarter Start - Cloud,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+VEDIF (Veolia Eau IdF),Mutualised TEAMPLUS,VEDIF (Veolia Eau IdF),"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Hutchinson Mexico,Mutualised TEAMPLUS,Hutchinson Mexico,"Mutualisée (Team+, Team, Partners)",exact
+Golding Capital Partners,Mutualised TEAMPLUS,GOLDING CAPITAL Partners,"Mutualisée (Team+, Team, Partners)",exact
+Schueco via Visine Consulting,Mutualised TEAMPLUS,Schueco (via Visine Consulting),"Mutualisée (Team+, Team, Partners)",exact
+Groupe HDN (Pascal Clame),Mutualised TEAMPLUS,Groupe HDN (Pascal Clame),"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Ximeng Liu,Mutualised TEAMPLUS,Ximeng Liu,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Thales DIS (ex-Gemalto) - USA,Mutualised TEAMPLUS,Thales DIS (ex-Gemalto) - USA,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Norman Souprayenmestry,Mutualised TEAMPLUS,Norman Souprayenmestry,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Tiofarma via Stanwick,Mutualised TEAMPLUS,Tiofarma via Stanwick,"Mutualisée (Team+, Team, Partners)",exact
+Rolls Royce Civil  Aerospace Derby via Project 7,Mutualised TEAMPLUS,Rolls Royce Civil Aerospace Derby via Project 7,"Mutualisée (Team+, Team, Partners)",exact
+Fluidra TeamPlus,Mutualised TEAMPLUS,Fluidra TeamPlus,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Genfar,Mutualised TEAMPLUS,Genfar,"Mutualisée (Team+, Team, Partners)",exact
+RAPIDO Team+ via CUBIK,Mutualised TEAMPLUS,RAPIDO Team+ via CUBIK,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Boralex,Mutualised TEAMPLUS,Boralex,"Mutualisée (Team+, Team, Partners)",exact
+Devillé ASC,Mutualised TEAMPLUS,Devillé ASC,"Mutualisée (Team+, Team, Partners)",exact
+Lesaffre TeamPlus,Mutualised TEAMPLUS,Lesaffre TeamPlus,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Hendrix Genetics via Cubik Partners,Mutualised TEAMPLUS,Hendrix Genetics via Cubik Partners,"Mutualisée (Team+, Team, Partners)",exact
+CYCLELIFE via CUBIK PARTNERS,Mutualised TEAMPLUS,CYCLELIFE via CUBIK PARTNERS,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+THE JACKSON LABORATORY,Mutualised TEAMPLUS,The Jackson Laboratory,"Mutualisée (Team+, Team, Partners)",exact
+Thales Australia TeamPlus,Mutualised TEAMPLUS,Thales Australia TeamPlus,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+ELECTROPOLI ISIGNY via CUBIK PARTNERS,Mutualised TEAMPLUS,ELECTROPOLI ISIGNY via CUBIK PARTNERS,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+ACT TeamPlus,Mutualised TEAMPLUS,ACT TeamPlus,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+N+P SUBCOAL PRODUCTION FRM B.V. via EMS COGNITO,Mutualised TEAMPLUS,N+P SUBCOAL PRODUCTION FRM B.V. via EMS COGNITO,"Mutualisée (Team+, Team, Partners)",exact
+Kwik Trip Inc.,Mutualised TEAMPLUS,Kwik Trip Inc.,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+KELVION via CUBIK PARTNERS,Mutualised TEAMPLUS,KELVION via CUBIK PARTNERS,"Mutualisée (Team+, Team, Partners)",exact
+GUALAPACK via CONSIDI,Mutualised TEAMPLUS,Gualapack (via Considi),"Mutualisée (Team+, Team, Partners)",exact
+Mahindra aerospace,Mutualised TEAMPLUS,Mahindra Aerospace,"Mutualisée (Team+, Team, Partners)",exact
+WATES via PROJECT 7,Mutualised TEAMPLUS,WATES via PROJECT 7,"Mutualisée (Team+, Team, Partners)",exact
+GCA Supply 4 industry,Mutualised TEAMPLUS,GCA Supply 4 industry,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Subsea 7 TeamPlus,Mutualised TEAMPLUS,Subsea 7 TeamPlus,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+TOYOTA OF NORTH AMERICA,Mutualised TEAMPLUS,Toyota of North America,"Mutualisée (Team+, Team, Partners)",exact
+Edrington Distillers Ltd via EMS Cognito,Mutualised TEAMPLUS,Edrington Distillers Ltd via EMS Cognito,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+AVIAGROUP,Mutualised TEAMPLUS,Aviagroup,"Mutualisée (Team+, Team, Partners)",exact
+STRAPHARM via CUBIK PARTNERS,Mutualised TEAMPLUS,STRAPHARM via CUBIK PARTNERS,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+O2 via CUBIK PARTNERS,Mutualised TEAMPLUS,O2 via CUBIK PARTNERS,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Stago,Mutualised TEAMPLUS,Stago,"Mutualisée (Team+, Team, Partners)",exact
+Evidens de beauté Team+,Mutualised TEAMPLUS,Evidens de beauté Team+,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+VIASAT Connect,Mutualised TEAMPLUS,VIASAT Connect,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+CEVA Logistics TeamPlus,Mutualised TEAMPLUS,CEVA Logistics TeamPlus,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+The North British Distillery Company Ltd via EMS Cognito,Mutualised TEAMPLUS,The North British Distillery Company Ltd via EMS Cognito,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Voltalis,Mutualised TEAMPLUS,VOLTALIS,"Mutualisée (Team+, Team, Partners)",exact
+Sansera India,Mutualised TEAMPLUS,Sansera India,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Groupe Boulle,Mutualised TEAMPLUS,Groupe Boulle,"Mutualisée (Team+, Team, Partners)",exact
+DAIKIN,Mutualised TEAMPLUS,DAIKIN,"Mutualisée (Team+, Team, Partners)",exact
+Getelec,Mutualised TEAMPLUS,Getelec,"Mutualisée (Team+, Team, Partners)",exact
+NorthStar Nuclear Medicine,Mutualised TEAMPLUS,NorthStar Nuclear Medicine,"Mutualisée (Team+, Team, Partners)",exact
+Kroger TeamPlus,Mutualised TEAMPLUS,Kroger TeamPlus,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+BIJOU via CUBIK PARTNERS,Mutualised TEAMPLUS,BIJOU via CUBIK PARTNERS,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+OFFICINA STELLARE via CONSIDI,Mutualised TEAMPLUS,OFFICINA STELLARE via CONSIDI,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+SPINEART via CUBIK PARTNERS,Mutualised TEAMPLUS,SPINEART via CUBIK PARTNERS,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Spie Batignolles Team +,Mutualised TEAMPLUS,Spie Batignolles Team +,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Storylane,Mutualised TEAMPLUS,StoryLane,"Mutualisée (Team+, Team, Partners)",exact
+Movella Technologies (ex Xsens),Mutualised TEAMPLUS,Movella Technologies (ex Xsens),"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Lookupspace,Mutualised TEAMPLUS,Lookupspace,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Bouygues Construction,Mutualised TEAMPLUS,Bouygues Construction,"Mutualisée (Team+, Team, Partners)",exact
+Mars Space Ltd,Mutualised TEAMPLUS,Mars Space Ltd,"Mutualisée (Team+, Team, Partners)",exact
+Terega - TeamPlus,Mutualised TEAMPLUS,Terega - TeamPlus,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+GXO Logistics TeamPlus,Mutualised TEAMPLUS,GXO Logistics TeamPlus,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Capgemini TeamPlus,Mutualised TEAMPLUS,Capgemini TeamPlus,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+AISG,Mutualised TEAMPLUS,AISG,"Mutualisée (Team+, Team, Partners)",exact
+TAURA via STANWICK,Mutualised TEAMPLUS,Taura via Stanwick,"Mutualisée (Team+, Team, Partners)",exact
+NSE via STANWICK,Mutualised TEAMPLUS,NSE via Stanwick,"Mutualisée (Team+, Team, Partners)",exact
+Amneal Pharmaceuticals - India,Mutualised TEAMPLUS,Amneal Pharmaceuticals - India,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+CODECHAMP via LA GROW BOX,Mutualised TEAMPLUS,CODECHAMP via LA GROW BOX,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Kreios Space,Mutualised TEAMPLUS,Kreios Space,"Mutualisée (Team+, Team, Partners)",exact
+Laboratorios Silanes,Mutualised TEAMPLUS,Laboratorios Silanes,"Mutualisée (Team+, Team, Partners)",exact
+Club Car,Mutualised TEAMPLUS,CLUB CAR,"Mutualisée (Team+, Team, Partners)",exact
+Kaizen Reliability Ltd,Mutualised TEAMPLUS,Kaizen Reliability Ltd,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Enedis,Mutualised TEAM,Enedis,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Orsted Telte A/S,Mutualised TEAM,Orsted Telte A/S,"Mutualisée (Team+, Team, Partners)",exact
+Wahl Clipper,Mutualised TEAM,Wahl Clipper,"Mutualisée (Team+, Team, Partners)",exact
+Mesea,Mutualised TEAM,Mesea,"Mutualisée (Team+, Team, Partners)",exact
+Pop Concept,Mutualised TEAM,Pop Concept,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Rockwool,Mutualised TEAM,Rockwool,"Mutualisée (Team+, Team, Partners)",exact
+Daunat,Mutualised TEAM,Daunat,"Mutualisée (Team+, Team, Partners)",exact
+Richemont MUT,Mutualised TEAM,Richemont MUT,"Mutualisée (Team+, Team, Partners)",exact
+Olimpia Splendid,Mutualised TEAM,Olimpia Splendid,"Mutualisée (Team+, Team, Partners)",exact
+Kxiop,Mutualised TEAM,Kxiop,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Souriau,Mutualised TEAM,Souriau,"Mutualisée (Team+, Team, Partners)",exact
+Bruker Biospin,Mutualised TEAM,Bruker Biospin,"Mutualisée (Team+, Team, Partners)",exact
+Demathieu Bard,Mutualised TEAM,Demathieu Bard,"Mutualisée (Team+, Team, Partners)",exact
+Monique Ranou SCO,Mutualised TEAM,Monique Ranou SCO,"Mutualisée (Team+, Team, Partners)",exact
+Fitness Boutique - NetQuattro,Mutualised TEAM,Fitness Boutique - NetQuattro,"Mutualisée (Team+, Team, Partners)",exact
+C.MENDES - SAINT LAURENT,Mutualised TEAM,C.MENDES - SAINT LAURENT,"Mutualisée (Team+, Team, Partners)",exact
+Keolis Lyon,Mutualised TEAM,Keolis Lyon,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Pella Team,Mutualised TEAM,Pella Team,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+University of Central Arkansas,Mutualised TEAM,University of Central Arkansas,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Longchamp,Mutualised TEAM,Longchamp,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+VCF Normandie Centre,Mutualised TEAM,VCF Normandie Centre,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+ESCP Europe,Mutualised TEAM,ESCP Europe,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+KEOLIS DIJON,Mutualised TEAM,Keolis Dijon,"Mutualisée (Team+, Team, Partners)",exact
+LNA Santé,Mutualised TEAM,LNA Santé,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Michigan Lean Consortium,Mutualised TEAM,Michigan Lean Consortium,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+TABARI CROISSANCE,Mutualised TEAM,TABARI CROISSANCE,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Wilo Salmson France,Mutualised TEAM,Wilo Salmson France,"Mutualisée (Team+, Team, Partners)",exact
+RIT,Mutualised TEAM,RIT,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+SKF - Sweden,Mutualised TEAM,SKF - Sweden,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+makesense,Mutualised TEAM,makesense,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+RATP - Bus,Mutualised TEAM,RATP - Bus,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Capacités,Mutualised TEAM,Capacités,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Publicis Sapient,Mutualised TEAM,Publicis Sapient,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Digital Tango,Mutualised TEAM,Digital Tango,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+BearingPoint - Team,Mutualised TEAM,BearingPoint - Team,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+TMAC,Mutualised TEAM,TMAC,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Serac Group,Mutualised TEAM,Serac Group,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Cubik Team,Mutualised TEAM,Cubik Team,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Life & Mobility,Mutualised TEAM,Life & Mobility,"Mutualisée (Team+, Team, Partners)",exact
+B2WISE TEAM,Mutualised TEAM,B2WISE TEAM,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+TnP consultants - Team,Mutualised TEAM,TnP consultants - Team,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+MR4P Team,Mutualised TEAM,MR4P Team,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Newmind,Mutualised TEAM,Newmind,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+STULZ S.p.A.,Mutualised TEAM,STULZ S.p.A.,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Inspearit - Team,Mutualised TEAM,Inspearit - Team,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Murli - TEAM,Mutualised TEAM,Murli - TEAM,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Tipiak,Mutualised TEAM,Tipiak,"Mutualisée (Team+, Team, Partners)",exact
+Moog Aircraft Team (closed 210315),Mutualised TEAM,Moog Aircraft Team (closed 210315),"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Brigitte Evertz,Mutualised TEAM,Brigitte Evertz,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Hiram Finance,Mutualised TEAM,Hiram Finance,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+RATP - CML / SC / RCD,Mutualised TEAM,RATP - CML / SC / RCD,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+RIVACOLD,Mutualised TEAM,RIVACOLD,"Mutualisée (Team+, Team, Partners)",exact
+Bystronic Laser AG,Mutualised TEAM,Bystronic Laser AG,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Moog Corp Team (closed 210315),Mutualised TEAM,Moog Corp Team (closed 210315),"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Fender Partners,Mutualised TEAM,Fender Partners,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+La Poste DCFG - Team,Mutualised TEAM,La Poste DCFG - Team,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Orange Polska,Mutualised TEAM,Orange Polska,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+ANTAI - Team via capgemini,Mutualised TEAM,ANTAI - Team via capgemini,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Ministère de l'Intérieur DSR - Team via Capgemini,Mutualised TEAM,Ministère de l'Intérieur DSR - Team via Capgemini,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+EMS Cognito,Mutualised TEAM,EMS Cognito,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+PiveteauBois,Mutualised TEAM,PiveteauBois,"Mutualisée (Team+, Team, Partners)",exact
+EliteOrga - Team,Mutualised TEAM,EliteOrga - Team,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Radiall,Mutualised TEAM,radiall,"Mutualisée (Team+, Team, Partners)",exact
+Fenetrea,Mutualised TEAM,Fenetrea,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Sofrilog Ouest,Mutualised TEAM,Sofrilog Ouest,"Mutualisée (Team+, Team, Partners)",exact
+Soft Method Team,Mutualised TEAM,Soft Method Team,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Entuziasmo - team,Mutualised TEAM,Entuziasmo - team,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+UGAP via Capgemini,Mutualised TEAM,UGAP via Capgemini,"Mutualisée (Team+, Team, Partners)",exact
+Chalmers University of Technology,Mutualised TEAM,Chalmers University of Technology,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Coeff - Team Partner,Mutualised TEAM,Coeff - Team Partner,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Project 7 Consulting ( Team - P4 Training),Mutualised TEAM,Project 7 Consulting ( Team - P4 Training),"Mutualisée (Team+, Team, Partners)",fallback_source_name
+RATP Départ M2E - Team,Mutualised TEAM,RATP Départ M2E - Team,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Intech,Mutualised TEAM,Intech,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Lean Analytics Org,Mutualised TEAM,Lean Analytics Org,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Ernst & Young - Team,Mutualised TEAM,Ernst & Young - Team,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Airnov - Team,Mutualised TEAM,Airnov - Team,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+The Country and Land Associations (by EMS Cognito),Mutualised TEAM,The Country and Land Associations (by EMS Cognito),"Mutualisée (Team+, Team, Partners)",fallback_source_name
+VITEC IMAGING SOLUTIONS,Mutualised TEAM,Vitec Imaging Solutions,"Mutualisée (Team+, Team, Partners)",exact
+Open Source Consulting Inc. PARTNER,Mutualised TEAM,Open Source Consulting Inc. PARTNER,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Bien-Air Surgery SA,Mutualised TEAM,Bien-Air Surgery SA,"Mutualisée (Team+, Team, Partners)",exact
+AZ Lean Consulting,Mutualised TEAM,AZ Lean Consulting,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Beckman Life Sciences Team,Mutualised TEAM,Beckman Life Sciences Team,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+InnSpire,Mutualised TEAM,InnSpire,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+La Poste DTN - Team,Mutualised TEAM,La Poste DTN - Team,"Mutualisée (Team+, Team, Partners)",exact
+Berkenhoff,Mutualised TEAM,Berkenhoff,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Sartorius,Mutualised TEAM,Sartorius,"Mutualisée (Team+, Team, Partners)",exact
+Qwantiq - Partner,Mutualised TEAM,Qwantiq - Partner,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+SAFe Ontario CoP,Mutualised TEAM,SAFe Ontario CoP,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Productivity People Ltd,Mutualised TEAM,Productivity People Ltd,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Hogeschool Windesheim,Mutualised TEAM,Hogeschool Windesheim,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Dirickx,Mutualised TEAM,Dirickx,"Mutualisée (Team+, Team, Partners)",exact
+Skogsfjord Lean Kata,Mutualised TEAM,Skogsfjord Lean Kata,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+MFides,Mutualised TEAM,MFides,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Wiersma,Mutualised TEAM,Wiersma,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+CATAPULSE TEAM,Mutualised TEAM,CATAPULSE TEAM,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Send-a-cow (by EMS Cognito),Mutualised TEAM,Send-a-cow (by EMS Cognito),"Mutualisée (Team+, Team, Partners)",fallback_source_name
+LVMH Recherche,Mutualised TEAM,LVMH Recherche,"Mutualisée (Team+, Team, Partners)",exact
+Refine Projects AG,Mutualised TEAM,Refine Projects AG,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+nest321,Mutualised TEAM,nest321,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+HFT Stuttgart,Mutualised TEAM,HFT Stuttgart,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+SEPRO,Mutualised TEAM,SEPRO,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Cabot Corporation,Mutualised TEAM,Cabot Corporation,"Mutualisée (Team+, Team, Partners)",exact
+RAPIDO via POP,Mutualised TEAM,RAPIDO via POP,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Cebi Motors S.p.A.,Mutualised TEAM,Cebi Motors S.p.A.,"Mutualisée (Team+, Team, Partners)",exact
+Game Changer,Mutualised TEAM,Game Changer,"Mutualisée (Team+, Team, Partners)",exact
+Reading Scientific Services Ltd,Mutualised TEAM,Reading Scientific Services Ltd,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+B Braun Medical,Mutualised TEAM,B Braun Medical,"Mutualisée (Team+, Team, Partners)",exact
+Beologic NV,Mutualised TEAM,Beologic NV,"Mutualisée (Team+, Team, Partners)",exact
+Toyota Material Handling France,Mutualised TEAM,Toyota Material Handling France,"Mutualisée (Team+, Team, Partners)",exact
+UW Medicine - Internal Room,Mutualised TEAM,UW Medicine - Internal Room,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Axlperf - partner,Mutualised TEAM,Axlperf - partner,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Rice University,Mutualised TEAM,Rice University,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Ballance Agri-Nutrients Ltd,Mutualised TEAM,Ballance Agri-Nutrients Ltd,"Mutualisée (Team+, Team, Partners)",exact
+Institut für Angweandte Informatik der TH Nürnberg,Mutualised TEAM,Institut für Angweandte Informatik der TH Nürnberg,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Eiffage Metal,Mutualised TEAM,Eiffage Metal,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+SiO,Mutualised TEAM,SiO,"Mutualisée (Team+, Team, Partners)",exact
+PMI Services,Mutualised TEAM,PMI Services,"Mutualisée (Team+, Team, Partners)",exact
+AXIMA via POP,Mutualised TEAM,AXIMA via POP,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Médecins Sans Frontières Italy,Mutualised TEAM,Médecins Sans Frontières Italy,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+DNASCRIPT via POP,Mutualised TEAM,DNASCRIPT via POP,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+AFCODEV,Mutualised TEAM,AFCODEV,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+IDEMIA via POP,Mutualised TEAM,IDEMIA via POP,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Lean Analytics Partner - ORG - Team,Mutualised TEAM,Lean Analytics Partner - ORG - Team,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+FIVES via POP,Mutualised TEAM,FIVES via POP,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Ovale performance,Mutualised TEAM,Ovale performance,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+UAPL Loire Propriétés via POP,Mutualised TEAM,UAPL Loire Propriétés via POP,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Aravis Performance,Mutualised TEAM,Aravis Performance,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+NYBA,Mutualised TEAM,NYBA,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Chester consulting,Mutualised TEAM,Chester consulting,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+MANITOU via POP,Mutualised TEAM,MANITOU via POP,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+LES FERMIERS DU SUD OUEST,Mutualised TEAM,LES FERMIERS DU SUD OUEST,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+IRT St EXUPERY via POP,Mutualised TEAM,IRT St EXUPERY via POP,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Pierre Colliou,Mutualised TEAM,Pierre Colliou,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+AMPLITUDE via POP,Mutualised TEAM,AMPLITUDE via POP,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+RATP DEV,Mutualised TEAM,RATP DEV,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+LA MANUFACTURE via POP,Mutualised TEAM,LA MANUFACTURE via POP,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+PRATICIMA via POP,Mutualised TEAM,PRATICIMA via POP,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+JTTI via POP,Mutualised TEAM,JTTI via POP,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+VEOLIA via POP,Mutualised TEAM,Veolia via POP,"Mutualisée (Team+, Team, Partners)",exact
+MGTECH via POP,Mutualised TEAM,MGTECH via POP,"Mutualisée (Team+, Team, Partners)",exact
+EQUIPE INGENIERIE via POP,Mutualised TEAM,EQUIPE INGENIERIE (via POP),"Mutualisée (Team+, Team, Partners)",exact
+BT Blue via POP,Mutualised TEAM,BT Blue via POP,"Mutualisée (Team+, Team, Partners)",exact
+AFITEXINOV via POP,Mutualised TEAM,AFITEXINOV via POP,"Mutualisée (Team+, Team, Partners)",exact
+RSSL via EMS Cognito,Mutualised TEAM,RSSL via EMS Cognito,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+Challans Gois via Cubik Partners,Mutualised TEAM,Challans Gois via Cubik Partners,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+ATELIERS PERRAULT via CUBIK PARTNERS,Mutualised TEAM,ATELIERS PERRAULT via CUBIK PARTNERS,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+FLEURETTE via CUBIK PARTNERS,Mutualised TEAM,FLEURETTE via CUBIK PARTNERS,"Mutualisée (Team+, Team, Partners)",exact
+Cylad - demo,Mutualised Demo (only for partners),Cylad - demo,"Mutualisée (Team+, Team, Partners)",fallback_source_name
+CREDIT AGRICOLE - PACIFICA DOMMAGES,Onsite,CREDIT AGRICOLE - PACIFICA DOMMAGES,Onsite,exact
+Airbus OneWeb Satellites,Onsite,Airbus OneWeb Satellites,Onsite,exact
+ABB Italy,Onsite,ABB Italy,Onsite,exact
+Safran Electronics & Defense,Onsite,Safran Electronics & Defense,Onsite,exact
+MinArm-Intradef,Onsite,MinArm-Intradef,Onsite,exact
+Airbus Operations SAS,Onsite,Airbus Operations SAS,Onsite,fallback_source_name
+Thales Netherlands (FedSS),Onsite,Thales Netherlands (FedSS),Onsite,exact
+Hutchinson (Centre de Recherche),Onsite,Hutchinson (Centre de Recherche),Onsite,fallback_source_name
+SIAE (Atelier Industriel de l’Aéronautique AIA),Onsite,SIAE - Atelier Industriel de l’Aéronautique AIA,Onsite,exact
+Nexter,Onsite,Nexter,Onsite,fallback_source_name
+Thales Alenia Space LICENCE 1,Onsite,Thales Alenia Space LICENCE 1,Onsite,fallback_source_name
+Naval Group - DCNS - Serveur A,Onsite,Naval Group - DCNS - Serveur A,Onsite,fallback_source_name
+Safran Landing Systems,Onsite,Safran Landing Systems,Onsite,fallback_source_name
+PSA,Onsite,PSA,Onsite,exact
+Chantiers de l'Atlantique,Onsite,Chantiers de l'Atlantique,Onsite,fallback_source_name
+ABB Finland,Onsite,ABB Finland,Onsite,exact
+Safran Electrical & Power,Onsite,Safran Electrical & Power,Onsite,fallback_source_name
+Western Digital On-site Trial license,Onsite,Western Digital On-site Trial license,Onsite,fallback_source_name
+CA-GIP (Ex SILCA),Onsite,CA-GIP (Ex SILCA),Onsite,fallback_source_name
+Hutchinson (Etanchéité),Onsite,Hutchinson (Etanchéité),Onsite,exact
+Lynred,Onsite,Lynred,Onsite,exact
+Crédit Agricole Technologies & Services (CATS),Onsite,Crédit Agricole Technologies & Services (CATS),Onsite,exact
+Crédit Agricole CIB (CA CIB),Onsite,Crédit Agricole CIB (CA CIB),Onsite,exact
+Airbus Defense & Space - CORP,Onsite,Airbus Defense & Space - CORP,Onsite,fallback_source_name
+Hutchinson Defense & Mobility - Persan,Onsite,Hutchinson Defense & Mobility - Persan,Onsite,exact
+Hutchinson ADI,Onsite,Hutchinson ADI,Onsite,exact
+CNP Assurance,Onsite,CNP Assurance,Onsite,fallback_source_name
+Safran AeroSystems,Onsite,Safran Aerosystems,Onsite,exact
+Western Digital On-site Production license,Onsite,Western Digital On-site Production license,Onsite,fallback_source_name
+Saft Batteries,Onsite,Saft Batteries,Onsite,exact
+Thales SIDR,Onsite,Thales SIDR,Onsite,exact
+Crédit Agricole Assurances,Onsite,Crédit Agricole Assurances,Onsite,exact
+Airbus Aerostructures (ex Premium Aerotech),Onsite,Airbus Aerostructures (ex Premium Aerotech),Onsite,exact
+BPCE-IT,Onsite,BPCE-IT,Onsite,fallback_source_name
+SOGITEC,Onsite,SOGITEC,Onsite,exact
+TechnipFMC,Onsite,TechnipFMC,Onsite,exact
+Hutchinson Lisses (ADI),Onsite,Hutchinson Lisses (ADI),Onsite,fallback_source_name
+Thales Netherlands Blue (ex New 2020),Onsite,Thales Netherlands Blue (ex New 2020),Onsite,fallback_source_name
+Thales Netherlands CEG,Onsite,Thales Netherlands CEG,Onsite,exact
+Thales Australia,Onsite,Thales Australia,Onsite,exact
+Thales UK,Onsite,Thales UK.,Onsite,exact
+Airbus Defense & Space - NEO GE,Onsite,Airbus Defense & Space - NEO GE,Onsite,fallback_source_name
+Dalenys Payment,Onsite,Dalenys Payment,Onsite,fallback_source_name
+Thales Netherlands - CEUK,Onsite,Thales Netherlands - CEUK,Onsite,fallback_source_name
+Ministerie van Defensie,Onsite,Ministerie van Defensie,Onsite,exact
+HP Printing,Onsite,HP Printing,Onsite,fallback_source_name
+Thales DMS MMCM,Onsite,Thales DMS MMCM,Onsite,fallback_source_name
+Moog Corp Onsite Prod,Onsite,Moog Corp Onsite Prod,Onsite,fallback_source_name
+Groupe SII,Onsite,GROUPE SII,Onsite,exact
+RIVM,Onsite,RIVM,Onsite,exact
+MBDA Corporate,Onsite,MBDA Corporate,Onsite,fallback_source_name
+Continental FR - onprem,Onsite,Continental FR - onprem,Onsite,fallback_source_name
+Dutch Tax Office - Belastingdienst,Onsite,Dutch Tax Office - Belastingdienst,Onsite,exact
+Siemens Healthineers,Onsite,Siemens Healthineers,Onsite,fallback_source_name
+Thales Netherlands Tacticos,Onsite,Thales Netherlands Tacticos,Onsite,exact
+Continental - ADC - on-site - Production,Onsite,Continental - ADC - on-site - Production,Onsite,fallback_source_name
+CA Pacifica Dommages,Onsite,CA Pacifica Dommages,Onsite,fallback_source_name
+ANTAI - Enterprise OnSite,Onsite,ANTAI - Enterprise OnSite,Onsite,fallback_source_name
+National Dutch Police,Onsite,NATIONAL DUTCH POLICE,Onsite,exact
+DICTU (EZK),Onsite,Dictu (EZK),Onsite,exact
+DB Netz AG,Onsite,DB NETZ AG,Onsite,exact
+FAMAT,Onsite,FAMAT,Onsite,exact
+Airbus Defense & Space - NEO UK,Onsite,Airbus Defense & Space - NEO UK,Onsite,fallback_source_name
+Airbus Defense & Space - NEO FR,Onsite,Airbus Defense & Space - NEO FR,Onsite,fallback_source_name
+Airbus Defense & Space - Partner,Onsite,Airbus Defense & Space - Partner,Onsite,fallback_source_name
+Safran Aircraft Engines France,Onsite,Safran Aircraft Engines France,Onsite,exact
+Alten,Onsite,Alten,Onsite,exact
+NHI,Onsite,NHI,Onsite,fallback_source_name
+CEA,Onsite,CEA,Onsite,exact
+MBDA System UK,Onsite,MBDA System UK,Onsite,fallback_source_name
+IDEMIA,Onsite,IDEMIA,Onsite,exact
+Naval Group - DCNS - serveur B,Onsite,Naval Group - DCNS - serveur B,Onsite,fallback_source_name
+Naval Group - DCNS - Serveur C,Onsite,Naval Group - DCNS - Serveur C,Onsite,fallback_source_name
+Thales SGF - NEST - Dev,Onsite,Thales SGF - NEST - Dev,Onsite,fallback_source_name
+Hutchinson Inc,Onsite,Hutchinson Inc,Onsite,fallback_source_name
+Thales TCJ TEST,Onsite,Thales TCJ TEST,Onsite,fallback_source_name
+Thales Castle,Onsite,Thales Castle,Onsite,exact
+DTNUM,Onsite,DTNUM,Onsite,exact
+ThyssenKrupp Marine Systems,Onsite,ThyssenKrupp Marine Systems,Onsite,fallback_source_name
+Dassault Aviation DEVOPS,Onsite,Dassault Aviation DEVOPS,Onsite,fallback_source_name
+MDBA Corporate Private cloud,Onsite,MDBA Corporate Private cloud,Onsite,fallback_source_name
+FIVES Machining (HPM/Grinding - Ultra precision),Onsite,FIVES Machining (HPM/Grinding - Ultra precision),Onsite,fallback_source_name
+Thales test restauration Castle,Onsite,Thales test restauration Castle,Onsite,fallback_source_name
+Hitachi Rail GTS France,Onsite,Hitachi Rail GTS France,Onsite,fallback_source_name
+Thales DIS licence temporaire de dev,Onsite,Thales DIS licence temporaire de dev,Onsite,fallback_source_name
+MBDA - France Only,Onsite,MBDA - France Only,Onsite,fallback_source_name
+Dassault Aviation POC USINE 4.0,Onsite,Dassault Aviation POC USINE 4.0,Onsite,fallback_source_name
+Eutelsat Onsite,Onsite,Eutelsat Onsite,Onsite,fallback_source_name
+BLEU,Onsite,BLEU,Onsite,fallback_source_name
+Pratt and Whitney,Onsite,Pratt and Whitney,Onsite,exact
+GE AEROSPACE,Onsite,GE AEROSPACE,Onsite,fallback_source_name
+Safran Seats,Online Dedicated,Safran Seats,Online,fallback_source_name
+HOFOR,Online Dedicated,HOFOR,Online,exact
+Orano - ex New Areva,Online Dedicated,Orano - ex New Areva,Online,exact
+EDF DSIT,Online Dedicated,EDF DSIT,Online,exact
+Dyno Nobel,Online Dedicated,Dyno Nobel,Online,exact
+Air Liquide,Online Dedicated,Air Liquide,Online,exact
+Pierre Fabre,Online Dedicated,Pierre Fabre,Online,exact
+Radiometer,Online Dedicated,Radiometer,Online,exact
+CSP RH,Online Dedicated,CSP RH,Online,fallback_source_name
+Safran Nacelles,Online Dedicated,Safran Nacelles,Online,fallback_source_name
+Axens,Online Dedicated,Axens,Online,exact
+Schneider Electric - R&D,Online Dedicated,Schneider Electric - R&D,Online,fallback_source_name
+Mews Partners,Online Dedicated,Mews Partners,Online,fallback_source_name
+Total Energies - TGITS,Online Dedicated,Total Energies - TGITS,Online,fallback_source_name
+Framatome (ex Areva NP - Digital transformation),Online Dedicated,Framatome (ex Areva NP - Digital transformation),Online,exact
+Sanofi Group,Online Dedicated,SANOFI GROUP,Online,exact
+Kimberly Clark,Online Dedicated,Kimberly-Clark,Online,exact
+Eli Lilly,Online Dedicated,Eli Lilly,Online,exact
+CSP comptabilité,Online Dedicated,CSP comptabilité,Online,fallback_source_name
+bioMérieux,Online Dedicated,bioMérieux,Online,exact
+Staubli,Online Dedicated,Staubli,Online,exact
+Allianz Trade (ex Euler Hermes),Online Dedicated,Allianz Trade ( ex Euler Hermes),Online,exact
+ERAMET,Online Dedicated,ERAMET,Online,exact
+Kuehne Nagel QCD,Online Dedicated,Kuehne Nagel QCD,Online,exact
+Terega,Online Dedicated,Terega,Online,exact
+Jaeger Lecoultre,Online Dedicated,Jaeger Lecoultre,Online,fallback_source_name
+Medline Add-on,Online Dedicated,Medline Add-on,Online,exact
+Richemont Manufacture Val Fleurier,Online Dedicated,Richemont Manufacture Val Fleurier,Online,fallback_source_name
+Safran Corp,Online Dedicated,Safran Corp,Online,exact
+Bollore Logistics -OnLine dédié,Online Dedicated,Bollore Logistics -OnLine dédié,Online,fallback_source_name
+Corse Composites Aeronautiques,Online Dedicated,Corse Composites Aeronautiques,Online,fallback_source_name
+Lilly MQ,Online Dedicated,Lilly MQ,Online,fallback_source_name
+Hilti,Online Dedicated,Hilti,Online,exact
+Beckman Coulter Life Sciences,Online Dedicated,Beckman Coulter Life Sciences,Online,exact
+Air France Industries,Online Dedicated,Air France Industries,Online,exact
+Adi – Askea Design Ingenierie,Online Dedicated,Adi – Askea Design Ingenierie,Online,exact
+Capgemini Invent - plateforme online dédiée,Online Dedicated,Capgemini Invent - plateforme online dédiée,Online,fallback_source_name
+Aledia,Online Dedicated,Aledia,Online,fallback_source_name
+State of Michigan,Online Dedicated,State of Michigan,Online,fallback_source_name
+Atlantic LNG,Online Dedicated,Atlantic LNG,Online,exact
+Power Grids (Hitachi),Online Dedicated,Power Grids (Hitachi),Online,fallback_source_name
+Schneider Electric-  Dedicated online platform,Online Dedicated,Schneider Electric-  Dedicated online platform,Online,fallback_source_name
+RLG International,Online Dedicated,RLG International,Online,fallback_source_name
+Mars,Online Dedicated,Mars,Online,exact
+Knab,Online Dedicated,Knab,Online,exact
+GE Vernova,Online Dedicated,GE Vernova,Online,exact
+Kaiser Permanente Main,Online Dedicated,Kaiser Permanente Main,Online,fallback_source_name
+Serac Enterprise Online,Online Dedicated,Serac Enterprise Online,Online,exact
+Lilly IBU,Online Dedicated,Lilly IBU,Online,exact
+PGB Pensioendiensten,Online Dedicated,PGB Pensioendiensten,Online,exact
+Genmab NL,Online Dedicated,Genmab NL,Online,exact
+Capgemini ABL,Online Dedicated,CAPGEMINI ABL,Online,exact
+Mirion,Online Dedicated,Mirion,Online,exact
+GCI Communication Corp.,Online Dedicated,GCI Communication Corp.,Online,exact
+Daher Online,Online Dedicated,Daher Online,Online,fallback_source_name
+WorkSafeBC,Online Dedicated,WorkSafeBC,Online,exact
+Sekisui Aerospace,Online Dedicated,Sekisui Aerospace,Online,exact
+Orange - Enterprise,Online Dedicated,Orange - Enterprise,Online,exact
+OSE Group Enterprise,Online Dedicated,OSE Group Enterprise,Online,fallback_source_name
+Wilo Enterprise QCD,Online Dedicated,Wilo Enterprise QCD,Online,fallback_source_name
+ACC - Team,Online Dedicated,ACC - Team,Online,fallback_source_name
+Pella SaaS,Online Dedicated,Pella SaaS,Online,fallback_source_name
+Covea - Enterprise dédié,Online Dedicated,Covea - Enterprise dédié,Online,fallback_source_name
+Beckman Coulter Diagnostics,Online Dedicated,Beckman Coulter Diagnostics,Online,fallback_source_name
+XL Groupe Enterprise,Online Dedicated,XL Groupe Enterprise,Online,fallback_source_name
+Spectrum Groupe,Online Dedicated,Spectrum Groupe,Online,fallback_source_name
+Cartier Joaillerie International,Online Dedicated,Cartier Joaillerie International,Online,exact
+European Space Agency (ESA),Online Dedicated,European Space Agency (ESA),Online,exact
+CEVA,Online Dedicated,CEVA,Online,exact
+Philip Morris International - UK,Online Dedicated,Philip Morris International - UK,Online,exact
+Demathieu Bard Enterprise,Online Dedicated,Demathieu Bard Enterprise,Online,fallback_source_name
+ID Logistics,Online Dedicated,ID LOGISTICS,Online,exact
+Merck Serono,Online Dedicated,Merck Serono,Online,exact
+Nutrien,Online Dedicated,NUTRIEN,Online,exact
+Rehlko (ex Kohler Co.),Online Dedicated,Rehlko (ex Kohler Co.),Online,exact
+Movella Technologies (ex Xsens),Online Dedicated,Movella Technologies (ex Xsens),Online,fallback_source_name
+EUROAPI,Online Dedicated,EUROAPI,Online,exact
+Baxter pharma singapore,Online Dedicated,Baxter Pharma Singapore,Online,exact
+Capgemini DEV,Online Dedicated,Capgemini DEV,Online,fallback_source_name
+Milwaukee Tool,Online Dedicated,Milwaukee Tool,Online,exact
+Pernod Ricard Online,Online Dedicated,Pernod Ricard Online,Online,fallback_source_name
+HOME,Online Dedicated,HOME,Online,fallback_source_name
+Suivi Clients,Online Dedicated,Suivi Clients,Online,fallback_source_name
+La Banque Postale - Enterprise,Online Dedicated,La Banque Postale - Enterprise,Online,fallback_source_name
+Merck Irvine,Online Dedicated,Merck Irvine,Online,exact
+MIN JUSTICE,Online Dedicated,MIN JUSTICE,Online,exact
+Crispr Therapeutics,Online Dedicated,Crispr Therapeutics,Online,exact
+Modus Cooperandi,Online Dedicated,Modus Cooperandi,Online,fallback_source_name
+CureVac,Online Dedicated,CureVac,Online,exact
+Scaled Agile - Dedicated Platform,Online Dedicated,Scaled Agile - Dedicated Platform,Online,fallback_source_name
+Hitachi Energy,Online Dedicated,Hitachi Energy,Online,fallback_source_name
+OVH,Online Dedicated,OVH,Online,fallback_source_name
+Fake Customer,Online Dedicated,Fake Customer,Online,fallback_source_name
+Accenture Business Agility,Online Dedicated,Accenture Business Agility,Online,exact
+Proximus,Online Dedicated,Proximus,Online,fallback_source_name
+Satys,Online Dedicated,Satys,Online,exact
+ID Logistics USA,Online Dedicated,ID Logistics - USA,Online,exact
+UST,Online Dedicated,UST,Online,exact
+EACOP,Online Dedicated,EACOP,Online,exact
+Western Digital Online Whiteboarding Trial,Online Dedicated,Western Digital Online Whiteboarding Trial,Online,fallback_source_name
+Aubert & Duval,Online Dedicated,Aubert & Duval,Online,exact
+Vaillant Group,Online Dedicated,Vaillant Group,Online,exact
+Alkegen,Online Dedicated,Alkegen,Online,exact
+D'Ieteren Auto,Online Dedicated,D'Ieteren Auto,Online,fallback_source_name
+Eraneos Switzerland,Online Dedicated,Eraneos Switzerland,Online,fallback_source_name
+POP CUBIK,Online Dedicated,POP CUBIK,Online,fallback_source_name
+Obeya Association Dedicated Platform,Online Dedicated,Obeya Association Dedicated Platform,Online,fallback_source_name
+cPrime,Online Dedicated,cPrime,Online,fallback_source_name
+Alpine Racing,Online Dedicated,Alpine Racing,Online,fallback_source_name
+Vinci Energies,Online Dedicated,Vinci Energies,Online,exact
+AdaptivityGroup,Online Dedicated,AdaptivityGroup,Online,fallback_source_name
+AGC Glass Europe SA,Online Dedicated,AGC Glass Europe SA,Online,exact
+EliassenGroup,Online Dedicated,EliassenGroup,Online,fallback_source_name
+Agilest,Online Dedicated,Agilest,Online,fallback_source_name
+Agence du numérique de la sécurité civile,Online Dedicated,Agence du numérique de la sécurité civile,Online,exact
+Temenos,Online Dedicated,Temenos,Online,fallback_source_name
+Flight Levels Dedicated Online Platform,Online Dedicated,Flight Levels Dedicated Online Platform,Online,fallback_source_name
+SNCF Réseau Online,Online Dedicated,SNCF Réseau Online,Online,exact
+Kanban University,Online Dedicated,Kanban University,Online,exact
+Lithespeed,Online Dedicated,Lithespeed,Online,fallback_source_name
+PICARD,Online Dedicated,PICARD,Online,fallback_source_name
+ATR Aircraft Cloud,Online Dedicated,ATR Aircraft Cloud,Online,fallback_source_name
+Siemens Healthineers Cloud,Online Dedicated,Siemens Healthineers Cloud,Online,fallback_source_name
+Raskere,Online Dedicated,Raskere,Online,fallback_source_name
+Nictiz,Online Dedicated,Nictiz,Online,exact
+KPConsulting,Online Dedicated,KPConsulting,Online,exact
+Arquitectura Claridad Y Conocimiento,Online Dedicated,Arquitectura Claridad Y Conocimiento,Online,fallback_source_name
+Marks & Spencer UK,Online Dedicated,Marks & Spencer UK,Online,fallback_source_name
+ACL,Online Dedicated,ACL,Online,exact
+Suez (POC),Online Dedicated,Suez (POC),Online,fallback_source_name
+EvidenS de Beauté,Online Dedicated,EvidenS de Beauté,Online,exact
+Vaupell,Online Dedicated,Vaupell,Online,exact
+Eaton,Online Dedicated,EATON,Online,exact
+Boeing,Online Dedicated,Boeing,Online,fallback_source_name
+Airbus Operation SAS - Cloud POC,Online Dedicated,Airbus Operation SAS - Cloud POC,Online,fallback_source_name
+Corteva Agriscience,Online Dedicated,Corteva Agriscience,Online,exact
+STEF,Online Dedicated,STEF,Online,exact
+Vantive,Online Dedicated,Vantive,Online,exact
+Showcase website,Online Dedicated,Showcase website,Online,fallback_source_name
+SOITEC,Online Dedicated,SOITEC,Online,exact
+Campbell's Soup,Online Dedicated,Campbell's Soup,Online,fallback_source_name
+Hartmann Czech Republic,Online Dedicated,Hartmann Czech Republic,Online,fallback_source_name
+Amicus Therapeutics,Online Dedicated,Amicus Therapeutics,Online,exact
+Getinge,Online Dedicated,Getinge,Online,exact
+Merck-MSD USA,Online Dedicated,Merck-MSD USA,Online,fallback_source_name
+DHL Express,Online Dedicated,DHL Express,Online,fallback_source_name
+Thales Test instance Cloud,Online Dedicated,Thales Test instance Cloud,Online,fallback_source_name
+I-Interim Rijk,Online Dedicated,I-Interim Rijk,Online,exact
+ING Real Estate,Online Dedicated,ING Real Estate,Online,fallback_source_name
+Achmea,Online Dedicated,Achmea,Online,exact
+Sargento,Online Dedicated,Sargento,Online,fallback_source_name
+STMicroelectronics,Online Dedicated,STMicroElectronics,Online,exact
+Gepsa,Online Dedicated,Gepsa,Online,exact
+PRYSMIAN,Online Dedicated,Prysmian,Online,exact
+YKK Germany,Online Dedicated,YKK Germany,Online,exact
+KAEFER GROUP,Online Dedicated,KAEFER GROUP,Online,fallback_source_name
+Sterigenics,Online Dedicated,Sterigenics,Online,exact
+Silent Aire,Online Dedicated,Silent Aire,Online,exact
+Vibracoustic,Online Dedicated,Vibracoustic,Online,exact
+Rolls Royce UK,Online Dedicated,Rolls Royce UK,Online,fallback_source_name
+Rolex POC,Online Dedicated,Rolex POC,Online,fallback_source_name
+TBMConsulting - Dedicated,Online Dedicated,TBMConsulting - Dedicated,Online,fallback_source_name
+Airbus Opérations 436,Online Dedicated,Airbus Opérations 436,Online,fallback_source_name
+Airbus Opérations 45,Online Dedicated,Airbus Opérations 45,Online,fallback_source_name
+APEM POC,Online Dedicated,APEM POC,Online,fallback_source_name
+Alvotech,Online Dedicated,Alvotech,Online,fallback_source_name
+CA des Savoie Cloud,Online Dedicated,CA des Savoie Cloud,Online,exact
+Thermo Fisher,Online Dedicated,Thermo Fisher,Online,exact
+Deloitte,Online Dedicated,Deloitte,Online,fallback_source_name
+Viasat USA,Online Dedicated,Viasat USA,Online,exact
+Donaldson POC,Online Dedicated,Donaldson POC,Online,exact
+InvestCloud,Online Dedicated,InvestCloud,Online,fallback_source_name
+Eli Lilly RFI Demo,Online Dedicated,Eli Lilly RFI Demo,Online,fallback_source_name
+STRADAL,Online Dedicated,STRADAL,Online,exact
+ULTRAGENYX,Online Dedicated,Ultragenyx,Online,exact
+Astrea Pharma,Online Dedicated,Astrea Pharma,Online,exact
+Nictiz NG,Online Dedicated,Nictiz NG,Online,fallback_source_name
+BLEU CLOUD,Online Dedicated,BLEU CLOUD,Online,fallback_source_name
+dsm Firmenich,Online Dedicated,DSM Firmenich,Online,exact
+Syngenta,Online Dedicated,Syngenta,Online,exact
+IBConsultants-Dedicated,Online Dedicated,IBConsultants-Dedicated,Online,fallback_source_name
+E-T-A,Online Dedicated,E-T-A,Online,exact
+PC Brussels SA,Online Dedicated,PC Brussels SA,Online,fallback_source_name
+XPO Logistics,Online Dedicated,XPO Logistics,Online,exact
+Bio-Rad,Online Dedicated,Bio-Rad,Online,fallback_source_name
+Gemeente Den Haag,Online Dedicated,Gemeente Den Haag,Online,exact
+Adragos Pharma,Online Dedicated,Adragos Pharma,Online,exact
+Cylad - demo,,Cylad - demo,TO BE DEFINED,fallback_source_name

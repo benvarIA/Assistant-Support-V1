@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Assistant Pro
+Comment=Lancer Assistant Pro puis l'ouvrir dans Chrome
+Exec=/bin/bash -lc '"/home/bvarisellaz/Assistant Pro/scripts/start-and-open-assistant-pro.sh"'
+Icon=applications-internet
+Terminal=false
+Categories=Development;
+StartupNotify=true

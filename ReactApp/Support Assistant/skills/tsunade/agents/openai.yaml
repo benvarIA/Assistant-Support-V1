@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tsunade"
+  short_description: "Étape 1: analyser et classifier l’email support."
+  default_prompt: "Analyse l’email (sujet, expéditeur, description) et retourne la catégorie de demande: Assistance, Question, Intervention livraison ou Intervention administration, avec un niveau de confiance et warnings."

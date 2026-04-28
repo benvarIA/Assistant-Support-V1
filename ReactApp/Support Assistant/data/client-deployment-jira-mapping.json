@@ -1,0 +1,162 @@
+{
+  "summary": {
+    "source_file": "/mnt/c/Users/BenoîtVarisellaz/Downloads/New Technical Information Report-2026-03-25-14-49-25.xlsx",
+    "total_source_rows": 579,
+    "total_output_rows": 579,
+    "unique_jira_clients": 575,
+    "mapped_exact_count": 240,
+    "fallback_source_name_count": 339,
+    "jira_deployment_mapping_rules": {
+      "OnPremise/Onsite": "Onsite",
+      "Online dédié": "Online",
+      "Online mutualisé": "Mutualisée (Team+, Team, Partners)"
+    },
+    "files": [
+      "data/client-deployment-jira-mapping.csv",
+      "data/client-deployment-jira-mapping-unique.csv",
+      "data/client-deployment-jira-unmatched.csv"
+    ]
+  },
+  "records_sample": [
+    {
+      "source_client_name": "Danaher",
+      "source_setup": "Mutualised NA  (deprecated for new customers)",
+      "jira_client_name": "Danaher",
+      "jira_deploiement_field": "Mutualisée (Team+, Team, Partners)",
+      "match_type": "fallback_source_name"
+    },
+    {
+      "source_client_name": "Argo Consulting USA",
+      "source_setup": "Mutualised NA  (deprecated for new customers)",
+      "jira_client_name": "Argo Consulting USA",
+      "jira_deploiement_field": "Mutualisée (Team+, Team, Partners)",
+      "match_type": "fallback_source_name"
+    },
+    {
+      "source_client_name": "Beckman Coulter Informatics",
+      "source_setup": "Mutualised NA  (deprecated for new customers)",
+      "jira_client_name": "Beckman Coulter Informatics",
+      "jira_deploiement_field": "Mutualisée (Team+, Team, Partners)",
+      "match_type": "fallback_source_name"
+    },
+    {
+      "source_client_name": "Nictiz NextGen",
+      "source_setup": "Online NextGen - Enterprise",
+      "jira_client_name": "Nictiz NextGen",
+      "jira_deploiement_field": "Online",
+      "match_type": "fallback_source_name"
+    },
+    {
+      "source_client_name": "Eaton NextGen",
+      "source_setup": "Online NextGen - Enterprise",
+      "jira_client_name": "Eaton NextGen",
+      "jira_deploiement_field": "Online",
+      "match_type": "fallback_source_name"
+    },
+    {
+      "source_client_name": "ADI NextGen",
+      "source_setup": "Online NextGen - Enterprise",
+      "jira_client_name": "ADI NextGen",
+      "jira_deploiement_field": "Online",
+      "match_type": "fallback_source_name"
+    },
+    {
+      "source_client_name": "STRADAL NextGen",
+      "source_setup": "Online NextGen - Enterprise",
+      "jira_client_name": "STRADAL NextGen",
+      "jira_deploiement_field": "Online",
+      "match_type": "fallback_source_name"
+    },
+    {
+      "source_client_name": "Campbells-Test",
+      "source_setup": "Online NextGen - Trial",
+      "jira_client_name": "Campbells-Test",
+      "jira_deploiement_field": "Online",
+      "match_type": "fallback_source_name"
+    },
+    {
+      "source_client_name": "hartmann-ng-demo2",
+      "source_setup": "Online NextGen - Trial",
+      "jira_client_name": "hartmann-ng-demo2",
+      "jira_deploiement_field": "Online",
+      "match_type": "fallback_source_name"
+    },
+    {
+      "source_client_name": "stradal-demofactory-nextgen",
+      "source_setup": "Online NextGen - Trial",
+      "jira_client_name": "stradal-demofactory-nextgen",
+      "jira_deploiement_field": "Online",
+      "match_type": "fallback_source_name"
+    },
+    {
+      "source_client_name": "girbaudemo",
+      "source_setup": "Online NextGen - Trial",
+      "jira_client_name": "girbaudemo",
+      "jira_deploiement_field": "Online",
+      "match_type": "fallback_source_name"
+    },
+    {
+      "source_client_name": "girbaunew",
+      "source_setup": "Online NextGen - Trial",
+      "jira_client_name": "girbaunew",
+      "jira_deploiement_field": "Online",
+      "match_type": "fallback_source_name"
+    },
+    {
+      "source_client_name": "testforchris",
+      "source_setup": "Online NextGen - Trial",
+      "jira_client_name": "testforchris",
+      "jira_deploiement_field": "Online",
+      "match_type": "fallback_source_name"
+    },
+    {
+      "source_client_name": "MBDA",
+      "source_setup": "Online NextGen - Trial",
+      "jira_client_name": "MBDA",
+      "jira_deploiement_field": "Online",
+      "match_type": "exact"
+    },
+    {
+      "source_client_name": "sscdemo",
+      "source_setup": "Online NextGen - Trial",
+      "jira_client_name": "sscdemo",
+      "jira_deploiement_field": "Online",
+      "match_type": "fallback_source_name"
+    },
+    {
+      "source_client_name": "nimrod",
+      "source_setup": "Online NextGen - Trial",
+      "jira_client_name": "nimrod",
+      "jira_deploiement_field": "Online",
+      "match_type": "fallback_source_name"
+    },
+    {
+      "source_client_name": "eiffage construction",
+      "source_setup": "Online NextGen - Trial",
+      "jira_client_name": "eiffage construction",
+      "jira_deploiement_field": "Online",
+      "match_type": "fallback_source_name"
+    },
+    {
+      "source_client_name": "getelec260126",
+      "source_setup": "Online NextGen - Trial",
+      "jira_client_name": "getelec260126",
+      "jira_deploiement_field": "Online",
+      "match_type": "fallback_source_name"
+    },
+    {
+      "source_client_name": "mars-demo",
+      "source_setup": "Online NextGen - Trial",
+      "jira_client_name": "mars-demo",
+      "jira_deploiement_field": "Online",
+      "match_type": "fallback_source_name"
+    },
+    {
+      "source_client_name": "iobeyaconsultants",
+      "source_setup": "Online NextGen - Trial",
+      "jira_client_name": "iobeyaconsultants",
+      "jira_deploiement_field": "Online",
+      "match_type": "fallback_source_name"
+    }
+  ]
+}

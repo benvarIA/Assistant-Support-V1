@@ -1,0 +1,157 @@
+{
+  "name": "QA Obeya Test Instance",
+  "defaults": {
+    "domainId": ""
+  },
+  "users": [
+    {
+      "username": "qa.manager",
+      "firstname": "Sofia",
+      "lastname": "Martin",
+      "email": "sofia.martin@example.com",
+      "password": "QAoBeya#2026",
+      "enabled": true
+    },
+    {
+      "username": "qa.coach",
+      "firstname": "Nora",
+      "lastname": "Leroy",
+      "email": "nora.leroy@example.com",
+      "password": "QAoBeya#2026",
+      "enabled": true
+    },
+    {
+      "username": "prod.lead",
+      "firstname": "Julien",
+      "lastname": "Fabre",
+      "email": "julien.fabre@example.com",
+      "password": "QAoBeya#2026",
+      "enabled": true
+    },
+    {
+      "username": "supply.lead",
+      "firstname": "Karim",
+      "lastname": "Perez",
+      "email": "karim.perez@example.com",
+      "password": "QAoBeya#2026",
+      "enabled": true
+    },
+    {
+      "username": "quality.lead",
+      "firstname": "Elodie",
+      "lastname": "Simon",
+      "email": "elodie.simon@example.com",
+      "password": "QAoBeya#2026",
+      "enabled": true
+    },
+    {
+      "username": "ops.analyst",
+      "firstname": "Tom",
+      "lastname": "Renard",
+      "email": "tom.renard@example.com",
+      "password": "QAoBeya#2026",
+      "enabled": true
+    },
+    {
+      "username": "plant.director",
+      "firstname": "Aline",
+      "lastname": "Morel",
+      "email": "aline.morel@example.com",
+      "password": "QAoBeya#2026",
+      "enabled": true
+    },
+    {
+      "username": "improvement.engineer",
+      "firstname": "Hugo",
+      "lastname": "Garnier",
+      "email": "hugo.garnier@example.com",
+      "password": "QAoBeya#2026",
+      "enabled": true
+    }
+  ],
+  "rooms": [
+    {
+      "name": "Pilotage Quotidien - Usine A",
+      "description": "Rituels production, qualite, securite et plans d'actions.",
+      "users": [
+        "qa.manager",
+        "qa.coach",
+        "prod.lead",
+        "quality.lead",
+        "ops.analyst"
+      ],
+      "boards": [
+        {
+          "name": "Daily QCD",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "name": "Top 5 Actions",
+          "x": 1,
+          "y": 0
+        },
+        {
+          "name": "Escalade Direction",
+          "x": 0,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "name": "Kaizen & Amelioration Continue",
+      "description": "Backlog d'idees, ateliers kaizen et suivi des gains.",
+      "users": [
+        "qa.coach",
+        "improvement.engineer",
+        "quality.lead",
+        "ops.analyst"
+      ],
+      "boards": [
+        {
+          "name": "Pipeline Kaizen",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "name": "Maturite Process",
+          "x": 1,
+          "y": 0
+        },
+        {
+          "name": "Avant / Apres",
+          "x": 0,
+          "y": 1
+        }
+      ]
+    },
+    {
+      "name": "Supply Chain War Room",
+      "description": "Livraisons, ruptures, capacite et arbitrages hebdomadaires.",
+      "users": [
+        "plant.director",
+        "supply.lead",
+        "prod.lead",
+        "ops.analyst"
+      ],
+      "boards": [
+        {
+          "name": "OTIF & Service",
+          "x": 0,
+          "y": 0
+        },
+        {
+          "name": "Risque Fournisseurs",
+          "x": 1,
+          "y": 0
+        },
+        {
+          "name": "Scenario Recovery",
+          "x": 0,
+          "y": 1
+        }
+      ]
+    }
+  ],
+  "customRequests": []
+}

@@ -1,0 +1,54 @@
+name: ${INSTANCE_NAME}
+
+services:
+  mysql:
+    image: ${MYSQL_IMAGE}
+    container_name: ${INSTANCE_NAME}-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: ${TZ}
+    ports:
+      - "${MYSQL_PORT_HOST}:3306"
+    volumes:
+      - ../instances/${INSTANCE_NAME}/mysql/data:/var/lib/mysql
+      - ../instances/${INSTANCE_NAME}/mysql/initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+    networks:
+      - iobeya
+
+  tomcat:
+    image: ${TOMCAT_IMAGE}
+    container_name: ${INSTANCE_NAME}-tomcat
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      TZ: ${TZ}
+      CATALINA_OPTS: ${CATALINA_OPTS}
+    ports:
+      - "${HTTP_PORT_HOST}:8080"
+    volumes:
+      - ../instances/${INSTANCE_NAME}/tomcat/conf/ROOT.xml:/usr/local/tomcat/conf/Catalina/localhost/ROOT.xml:ro
+      - ../instances/${INSTANCE_NAME}/tomcat/lib/mysql-connector-java.jar:/usr/local/tomcat/lib/mysql-connector-java.jar:ro
+      - ../instances/${INSTANCE_NAME}/app/docBase:/var/iobeya/webapp:ro
+      - ../instances/${INSTANCE_NAME}/app/data:/var/iobeya/data
+      - ../instances/${INSTANCE_NAME}/app/assets:/var/iobeya/assets
+      - ../instances/${INSTANCE_NAME}/app/logs:/var/iobeya/logs
+      - ../instances/${INSTANCE_NAME}/app/settings:/var/iobeya/settings
+      - ../instances/${INSTANCE_NAME}/app/settings/log4j2.xml:/var/iobeya/settings/log4j2.xml:ro
+      - ../instances/${INSTANCE_NAME}/app/settings/fonts:/usr/local/share/fonts/iobeya:ro
+    networks:
+      - iobeya
+
+networks:
+  iobeya:
+    name: ${INSTANCE_NAME}-net

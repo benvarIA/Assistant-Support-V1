@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Context
+  docBase="/var/iobeya/webapp/iobeya"
+  baseDirectory="/var/iobeya/data"
+  dataDirectory="/var/iobeya/data"
+  tempDirectory="/var/iobeya/data/temp"
+  cacheDirectory="/var/iobeya/data/cache"
+  assetDirectory="/var/iobeya/assets"
+  indexDirectory="/var/iobeya/data/index"
+  log4j2FilePath="/var/iobeya/settings/log4j2.xml"
+  pluginsPropertiesDirectory="/var/iobeya/settings/plugins"
+  rootAuthorizeUri="${ROOT_AUTHORIZE_URI}"
+  rootTokenUri="${ROOT_TOKEN_URI}"
+>
+  <Resource
+    name="jdbc/iobeya"
+    auth="Container"
+    type="javax.sql.DataSource"
+    maxTotal="120"
+    maxIdle="30"
+    maxWaitMillis="30000"
+    username="${MYSQL_USER}"
+    password="${MYSQL_PASSWORD}"
+    driverClassName="org.mariadb.jdbc.Driver"
+    url="jdbc:mysql://mysql:3306/${MYSQL_DATABASE}?autoReconnectForPools=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=UTC"
+    testOnBorrow="true"
+    validationQuery="SELECT 1"
+  />
+</Context>

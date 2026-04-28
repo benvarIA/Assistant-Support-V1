@@ -1,0 +1,4 @@
+interface:
+  display_name: "Roll-Out Manager"
+  short_description: "Gérer et suivre les plans de déploiement Roll-Out."
+  default_prompt: "Aide-moi à préparer, suivre et mettre à jour un plan de Roll-Out."
