@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-04-28T12:27:24.404Z",
-  "count": 406,
+  "updatedAt": "2026-05-11T10:00:24.527Z",
+  "count": 408,
   "values": [
     "_PROSPECT_",
     "_TRIAL_",
@@ -131,6 +131,7 @@
     "EDF DSIT",
     "Edrington Distillers Ltd",
     "Eiffage Metal - Team",
+    "Eiffage Nextgen",
     "Electrolux Italia S.p.A. TEAM",
     "Electropoli Isigny",
     "Eli Lilly",
@@ -223,6 +224,7 @@
     "Laboratorios Silanes",
     "LBL Brenta",
     "LEANXVERSE",
+    "LEM",
     "Les Fermiers (Via POP)",
     "Lesaffre",
     "Life & Mobility",
@@ -927,6 +929,10 @@
       "value": "Eiffage Metal - Team"
     },
     {
+      "id": "18795",
+      "value": "Eiffage Nextgen"
+    },
+    {
       "id": "15525",
       "value": "Electrolux Italia S.p.A. TEAM"
     },
@@ -1293,6 +1299,10 @@
     {
       "id": "17887",
       "value": "LEANXVERSE"
+    },
+    {
+      "id": "18828",
+      "value": "LEM"
     },
     {
       "id": "15910",

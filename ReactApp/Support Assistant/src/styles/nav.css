@@ -1,0 +1,268 @@
+/* ============================================================
+   NAV TABS
+   ============================================================ */
+
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+  padding: 0.2rem;
+  flex-shrink: 0;
+}
+
+.nav-tab {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.28rem 0.75rem;
+  border-radius: 6px;
+  letter-spacing: -0.01em;
+  transition: background 0.15s var(--ease-out), color 0.15s var(--ease-out);
+  white-space: nowrap;
+}
+
+.nav-tab:hover:not(.nav-tab--active) {
+  background: rgba(255, 255, 255, 0.06);
+  color: #e2e8f0;
+}
+
+.nav-tab--active {
+  background: rgba(59, 130, 246, 0.18);
+  color: #93c5fd;
+  font-weight: 600;
+}
+
+/* ============================================================
+   TREATMENT PANEL
+   ============================================================ */
+
+.treatment-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1.5rem;
+  gap: 1.5rem;
+}
+
+.treatment-panel--empty {
+  align-items: center;
+  justify-content: center;
+}
+
+.treatment-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  text-align: center;
+  opacity: 0.45;
+}
+
+.treatment-empty-icon {
+  font-size: 1.6rem;
+  color: #3b82f6;
+  opacity: 0.6;
+}
+
+.treatment-empty-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.treatment-empty-hint {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 260px;
+}
+
+.treatment-email-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.treatment-email-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.treatment-email-sender {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.treatment-jira-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #60a5fa;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 4px;
+  padding: 0.1rem 0.45rem;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+
+.treatment-jira-badge:hover {
+  background: rgba(59, 130, 246, 0.18);
+}
+
+.treatment-email-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.treatment-actions-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.treatment-coming-soon {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  opacity: 0.5;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Analysis summary badge */
+
+.assistance-summary-badge {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  animation: fade-in 0.2s var(--ease-out);
+}
+
+.assistance-badge--progress {
+  border-color: rgba(234, 179, 8, 0.3);
+  background: rgba(234, 179, 8, 0.06);
+}
+
+.assistance-badge--done {
+  border-color: rgba(34, 197, 94, 0.3);
+  background: rgba(34, 197, 94, 0.06);
+}
+
+.assistance-badge-status {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.assistance-badge--progress .assistance-badge-status { color: #ca8a04; }
+.assistance-badge--done .assistance-badge-status    { color: #16a34a; }
+
+.assistance-badge-text {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* treatment-action-card active state (analysis done) */
+
+.treatment-action-card--active {
+  border-color: rgba(59, 130, 246, 0.35);
+  background: rgba(59, 130, 246, 0.04);
+}
+
+/* Action cards */
+
+.treatment-action-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.treatment-action-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 1.25rem 1.1rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.18s var(--ease-out), background 0.18s var(--ease-out), transform 0.15s var(--ease-spring), box-shadow 0.18s var(--ease-out);
+}
+
+.treatment-action-card:hover {
+  border-color: rgba(59, 130, 246, 0.45);
+  background: rgba(59, 130, 246, 0.05);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.treatment-action-card:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.treatment-action-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.treatment-action-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.treatment-action-desc {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+/* Stub notice inside modal */
+
+.treatment-stub-notice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 3rem 1rem;
+  text-align: center;
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+.treatment-stub-icon {
+  font-size: 2.5rem;
+}
+
+.treatment-stub-notice p {
+  font-size: 0.85rem;
+  font-style: italic;
+  margin: 0;
+}
+

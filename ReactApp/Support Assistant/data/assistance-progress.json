@@ -1,0 +1,19 @@
+{
+  "AAQkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgAQAEJn2KOlIr1MiMnxrGzYCB4=": {
+    "status": "in_progress",
+    "summary": "Analyse lancée — 1 agent(s) · mode séquentiel",
+    "reports": [
+      {
+        "agentId": "analyse",
+        "status": "pending",
+        "report": "",
+        "startedAt": null,
+        "finishedAt": null,
+        "errorMessage": null
+      }
+    ],
+    "consolidation": "",
+    "emailDraft": "",
+    "updatedAt": "2026-05-05T21:04:53.588Z"
+  }
+}

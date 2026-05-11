@@ -1,0 +1,20 @@
+<svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .hex { fill: #0052CC; }
+      .center { fill: white; }
+    </style>
+  </defs>
+  <!-- Hexagons arranged in a circle pattern -->
+  <polygon class="hex" points="120,40 155,60 155,100 120,120 85,100 85,60"/>
+  <polygon class="hex" points="170,85 205,105 205,145 170,165 135,145 135,105"/>
+  <polygon class="hex" points="170,155 205,175 205,215 170,235 135,215 135,175"/>
+  <polygon class="hex" points="120,200 155,220 155,240 120,240 85,220 85,200"/>
+  <polygon class="hex" points="70,155 105,175 105,215 70,235 35,215 35,175"/>
+  <polygon class="hex" points="70,85 105,105 105,145 70,165 35,145 35,105"/>
+  <polygon class="hex" points="35,60 70,40 105,60 105,100 70,120 35,100"/>
+  <polygon class="hex" points="155,60 190,40 225,60 225,100 190,120 155,100"/>
+
+  <!-- Center white star -->
+  <circle class="center" cx="120" cy="120" r="50"/>
+</svg>

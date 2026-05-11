@@ -169,7 +169,9 @@ def ensure_access_token(client_id: str, tenant: str) -> str:
             "scope": " ".join(SCOPES),
         },
     )
-    save_token(refreshed)
+    # Merge with old token so refresh_token is preserved if Microsoft doesn't return a new one
+    merged = {**token, **refreshed}
+    save_token(merged)
     return refreshed["access_token"]
 
 

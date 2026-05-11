@@ -1,0 +1,245 @@
+/* ============================================================
+   TOAST
+   ============================================================ */
+
+.toast {
+  position: fixed;
+  top: 4rem;
+  right: 1rem;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: min(420px, calc(100vw - 2rem));
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  animation: toast-slide-in 0.28s var(--ease-spring);
+  font-size: 0.83rem;
+  font-weight: 500;
+}
+
+@keyframes toast-slide-in {
+  from { transform: translateX(calc(100% + 1rem)); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+.toast-success {
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+.toast-error {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.toast-close {
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.1rem 0.2rem;
+  opacity: 0.55;
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+
+.toast-close:hover {
+  opacity: 1;
+}
+
+/* ============================================================
+   MODALS
+   ============================================================ */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(9, 15, 30, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  z-index: 50;
+  animation: backdrop-in 0.2s var(--ease-out);
+}
+
+@keyframes backdrop-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal-card {
+  width: min(760px, 100%);
+  max-height: min(88vh, 920px);
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  padding: 1.6rem;
+  display: grid;
+  gap: 1rem;
+  animation: modal-in 0.24s var(--ease-spring);
+}
+
+@keyframes modal-in {
+  from { opacity: 0; transform: scale(0.97) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-card-large {
+  width: min(1080px, 100%);
+}
+
+.modal-card-compact {
+  width: min(480px, 100%);
+}
+
+.modal-card h2,
+.modal-card p {
+  margin: 0;
+}
+
+/* Modal header */
+.header h1 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.header p {
+  margin: 0.3rem 0 0;
+  color: var(--text-secondary);
+  font-size: 0.86rem;
+}
+
+/* Jira match cards */
+.modal-match-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.modal-match-card {
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: #faf9f7;
+  padding: 0.95rem;
+  display: grid;
+  gap: 0.45rem;
+  transition: border-color 0.15s var(--ease-out), box-shadow 0.15s var(--ease-out);
+}
+
+.modal-match-card:hover {
+  border-color: var(--accent-border);
+  box-shadow: var(--shadow-sm), 0 0 0 1px rgba(37, 99, 235, 0.06);
+}
+
+.modal-match-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  color: #6b7280;
+  font-size: 0.82rem;
+}
+
+/* Section inside modal */
+.emails {
+  border: 1px solid var(--border-light);
+  border-radius: 11px;
+  background: #faf9f7;
+  padding: 0.9rem;
+}
+
+.emails h2 {
+  margin: 0 0 0.6rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: -0.01em;
+}
+
+/* ============================================================
+   JIRA FORM
+   ============================================================ */
+
+.jira-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem;
+}
+
+.jira-form h3 {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 0.93rem;
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.jira-form label {
+  display: grid;
+  gap: 0.3rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.jira-form input,
+.jira-form select,
+.jira-form textarea {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.55rem 0.75rem;
+  font: inherit;
+  font-size: 0.86rem;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  transition: border-color 0.15s var(--ease-out), box-shadow 0.15s var(--ease-out);
+}
+
+.jira-form input:focus,
+.jira-form select:focus,
+.jira-form textarea:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.jira-form textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.jira-form .full {
+  grid-column: 1 / -1;
+}
+
+.jira-form-actions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.close-ticket-actions {
+  justify-content: flex-end;
+}
+
+/* Detail grid */
+.detail-grid {
+  display: grid;
+  gap: 0.4rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+

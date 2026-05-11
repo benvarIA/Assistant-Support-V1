@@ -1,0 +1,124 @@
+/* ============================================================
+   ERROR BANNER
+   ============================================================ */
+
+.error-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.65rem 0.85rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 9px;
+  color: #dc2626;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.error-banner-icon {
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+  font-size: 0.9rem;
+}
+
+.error-banner-text {
+  flex: 1;
+  min-width: 0;
+  word-break: break-word;
+}
+
+.error-banner-dismiss {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: #dc2626;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.6;
+  margin-top: -0.1rem;
+}
+
+.error-banner-dismiss:hover {
+  opacity: 1;
+}
+
+/* ============================================================
+   BUTTON VARIANTS
+   ============================================================ */
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: #f0ede8;
+  border-color: #c9c6be;
+  color: var(--text-primary);
+}
+
+.btn-danger {
+  background: #ef4444;
+  border: 1px solid #ef4444;
+  color: #ffffff;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #dc2626;
+  border-color: #dc2626;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 640px) {
+  .workspace {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    max-height: calc(100svh - 52px - 220px);
+  }
+
+  .action-buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .jira-form {
+    grid-template-columns: 1fr;
+  }
+
+  .toast {
+    top: auto;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    max-width: none;
+  }
+
+  .stepper {
+    padding: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .action-buttons {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .email-header-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .main-panel {
+    padding: 1rem;
+  }
+}

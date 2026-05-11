@@ -1,0 +1,218 @@
+/* ============================================================
+   ASSISTANCE MODAL — Phase 5a
+   ============================================================ */
+
+.assistance-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.assistance-section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-secondary);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.assistance-count-badge {
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.1rem 0.5rem;
+  border-radius: 20px;
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Mode toggle */
+
+.assistance-mode-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.assistance-mode-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+  padding: 0.7rem 0.9rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s var(--ease-out), background 0.15s var(--ease-out);
+}
+
+.assistance-mode-btn:hover {
+  border-color: rgba(59, 130, 246, 0.35);
+  background: rgba(59, 130, 246, 0.04);
+}
+
+.assistance-mode-btn--active {
+  border-color: rgba(59, 130, 246, 0.5);
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.assistance-mode-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+  margin-bottom: 0.1rem;
+}
+
+.assistance-mode-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.assistance-mode-hint {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+/* Agent grid */
+
+.assistance-agent-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.45rem;
+}
+
+.assistance-agent-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  overflow: hidden;
+  transition: border-color 0.15s var(--ease-out);
+}
+
+.assistance-agent-card--selected {
+  border-color: rgba(59, 130, 246, 0.45);
+  background: rgba(59, 130, 246, 0.04);
+}
+
+.assistance-agent-toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.6rem 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+
+.assistance-agent-toggle:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.assistance-agent-checkbox {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1.5px solid var(--border);
+  background: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  color: white;
+  margin-top: 1px;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.assistance-agent-checkbox--checked {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+.assistance-agent-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.assistance-agent-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.assistance-agent-desc {
+  font-size: 0.71rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Inline config (model + effort) */
+
+.assistance-agent-config {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  border-top: 1px solid rgba(59, 130, 246, 0.15);
+  background: rgba(59, 130, 246, 0.04);
+  animation: fade-in 0.15s var(--ease-out);
+}
+
+.assistance-config-field {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.assistance-config-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  width: 44px;
+  flex-shrink: 0;
+}
+
+.assistance-pill-group {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.assistance-pill {
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 0.2rem 0.55rem;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+  white-space: nowrap;
+}
+
+.assistance-pill:hover {
+  border-color: rgba(59, 130, 246, 0.4);
+  color: var(--text-primary);
+}
+
+.assistance-pill--active {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: white;
+  font-weight: 600;
+}
+
