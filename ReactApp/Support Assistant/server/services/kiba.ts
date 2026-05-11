@@ -11,41 +11,78 @@ import { buildHtmlBody, getTemplateSection, type KibaVars } from './kibaTemplate
 const KIBA_CC = ['support@iobeya.com', 'sales.support@iobeya.com']
 const KIBA_BCC = ['admin@iobeya.com']
 
+/** Strip all HTML tags, collapse whitespace. */
+function stripTags(html: string): string {
+  return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
+}
+
 /**
- * ADF → structured text that preserves table column-value associations.
- * Normal nodes: plain text concatenation.
- * Table rows: "Col1: val1 | Col2: val2 | Col3: val3"
+ * Parse the first HTML table found in html into { header: value } pairs.
+ * Returns an empty object if no table is found.
  */
-function adfToStructuredText(node: unknown, headerRow: string[] = []): string {
-  if (!node || typeof node !== 'object') return ''
-  const n = node as Record<string, unknown>
+function parseHtmlTable(html: string): Record<string, string> {
+  const result: Record<string, string> = {}
+  const tableMatch = html.match(/<table[\s\S]*?<\/table>/i)
+  if (!tableMatch) return result
 
-  if (n.type === 'table') {
-    const rows = Array.isArray(n.content) ? n.content as Record<string, unknown>[] : []
-    const lines: string[] = []
-    let headers: string[] = []
-    for (const row of rows) {
-      if (row.type !== 'tableRow') continue
-      const cells = Array.isArray(row.content) ? row.content as Record<string, unknown>[] : []
-      const isHeader = cells.some((c) => c.type === 'tableHeader')
-      const cellTexts = cells.map((c) => adfToStructuredText(c))
-      if (isHeader) {
-        headers = cellTexts
-        lines.push(cellTexts.join(' | '))
-      } else if (headers.length === cellTexts.length) {
-        lines.push(headers.map((h, i) => `${h}: ${cellTexts[i]}`).join(' | '))
-      } else {
-        lines.push(cellTexts.join(' | '))
-      }
+  const rows = [...tableMatch[0].matchAll(/<tr[\s\S]*?<\/tr>/gi)]
+  let headers: string[] = []
+
+  for (const row of rows) {
+    // th = header cells, td = data cells
+    const thCells = [...row[0].matchAll(/<th[^>]*>([\s\S]*?)<\/th>/gi)].map(m => stripTags(m[1]))
+    const tdCells = [...row[0].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map(m => stripTags(m[1]))
+
+    if (thCells.length > 0) {
+      headers = thCells
+    } else if (tdCells.length > 0 && headers.length === 0) {
+      // First row is all <td> but acts as header (some templates do this)
+      headers = tdCells
+    } else if (tdCells.length > 0 && headers.length > 0) {
+      headers.forEach((h, i) => { if (tdCells[i]) result[h.toLowerCase()] = tdCells[i] })
     }
-    return lines.join('\n')
   }
+  return result
+}
 
-  const text = typeof n.text === 'string' ? n.text : ''
-  const children = Array.isArray(n.content)
-    ? (n.content as unknown[]).map((c) => adfToStructuredText(c, headerRow)).join(' ')
-    : ''
-  return `${text} ${children}`.trim()
+/** Match a column value by trying multiple synonyms (case-insensitive). */
+function matchColumn(table: Record<string, string>, ...keys: string[]): string {
+  for (const key of keys) {
+    for (const col of Object.keys(table)) {
+      if (col.includes(key.toLowerCase())) return table[col]
+    }
+  }
+  return 'Non communiqué'
+}
+
+/**
+ * Extract delivery variables from the email HTML body + Jira summary.
+ * Pure parsing — no LLM, no async.
+ */
+function extractKibaVars(
+  emailHtml: string,
+  jiraSummary: string,
+  emailTitle: string,
+): Omit<KibaVars, 'quoteNumber'> {
+  const table = parseHtmlTable(emailHtml)
+  const bodyText = stripTags(emailHtml)
+
+  // Salles / Panneaux / Utilisateurs from the HTML table
+  const salles = matchColumn(table, 'salle', 'room', 'license to create')
+  const panneaux = matchColumn(table, 'panneau', 'board')
+  const utilisateurs = matchColumn(table, 'utilisateur', 'user')
+
+  // Renewal date: look for dd/mm/yyyy or dd-mm-yyyy patterns
+  const dateMatch = bodyText.match(/\b(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})\b/)
+  const renewalDate = dateMatch ? `${dateMatch[1].padStart(2,'0')}/${dateMatch[2].padStart(2,'0')}/${dateMatch[3]}` : 'Non communiqué'
+
+  // Customer name: strip known delivery prefixes from Jira summary
+  const customerName = jiraSummary
+    .replace(/^(renouvellement|nouvelle salle|nouveau client|livraison)\s+iobeya\s*[–\-:]\s*/i, '')
+    .replace(/^iobeya\s*[–\-:]\s*/i, '')
+    .trim() || (emailTitle.replace(/^(re:|fwd:|tr:)\s*/i, '').trim()) || 'Non communiqué'
+
+  return { customerName, renewalDate, salles, panneaux, utilisateurs }
 }
 
 export async function kibaPreflightCheck(
@@ -199,80 +236,6 @@ export async function proposeKibaDelivery(
   }
 }
 
-/**
- * Step 1 of draft creation: use a single fast codex call to extract structured
- * delivery variables from the Jira ticket text. No agent loop, no tools — pure
- * JSON extraction from raw text.
- */
-async function extractKibaVars(
-  jiraSummary: string,
-  jiraStructuredText: string,
-  emailTitle: string,
-  emailSender: string,
-  emailBodyText: string,
-): Promise<Omit<KibaVars, 'quoteNumber'>> {
-  const outputFile = path.join('/tmp', `kiba-extract-${Date.now()}-${Math.random().toString(16).slice(2)}.json`)
-
-  const prompt = [
-    'Extrait les variables de livraison depuis ces données et retourne UNIQUEMENT un JSON valide.',
-    'Ne fais rien d\'autre. Pas de texte avant ou après le JSON.',
-    '',
-    `Résumé Jira: ${jiraSummary}`,
-    `Sujet email: ${emailTitle}`,
-    `Expéditeur: ${emailSender}`,
-    emailBodyText ? `\nCorps de l\'email (source prioritaire pour les données licence) :\n${emailBodyText.slice(0, 2000)}` : '',
-    jiraStructuredText ? `\nDescription Jira (tableaux avec colonnes: valeurs) :\n${jiraStructuredText.slice(0, 2000)}` : '',
-    '',
-    'Règles :',
-    '- Lis les tableaux ligne par ligne : la valeur de chaque cellule correspond à l\'en-tête de sa colonne.',
-    '- "salles" = colonne "Nombre de Salles" ou "Salles" ou "Rooms" ou "License to create".',
-    '- "panneaux" = colonne "Panneaux" ou "Boards".',
-    '- "utilisateurs" = colonne "Utilisateurs" ou "Users".',
-    '- Ces trois valeurs sont toujours DISTINCTES.',
-    '- "renewalDate" = "Renewal date" ou "Date de renouvellement", format JJ/MM/AAAA.',
-    '- "customerName" = nom du client (société), pas un prénom seul.',
-    '',
-    'Retourne exactement ce JSON :',
-    JSON.stringify({
-      customerName: 'nom de la société cliente (ex: LBL BRENTA, RATP CML)',
-      renewalDate: 'JJ/MM/AAAA ou "Non communiqué"',
-      salles: 'chiffre uniquement ou "Non communiqué"',
-      panneaux: 'chiffre uniquement ou "Non communiqué"',
-      utilisateurs: 'chiffre uniquement ou "Non communiqué"',
-    }),
-  ].filter(Boolean).join('\n')
-
-  const modelArgs = await getModelArgs('treatment')
-  const result = await runCommand(
-    'codex',
-    ['exec', '--skip-git-repo-check', '--color', 'never', ...modelArgs, '-o', outputFile, prompt],
-    APP_DIR,
-    60_000, // 1 minute max — just JSON extraction, no tools
-  )
-
-  let raw = ''
-  try {
-    raw = (await readFile(outputFile, 'utf-8')).trim()
-  } catch {
-    raw = result.stdout.trim()
-  } finally {
-    void unlink(outputFile).catch(() => undefined)
-  }
-
-  if (!raw && result.code !== 0) {
-    throw new Error(sanitizeCodexError(result.stderr || result.stdout))
-  }
-
-  const parsed = JSON.parse(extractJsonObject(raw)) as Partial<Omit<KibaVars, 'quoteNumber'>>
-  return {
-    customerName: parsed.customerName || 'Non communiqué',
-    renewalDate: parsed.renewalDate || 'Non communiqué',
-    salles: parsed.salles || 'Non communiqué',
-    panneaux: parsed.panneaux || 'Non communiqué',
-    utilisateurs: parsed.utilisateurs || 'Non communiqué',
-  }
-}
-
 export async function createKibaOutlookDraft(
   email: JiraAnalyzeInput,
   jiraKey: string,
@@ -290,50 +253,37 @@ export async function createKibaOutlookDraft(
     }
   }
 
-  // ── 2. Fetch Jira data + email thread body (fast API calls) ─────────────
+  // ── 2. Fetch Jira summary + email HTML body (parallel, fast API calls) ────
   const jira = await readJsonFile<JiraConfig>(JIRA_CONFIG_CACHE)
   let jiraSummary = ''
-  let jiraStructuredText = ''
-  let emailBodyText = ''
+  let emailHtml = ''
 
-  const [jiraResult, microsoftToken] = await Promise.allSettled([
+  await Promise.allSettled([
     (async () => {
-      const { baseUrl, auth } = buildJiraAuth(jira)
-      const resp = await fetch(
-        `${baseUrl}/rest/api/3/issue/${encodeURIComponent(jiraKey)}?fields=summary,description`,
-        { headers: { Authorization: `Basic ${auth}`, Accept: 'application/json' } },
-      )
-      if (!resp.ok) return
-      const data = await resp.json() as { fields?: { summary?: string; description?: unknown } }
-      jiraSummary = typeof data.fields?.summary === 'string' ? data.fields.summary : ''
-      jiraStructuredText = adfToStructuredText(data.fields?.description)
+      try {
+        const { baseUrl, auth } = buildJiraAuth(jira)
+        const resp = await fetch(
+          `${baseUrl}/rest/api/3/issue/${encodeURIComponent(jiraKey)}?fields=summary`,
+          { headers: { Authorization: `Basic ${auth}`, Accept: 'application/json' } },
+        )
+        if (resp.ok) {
+          const data = await resp.json() as { fields?: { summary?: string } }
+          jiraSummary = typeof data.fields?.summary === 'string' ? data.fields.summary : ''
+        }
+      } catch { /* continue */ }
     })(),
-    ensureMicrosoftAccessToken(),
+    (async () => {
+      try {
+        const token = await ensureMicrosoftAccessToken()
+        const messages = await listThreadMessages(email, token)
+        const firstMsg = messages[0]
+        if (firstMsg?.body?.content) emailHtml = firstMsg.body.content
+      } catch { /* continue */ }
+    })(),
   ])
 
-  if (microsoftToken.status === 'fulfilled') {
-    try {
-      const messages = await listThreadMessages(email, microsoftToken.value)
-      const firstMsg = messages[0]
-      if (firstMsg?.body?.content) {
-        emailBodyText = cutAtSignatureAndQuote(stripHtml(firstMsg.body.content))
-      }
-    } catch {
-      // Continue without email body
-    }
-  }
-  void jiraResult // fetched for side-effects above
-
-  // ── 3. Extract variables via fast codex call (single JSON extraction) ────
-  const extracted = await extractKibaVars(
-    jiraSummary,
-    jiraStructuredText,
-    email.title || '',
-    email.sender || '',
-    emailBodyText,
-  )
-
-  // quoteNumber: left empty if not found — the template omits the parentheses when absent
+  // ── 3. Extract variables — pure HTML parsing, zero LLM ───────────────────
+  const extracted = extractKibaVars(emailHtml, jiraSummary, email.title || '')
   const vars: KibaVars = { ...extracted, quoteNumber: '' }
 
   // ── 4. Build HTML body from static template (instant, no LLM) ───────────
