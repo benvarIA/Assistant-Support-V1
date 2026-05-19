@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-05-11T10:00:24.527Z",
-  "count": 408,
+  "updatedAt": "2026-05-13T11:02:02.393Z",
+  "count": 410,
   "values": [
     "_PROSPECT_",
     "_TRIAL_",
@@ -283,6 +283,7 @@
     "Ovale Performance - Partner",
     "Pella Corp",
     "Pernod Ricard",
+    "Petit Bateau",
     "Pfeiffer Vaccum",
     "PGB Pensioendiensten",
     "Philip Morris International - UK",
@@ -343,6 +344,7 @@
     "SOITEC",
     "Souriau",
     "Spie Batignolles",
+    "SPINEART via CUBIK PARTNERS",
     "Stago",
     "Stanwick",
     "Staubli",
@@ -1537,6 +1539,10 @@
       "value": "Pernod Ricard"
     },
     {
+      "id": "18894",
+      "value": "Petit Bateau"
+    },
+    {
       "id": "11801",
       "value": "Pfeiffer Vaccum"
     },
@@ -1775,6 +1781,10 @@
     {
       "id": "16112",
       "value": "Spie Batignolles"
+    },
+    {
+      "id": "18861",
+      "value": "SPINEART via CUBIK PARTNERS"
     },
     {
       "id": "16227",

@@ -36,3 +36,7 @@ __pycache__/
 
 # Local nested Git backup (created while publishing this folder as one repo)
 .git.nested-backup*/
+
+# Local Claude/Codex worktrees
+.claude/worktrees/
+**/.claude/worktrees/
