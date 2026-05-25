@@ -41,8 +41,13 @@ import {
   collectThreadAttachments,
   cutAtSignatureAndQuote,
   ensureMicrosoftAccessToken,
+  extractCidsFromUniqueBody,
+  fetchFileAttachment,
+  fetchFileAttachmentBytesViaValue,
+  fetchMessageAttachmentRefs,
   getImageDimensions,
   listThreadMessages,
+  normalizeContentId,
   stripHtml,
   updateThreadMessagesCategories,
 } from './microsoft.js'
@@ -552,7 +557,7 @@ export async function createJiraIssue(
         )
         return keys.size > 0 ? keys : undefined
       })()
-      const { attachments, report } = await collectThreadAttachments(sourceEmail, microsoftToken, selectedAttachmentKeys)
+      const { attachments, report } = await collectThreadAttachments(threadMessages, microsoftToken, selectedAttachmentKeys)
       const upload = await uploadJiraAttachments(jira, key, attachments)
       const embedErrors: string[] = []
       const inlineTargetsBySrc = new Map<string, EmbeddedImageTarget>()
@@ -1098,6 +1103,65 @@ export async function traceRemainingEmailsInJira(input: JiraAnalyzeInput, jiraKe
       console.warn('Unable to persist trace marker on Jira comment', { jiraKey, commentId, error })
     }
     subjects.push(message.subject?.trim() || '(Sans sujet)')
+  }
+
+  // Upload file attachments missing from the Jira ticket.
+  // Scans the ENTIRE thread (including the first/original email) so HAR files and other
+  // attachments from the initial customer email are not skipped.
+  // Inline attachments (signature images, logos) are excluded unconditionally via isInline.
+  try {
+    const { baseUrl, auth } = buildJiraAuth(jira)
+    const issueResponse = await fetch(
+      `${baseUrl}/rest/api/3/issue/${encodeURIComponent(jiraKey)}?fields=attachment`,
+      { headers: { Authorization: `Basic ${auth}`, Accept: 'application/json' } },
+    )
+    const existingFilenames = new Set<string>()
+    if (issueResponse.ok) {
+      const issueBody = (await issueResponse.json()) as { fields?: { attachment?: Array<{ filename?: string }> } }
+      for (const att of issueBody.fields?.attachment ?? []) {
+        const name = att.filename?.trim()
+        if (name) existingFilenames.add(name.toLowerCase())
+      }
+    }
+
+    const uploadables: UploadableAttachment[] = []
+    const seenFilenames = new Set<string>()
+    for (const message of thread) {
+      if (!message.id || !message.hasAttachments) continue
+      const refs = await fetchMessageAttachmentRefs(message.id, microsoftToken)
+      const uniqueBodyCids = extractCidsFromUniqueBody(message)
+      for (const ref of refs) {
+        if (!ref.id || !ref.name?.trim()) continue
+        const isInlineImage = Boolean(ref.isInline) && (ref.contentType?.trim().toLowerCase() || '').startsWith('image/')
+        if (isInlineImage) {
+          const cid = normalizeContentId(ref.contentId)
+          const refName = normalizeContentId(ref.name)
+          const inUniqueBody = (cid && uniqueBodyCids.has(cid)) || (refName && uniqueBodyCids.has(refName))
+          if (!inUniqueBody) continue
+        } else if (ref.isInline) {
+          continue
+        }
+        const nameLower = ref.name.trim().toLowerCase()
+        if (existingFilenames.has(nameLower)) continue
+        if (seenFilenames.has(nameLower)) continue
+        seenFilenames.add(nameLower)
+        const full = await fetchFileAttachment(message.id, ref.id, microsoftToken)
+        const bytes = full?.contentBytes
+          ? Buffer.from(full.contentBytes, 'base64')
+          : await fetchFileAttachmentBytesViaValue(message.id, ref.id, microsoftToken)
+        if (!bytes || bytes.length === 0 || bytes.length > 20 * 1024 * 1024) continue
+        uploadables.push({
+          filename: ref.name.trim(),
+          contentType: full?.contentType?.trim() || ref.contentType?.trim() || 'application/octet-stream',
+          bytes,
+        })
+      }
+    }
+    if (uploadables.length > 0) {
+      await uploadJiraAttachments(jira, jiraKey, uploadables)
+    }
+  } catch (attachmentError) {
+    console.warn('[Trace] Upload pièces jointes ignoré:', { jiraKey, attachmentError })
   }
 
   return { jiraKey, added: toTrace.length, subjects, lastMatchedEmailId: matchedEmailId }

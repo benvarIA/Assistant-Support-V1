@@ -22,6 +22,12 @@ export type GraphEmailFrom = {
   emailAddress?: GraphEmailAddress
 }
 
+export type ClientTechInfo = {
+  setup: string
+  language: string
+  status: string
+}
+
 export type GraphEmail = {
   id: string
   subject?: string
@@ -34,6 +40,7 @@ export type GraphEmail = {
   jiraKey?: string | null
   jiraUrl?: string | null
   jiraMatches?: JiraIssueMatch[]
+  clientInfo?: ClientTechInfo
   body?: {
     contentType?: string
     content?: string

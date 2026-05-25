@@ -1,5 +1,13 @@
 import type { EffortLevel, PrisEmailRow, TreatmentProgress, MicrosoftFeedback, JiraClientsFeedback } from '../types'
 
+function formatSetupShort(setup: string): string {
+  if (setup === 'Onsite') return 'Onsite'
+  if (setup === 'Online Dedicated') return 'Online'
+  if (setup.startsWith('Mutualised')) return 'Mutu'
+  if (setup.startsWith('Online NextGen')) return 'NextGen'
+  return setup.slice(0, 8)
+}
+
 const EFFORTS: { value: EffortLevel; label: string }[] = [
   { value: 'low',    label: 'Faible' },
   { value: 'medium', label: 'Moyen'  },
@@ -146,14 +154,30 @@ export default function EmailSidebar({
                   ) : null}
                 </div>
                 <p className="email-subject">{email.title}</p>
-                {email.receivedDateTime && (
-                  <time className="email-date">
-                    {new Date(email.receivedDateTime).toLocaleDateString('fr-FR', {
-                      day: '2-digit',
-                      month: '2-digit',
-                    })}
-                  </time>
-                )}
+                <div className="email-item-footer">
+                  {email.receivedDateTime && (
+                    <time className="email-date">
+                      {new Date(email.receivedDateTime).toLocaleDateString('fr-FR', {
+                        day: '2-digit',
+                        month: '2-digit',
+                      })}
+                    </time>
+                  )}
+                  {email.clientInfo && (
+                    <div className="email-client-badges">
+                      {email.clientInfo.language && (
+                        <span className={`client-lang-badge lang-${email.clientInfo.language.toLowerCase()}`}>
+                          {email.clientInfo.language === 'English' ? 'EN' : 'FR'}
+                        </span>
+                      )}
+                      {email.clientInfo.setup && (
+                        <span className="client-setup-badge" title={email.clientInfo.setup}>
+                          {formatSetupShort(email.clientInfo.setup)}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
               </button>
             )
           })

@@ -72,6 +72,12 @@ export type TreatmentsStoreResponse = CommandResponse & {
   treatments?: Record<string, TreatmentProgress>
 }
 
+export type ClientTechInfo = {
+  setup: string
+  language: string
+  status: string
+}
+
 export type PrisEmailRow = {
   id: string
   messageId: string
@@ -82,6 +88,7 @@ export type PrisEmailRow = {
   jiraKey: string | null
   jiraUrl: string | null
   jiraMatches: JiraIssueMatch[]
+  clientInfo?: ClientTechInfo
 }
 
 export type DescriptionRenderMode = 'email-html' | 'plain-text'
@@ -300,6 +307,7 @@ export type AssistanceState = {
   reports: AgentReport[]
   consolidation: string
   emailDraft: string
+  followUpPrompt?: string
   updatedAt: string
 }
 
@@ -307,6 +315,11 @@ export type AssistanceStateMap = Record<string, AssistanceState>
 
 export type AssistanceStoreResponse = CommandResponse & {
   states?: AssistanceStateMap
+}
+
+export type AssistanceAgentRunResponse = CommandResponse & {
+  summary?: string
+  report?: string
 }
 
 export type MicrosoftFeedback = {

@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import type { AgentId, AssistanceState, ExecutionMode, PrisEmailRow } from '../../types'
+import { useMemo, useState } from 'react'
+import type { AgentId, AssistanceAgentRunResponse, AssistanceState, ExecutionMode, PrisEmailRow } from '../../types'
 
 type AssistanceModalProps = {
   selectedEmail: PrisEmailRow
@@ -16,7 +16,7 @@ type AgentDef = {
 }
 
 const AGENTS: AgentDef[] = [
-  { id: 'analyse',    label: 'Analyse ticket',          desc: 'État des lieux Codex — lit le ticket Jira et le thread email', configurable: true },
+  { id: 'analyse',    label: 'Analyse ticket',          desc: 'État des lieux Codex — lit le ticket Jira, ses commentaires et ses pièces jointes', configurable: true },
   { id: 'web',        label: 'Recherche internet',       desc: 'Recherche en ligne sur le problème' },
   { id: 'docs',       label: 'Docs iObeya / FAQ',        desc: 'Documentation, FAQ et guides de troubleshooting' },
   { id: 'jira',       label: 'Tickets Jira similaires',  desc: 'Tickets similaires déjà résolus dans Jira' },
@@ -30,9 +30,11 @@ const AGENTS: AgentDef[] = [
 ]
 
 const MODELS = [
-  { value: 'claude-opus-4-5',   label: 'Opus',   hint: 'Meilleure qualité' },
-  { value: 'claude-sonnet-4-5', label: 'Sonnet', hint: 'Équilibré' },
-  { value: 'claude-haiku-4-5',  label: 'Haiku',  hint: 'Rapide' },
+  { value: 'gpt-5.5',       label: 'GPT-5.5',      hint: 'Qualité max' },
+  { value: 'gpt-5.4',       label: 'GPT-5.4',      hint: 'Équilibré' },
+  { value: 'gpt-5.4-mini',  label: '5.4-Mini',     hint: 'Rapide' },
+  { value: 'gpt-5.3-codex', label: '5.3-Codex',    hint: 'Orienté code' },
+  { value: 'gpt-5.2',       label: 'GPT-5.2',      hint: 'Compatible long run' },
 ]
 
 const EFFORT_LEVELS = [
@@ -43,14 +45,23 @@ const EFFORT_LEVELS = [
 
 export default function AssistanceModal({
   selectedEmail,
-  assistanceState: _assistanceState,
+  assistanceState,
   onUpdateAssistance,
   onClose,
 }: AssistanceModalProps) {
   const [selectedAgents, setSelectedAgents] = useState<Set<AgentId>>(new Set(['analyse']))
   const [executionMode, setExecutionMode] = useState<ExecutionMode>('sequential')
-  const [analyseModel, setAnalyseModel] = useState('claude-sonnet-4-5')
+  const [analyseModel, setAnalyseModel] = useState('gpt-5.4')
   const [analyseEffort, setAnalyseEffort] = useState<'low' | 'medium' | 'high'>('medium')
+  const [isLaunching, setIsLaunching] = useState(false)
+  const [launchError, setLaunchError] = useState<string | null>(null)
+  const [followUpPrompt, setFollowUpPrompt] = useState(assistanceState?.followUpPrompt ?? '')
+
+  const reports = assistanceState?.reports ?? []
+  const analyseReport = useMemo(
+    () => reports.find((report) => report.agentId === 'analyse') ?? null,
+    [reports],
+  )
 
   const toggleAgent = (id: AgentId) => {
     setSelectedAgents((prev) => {
@@ -61,29 +72,89 @@ export default function AssistanceModal({
     })
   }
 
-  const handleLaunch = () => {
-    // Phase 5a stub — transition to in_progress + pass config
-    // Real agent execution wired in Phase 5b
+  const handleLaunch = async () => {
+    if (isLaunching) return
+    setLaunchError(null)
+    if (!selectedEmail.jiraKey) {
+      setLaunchError('Aucun ticket Jira associé à cet email.')
+      return
+    }
+    if (selectedAgents.size !== 1 || !selectedAgents.has('analyse')) {
+      setLaunchError("Pour l'instant, seul l'agent « Analyse ticket » est réellement branché.")
+      return
+    }
+
     onUpdateAssistance({
       status: 'in_progress',
-      summary: `Analyse lancée — ${selectedAgents.size} agent(s) · mode ${executionMode === 'sequential' ? 'séquentiel' : 'parallèle'}`,
-      reports: Array.from(selectedAgents).map((agentId) => ({
-        agentId,
-        status: 'pending',
+      summary: `Analyse Jira en cours — ${selectedEmail.jiraKey}`,
+      reports: [{
+        agentId: 'analyse',
+        status: 'running',
         report: '',
-        startedAt: null,
+        startedAt: new Date().toISOString(),
         finishedAt: null,
         errorMessage: null,
-      })),
+      }],
     })
-    onClose()
+
+    setIsLaunching(true)
+    try {
+      const response = await fetch('/api/assistance/agents/analyse/run', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          jiraKey: selectedEmail.jiraKey,
+          guidance: followUpPrompt.trim(),
+          config: {
+            model: analyseModel,
+            effort: analyseEffort,
+          },
+        }),
+      })
+      const data = await response.json() as AssistanceAgentRunResponse
+      if (!response.ok) {
+        throw new Error(data.error ?? data.stderr ?? "L'agent d'analyse a échoué.")
+      }
+
+      onUpdateAssistance({
+        status: 'done',
+        summary: data.summary?.trim() || `Analyse Jira terminée — ${selectedEmail.jiraKey}`,
+        followUpPrompt,
+        reports: [{
+          agentId: 'analyse',
+          status: 'done',
+          report: data.report?.trim() || '',
+          startedAt: analyseReport?.startedAt ?? new Date().toISOString(),
+          finishedAt: new Date().toISOString(),
+          errorMessage: null,
+        }],
+      })
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "L'agent d'analyse a échoué."
+      setLaunchError(message)
+      onUpdateAssistance({
+        status: 'done',
+        summary: `Analyse Jira en échec — ${selectedEmail.jiraKey}`,
+        followUpPrompt,
+        reports: [{
+          agentId: 'analyse',
+          status: 'error',
+          report: '',
+          startedAt: analyseReport?.startedAt ?? new Date().toISOString(),
+          finishedAt: new Date().toISOString(),
+          errorMessage: message,
+        }],
+      })
+    } finally {
+      setIsLaunching(false)
+    }
   }
 
-  const canLaunch = selectedAgents.size > 0
+  const canLaunch = selectedAgents.size > 0 && !isLaunching
 
   return (
     <div className="modal-backdrop">
-      <section className="modal-card modal-card-large" role="dialog" aria-modal="true" aria-label="Assistance">
+      <section className="modal-card modal-card-large assistance-modal" role="dialog" aria-modal="true" aria-label="Assistance">
         <header className="modal-header">
           <div>
             <h2 className="modal-title">Assistance</h2>
@@ -185,6 +256,36 @@ export default function AssistanceModal({
               })}
             </div>
           </div>
+
+          {(launchError || analyseReport) && (
+            <div className="assistance-section">
+              <p className="assistance-section-label">Rapport d'analyse</p>
+              {launchError && <p className="form-error">{launchError}</p>}
+              {analyseReport?.status === 'running' && (
+                <p className="modal-agent-status">Analyse en cours sur {selectedEmail.jiraKey}…</p>
+              )}
+              {analyseReport?.status === 'error' && analyseReport.errorMessage && (
+                <p className="form-error">{analyseReport.errorMessage}</p>
+              )}
+              {analyseReport?.report && (
+                <pre className="trace-preview">{analyseReport.report}</pre>
+              )}
+            </div>
+          )}
+
+          <div className="assistance-section">
+            <p className="assistance-section-label">Complément pour relancer l'analyse</p>
+            <textarea
+              className="form-textarea assistance-followup-textarea"
+              placeholder="Ex: le client confirme que le problème n'arrive qu'en VPN, un redémarrage a déjà été tenté, ou voici une info métier manquante..."
+              value={followUpPrompt}
+              onChange={(event) => {
+                const value = event.target.value
+                setFollowUpPrompt(value)
+                onUpdateAssistance({ followUpPrompt: value })
+              }}
+            />
+          </div>
         </div>
 
         <footer className="modal-footer">
@@ -193,9 +294,9 @@ export default function AssistanceModal({
             type="button"
             className="btn btn-primary"
             disabled={!canLaunch}
-            onClick={handleLaunch}
+            onClick={() => { void handleLaunch() }}
           >
-            Lancer l'analyse →
+            {isLaunching ? 'Analyse en cours…' : analyseReport?.report ? "Relancer l'analyse →" : "Lancer l'analyse →"}
           </button>
         </footer>
       </section>

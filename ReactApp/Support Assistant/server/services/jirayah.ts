@@ -1,6 +1,7 @@
 import { readFile, unlink } from 'node:fs/promises'
 import path from 'node:path'
 import { APP_DIR, CLIENT_DEPLOYMENT_MAPPING_PATH, JIRAYAH_RULES_PATH, TSUNADE_SKILL_PATH } from '../config.js'
+import { lookupClientTechInfo, setupToJiraDeployment } from './clientTechInfo.js'
 import type {
   IdentificationCategory,
   JiraAnalyzeInput,
@@ -236,6 +237,16 @@ async function readClientDeploymentMap(): Promise<Map<string, string>> {
 }
 
 async function inferDeploymentSubtype(client: string, clientCandidates: string[]): Promise<string | null> {
+  // New technical info reference takes priority
+  for (const name of [client, ...clientCandidates]) {
+    if (!name) continue
+    const info = await lookupClientTechInfo(name)
+    if (info?.setup) {
+      const jiraValue = setupToJiraDeployment(info.setup)
+      if (jiraValue) return jiraValue
+    }
+  }
+  // Fall back to legacy CSV mapping
   const deploymentMap = await readClientDeploymentMap()
   if (deploymentMap.size === 0) return null
   for (const name of [client, ...clientCandidates]) {

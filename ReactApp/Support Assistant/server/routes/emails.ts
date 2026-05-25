@@ -1,20 +1,37 @@
 import type { IncomingMessage, ServerResponse } from 'node:http'
-import type { JiraAnalyzeInput } from '../types.js'
+import type { GraphEmail, JiraAnalyzeInput } from '../types.js'
 import { readJsonBody, sendJson } from '../utils.js'
 import { buildEmailPreview, ensureMicrosoftAccessToken, listThreadMessages } from '../services/microsoft.js'
-import { attachJiraCandidates, attachJiraKeys } from '../services/jira.js'
+import { attachJiraCandidates, attachJiraKeys, readTreatmentsStore } from '../services/jira.js'
 import { listPrisEmails } from '../services/microsoft.js'
+import { lookupClientTechInfo } from '../services/clientTechInfo.js'
+
+async function attachClientTechInfo(emails: GraphEmail[]): Promise<GraphEmail[]> {
+  const treatments = await readTreatmentsStore()
+  return Promise.all(emails.map(async (email) => {
+    const threadId = (email.conversationId || email.id || '').trim()
+    const treatment = threadId ? treatments[threadId] : undefined
+    const treatmentRecord = treatment as Record<string, unknown> | undefined
+    const jiraDraft = treatmentRecord?.jiraDraft as Record<string, unknown> | undefined
+    const clientName = typeof jiraDraft?.client === 'string' ? jiraDraft.client : ''
+    if (!clientName) return email
+    const info = await lookupClientTechInfo(clientName)
+    if (!info) return email
+    return { ...email, clientInfo: { setup: info.setup, language: info.language, status: info.status } }
+  }))
+}
 
 export async function handleEmailRoutes(req: IncomingMessage, res: ServerResponse): Promise<boolean> {
   if (req.method === 'GET' && req.url === '/api/emails/pris') {
     const emails = await listPrisEmails()
     const withJira = await attachJiraKeys(emails)
     const emailsWithCandidates = await attachJiraCandidates(withJira.emails)
+    const enriched = await attachClientTechInfo(emailsWithCandidates)
     sendJson(res, 200, {
       code: 0,
       stdout: '',
       stderr: '',
-      emails: emailsWithCandidates,
+      emails: enriched,
       invalidatedThreadIds: withJira.invalidatedThreadIds,
     })
     return true

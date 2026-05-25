@@ -41,6 +41,15 @@ inputs:
 - ccRecipients: `support@iobeya.com,sales.support@iobeya.com` (fixes)
 - bccRecipient: `admin@iobeya.com` (fixe)
 
+referentiel_client:
+- Le backend pre-remplit `validatedClientType` et `validatedLanguage` depuis `data/client-technical-info.json` quand le client est reconnu (confidence `élevé`).
+- Mapping referentiel → parametre Kiba :
+  - `Onsite` → `ON-SITE`
+  - `Online Dedicated`, `Online NextGen - Enterprise`, `Online NextGen - Trial` → `ONLINE dédié`
+  - `Mutualised TEAM`, `Mutualised TEAMPLUS`, `Mutualised PARTNERS`, `Online NextGen - Team` → `Mutualisée`
+  - `French` → `FR` | `English` → `EN`
+- Quand confidence `élevé` : ne pas re-inferer depuis le contenu email, les valeurs sont fiables.
+
 resources:
 - Contenu du ticket Jira et ses pièces jointes.
 - Template : `skills/kiba/assets/SUP-900 - [SUPPORT] TEMPLATES - Livraison aux clients 👍🏻.docx`.

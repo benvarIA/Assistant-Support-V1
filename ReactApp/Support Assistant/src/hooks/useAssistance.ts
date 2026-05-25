@@ -19,6 +19,7 @@ export function makeEmptyAssistanceState(): AssistanceState {
     reports: [],
     consolidation: '',
     emailDraft: '',
+    followUpPrompt: '',
     updatedAt: new Date().toISOString(),
   }
 }

@@ -7,6 +7,7 @@ import { getModelArgs } from './settings.js'
 import { cutAtSignatureAndQuote, ensureMicrosoftAccessToken, listThreadMessages, stripHtml } from './microsoft.js'
 import { buildJiraAuth } from './jira.js'
 import { buildHtmlBody, getTemplateSection, type KibaVars } from './kibaTemplates.js'
+import { lookupClientTechInfo, setupToKibaClientType, languageToKiba } from './clientTechInfo.js'
 
 const KIBA_CC = ['support@iobeya.com', 'sales.support@iobeya.com']
 const KIBA_BCC = ['admin@iobeya.com']
@@ -221,17 +222,42 @@ export async function proposeKibaDelivery(
   const validLanguages: KibaProposalResult['language'][] = ['FR', 'EN']
   const validConfidences: KibaProposalResult['clientTypeConfidence'][] = ['faible', 'moyen', 'élevé']
 
+  let clientType = validClientTypes.includes(parsed.clientType) ? parsed.clientType : 'ON-SITE'
+  let clientTypeConfidence: KibaProposalResult['clientTypeConfidence'] = validConfidences.includes(parsed.clientTypeConfidence) ? parsed.clientTypeConfidence : 'faible'
+  let clientTypeReason = parsed.clientTypeReason || ''
+  let language = validLanguages.includes(parsed.language) ? parsed.language : 'FR'
+  let languageConfidence: KibaProposalResult['languageConfidence'] = validConfidences.includes(parsed.languageConfidence) ? parsed.languageConfidence : 'faible'
+  let languageReason = parsed.languageReason || ''
+
+  // Override with referential data when available
+  const customerName = parsed.customerName || ''
+  const techInfo = await lookupClientTechInfo(customerName)
+  if (techInfo) {
+    const refClientType = setupToKibaClientType(techInfo.setup)
+    if (refClientType) {
+      clientType = refClientType
+      clientTypeConfidence = 'élevé'
+      clientTypeReason = `Référentiel technique client (${techInfo.setup})`
+    }
+    const refLanguage = languageToKiba(techInfo.language)
+    if (refLanguage) {
+      language = refLanguage
+      languageConfidence = 'élevé'
+      languageReason = `Référentiel technique client (${techInfo.language})`
+    }
+  }
+
   return {
-    clientType: validClientTypes.includes(parsed.clientType) ? parsed.clientType : 'ON-SITE',
-    clientTypeConfidence: validConfidences.includes(parsed.clientTypeConfidence) ? parsed.clientTypeConfidence : 'faible',
-    clientTypeReason: parsed.clientTypeReason || '',
+    clientType,
+    clientTypeConfidence,
+    clientTypeReason,
     deliveryType: validDeliveryTypes.includes(parsed.deliveryType) ? parsed.deliveryType : 'Renouvellement',
     deliveryTypeConfidence: validConfidences.includes(parsed.deliveryTypeConfidence) ? parsed.deliveryTypeConfidence : 'faible',
     deliveryTypeReason: parsed.deliveryTypeReason || '',
-    language: validLanguages.includes(parsed.language) ? parsed.language : 'FR',
-    languageConfidence: validConfidences.includes(parsed.languageConfidence) ? parsed.languageConfidence : 'faible',
-    languageReason: parsed.languageReason || '',
-    customerName: parsed.customerName || '',
+    language,
+    languageConfidence,
+    languageReason,
+    customerName,
     customerEmail: parsed.customerEmail || '',
   }
 }

@@ -1,4 +1,5 @@
 import type { IncomingMessage, ServerResponse } from 'node:http'
+import { runAnalyseTicketAgent } from '../services/analyseTicket.js'
 import { ASSISTANCE_STORE_PATH } from '../config.js'
 import { readJsonBody, readJsonFile, saveJsonFile, sendJson } from '../utils.js'
 
@@ -25,6 +26,30 @@ export async function handleAssistanceRoutes(req: IncomingMessage, res: ServerRe
     }
     await saveJsonFile(ASSISTANCE_STORE_PATH, states)
     sendJson(res, 200, { code: 0, stdout: 'États assistance sauvegardés.', stderr: '' })
+    return true
+  }
+
+  if (req.method === 'POST' && req.url === '/api/assistance/agents/analyse/run') {
+    const body = await readJsonBody(req)
+    const jiraKey = typeof body.jiraKey === 'string' ? body.jiraKey.trim() : ''
+    const guidance = typeof body.guidance === 'string' ? body.guidance.trim() : ''
+    const config = typeof body.config === 'object' && body.config && !Array.isArray(body.config)
+      ? body.config as { model?: string; effort?: 'low' | 'medium' | 'high' }
+      : undefined
+
+    if (!jiraKey) {
+      sendJson(res, 400, { error: 'Missing jiraKey' })
+      return true
+    }
+
+    const analysis = await runAnalyseTicketAgent(jiraKey, config, guidance)
+    sendJson(res, 200, {
+      code: 0,
+      stdout: '',
+      stderr: '',
+      summary: analysis.summary,
+      report: analysis.report,
+    })
     return true
   }
 

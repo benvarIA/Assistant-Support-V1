@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(npx --version)",
+      "PowerShell(Get-Command claude -ErrorAction SilentlyContinue)",
+      "PowerShell(node --version)",
+      "PowerShell(npm --version)",
+      "PowerShell($env:PATH -split ';' | Where-Object { $_ -match 'node|npm|claude' }; Test-Path \"C:\\\\Users\\\\CODEX\\\\tools\\\\node-v22.16.0-win-x64\\\\node.exe\")",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\BenoîtVarisellaz\\\\AppData\\\\Roaming\\\\npm\" -ErrorAction SilentlyContinue | Where-Object { $_.Name -match 'claude' }; Test-Path \"C:\\\\Users\\\\BenoîtVarisellaz\\\\AppData\\\\Local\\\\npm-cache\")",
+      "Read(//usr/local/lib/**)",
+      "Read(//c/Users/BenoîtVarisellaz/**)"
+    ]
+  }
+}

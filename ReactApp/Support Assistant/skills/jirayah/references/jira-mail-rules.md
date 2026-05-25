@@ -46,9 +46,26 @@
 - Mother rule: demande d'aide/accompagnement, remontee de bug possible ou avere.
 - Subtype decision:
   - `Onsite`: client on-premise.
-  - `Online`: plateforme dediee.
-  - `Mutualisee`: Team, Team+, Partner, Demo.
+  - `Online`: plateforme dediee ou NextGen (Enterprise, Trial).
+  - `Mutualisee`: Team, Team+, Partner, Demo, NextGen Team.
   - `TO BE DEFINED`: deployment mode unknown.
+
+#### Referentiel technique client (`client-technical-info.json`)
+
+Le referentiel mappe les noms clients vers leur mode de deploiement reeel. Il a priorite sur toute inference par contexte email.
+
+| Valeur referentiel (Set up)        | Jira `customfield_12413`          |
+|------------------------------------|-----------------------------------|
+| Onsite                             | Onsite                            |
+| Online Dedicated                   | Online                            |
+| Mutualised TEAMPLUS                | Mutualisée (Team+, Team, Partners)|
+| Mutualised TEAM                    | Mutualisée (Team+, Team, Partners)|
+| Mutualised PARTNERS                | Mutualisée (Team+, Team, Partners)|
+| Online NextGen - Enterprise        | Online                            |
+| Online NextGen - Team              | Mutualisée (Team+, Team, Partners)|
+| Online NextGen - Trial             | Online                            |
+
+Le referentiel donne aussi la langue de support (`French` / `English`) — utiliser pour adapter les messages et commentaires Jira si necessaire.
 
 ### Intervention
 

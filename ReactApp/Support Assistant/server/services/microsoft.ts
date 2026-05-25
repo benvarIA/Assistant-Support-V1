@@ -70,6 +70,42 @@ export function isLikelyNoisyInlineImage(attachment: GraphAttachment): boolean {
   return noisePattern.test(name)
 }
 
+// Returns the set of normalised CIDs that appear in the body of the email,
+// before any signature boundary. Images referenced only in the signature zone
+// are not included.
+export function extractCidsBeforeSignature(html: string): Set<string> {
+  // Find the earliest signature boundary in the HTML
+  const signatureBoundaries = [
+    // Standard HTML signature markers
+    /id=["']?[Ss]ignature["']?/i,
+    /class=["'][^"']*[Ss]ignature[^"']*["']/i,
+    /class=["'][^"']*gmail_signature[^"']*["']/i,
+    // Outlook web div wrapper that precedes the signature
+    /id=["']?divtagdefaultwrapper["']?/i,
+    // HTML comment markers
+    /<!--\s*[Ss]ignature\s*-->/i,
+    // A standalone <hr> tag (common body/signature separator)
+    /<hr[\s/>]/i,
+  ]
+
+  let boundaryIndex = html.length
+  for (const pattern of signatureBoundaries) {
+    const idx = html.search(pattern)
+    if (idx >= 0 && idx < boundaryIndex) boundaryIndex = idx
+  }
+
+  const bodyHtml = html.slice(0, boundaryIndex)
+
+  const cids = new Set<string>()
+  const cidPattern = /cid:([^"'\s>)]+)/gi
+  let match: RegExpExecArray | null
+  while ((match = cidPattern.exec(bodyHtml)) !== null) {
+    const cid = normalizeContentId(match[1] ?? '')
+    if (cid) cids.add(cid)
+  }
+  return cids
+}
+
 export function sanitizeEmailHtml(input: string): string {
   return input
     .replace(/<script[\s\S]*?<\/script>/gi, '')
@@ -478,8 +514,9 @@ export async function listPrisEmails(): Promise<GraphEmail[]> {
   }
 
   let nextUrl: URL | null = new URL('https://graph.microsoft.com/v1.0/me/messages')
-  nextUrl.searchParams.set('$top', '200')
+  nextUrl.searchParams.set('$top', '999')
   nextUrl.searchParams.set('$select', 'id,subject,from,conversationId,parentFolderId,receivedDateTime,categories')
+  nextUrl.searchParams.set('$filter', "categories/any(c:c eq 'Pris')")
 
   let pageCount = 0
   while (nextUrl && pageCount < 50) {
@@ -673,6 +710,23 @@ export async function fetchMessageAttachmentRefs(messageId: string, token: strin
   return [...direct, ...mimeRefs]
 }
 
+// Returns CIDs referenced in the unique (non-quoted) body of a message, before any signature.
+export function extractCidsFromUniqueBody(message: GraphEmail): Set<string> {
+  const html = message.uniqueBody?.content?.trim() || message.body?.content?.trim() || ''
+  return extractCidsBeforeSignature(html)
+}
+
+function resolveInlineImageSelected(ref: GraphAttachment, bodyCids: Set<string>): boolean {
+  // An inline image is relevant if its CID is referenced in the body (before signature).
+  // Fall back to the name/size heuristic only when no body-CID signal is available.
+  const normalizedCid = normalizeContentId(ref.contentId)
+  const normalizedName = normalizeContentId(ref.name)
+  if (normalizedCid && bodyCids.has(normalizedCid)) return true
+  if (normalizedName && bodyCids.has(normalizedName)) return true
+  // CID not found in the body section — use heuristic as fallback
+  return !isLikelyNoisyInlineImage(ref)
+}
+
 export async function listThreadAttachmentCandidates(
   thread: GraphEmail[],
   token: string,
@@ -684,6 +738,7 @@ export async function listThreadAttachmentCandidates(
   for (const message of thread) {
     if (!message.id) continue
     const refs = await fetchMessageAttachmentRefs(message.id, token)
+    const bodyCids = extractCidsFromUniqueBody(message)
     for (const ref of refs) {
       const name = ref.name?.trim() || ''
       if (!name || !ref.id) continue
@@ -695,14 +750,16 @@ export async function listThreadAttachmentCandidates(
         name,
         extension: fileExtension(name),
         sizeBytes: Number(ref.size ?? 0),
-        selected: isInlineImage ? !isLikelyNoisyInlineImage(ref) : true,
+        selected: isInlineImage ? resolveInlineImageSelected(ref, bodyCids) : true,
         kind: isInlineImage ? 'inline-image' : 'attachment',
       })
     }
   }
 
   if (candidates.length === 0 && selectedMessageId) {
+    const fallbackMessage = thread.find((m) => m.id === selectedMessageId)
     const refs = await fetchMessageAttachmentRefs(selectedMessageId, token)
+    const bodyCids = fallbackMessage ? extractCidsFromUniqueBody(fallbackMessage) : new Set<string>()
     for (const ref of refs) {
       const name = ref.name?.trim() || ''
       if (!name || !ref.id) continue
@@ -714,7 +771,7 @@ export async function listThreadAttachmentCandidates(
         name,
         extension: fileExtension(name),
         sizeBytes: Number(ref.size ?? 0),
-        selected: isInlineImage ? !isLikelyNoisyInlineImage(ref) : true,
+        selected: isInlineImage ? resolveInlineImageSelected(ref, bodyCids) : true,
         kind: isInlineImage ? 'inline-image' : 'attachment',
       })
     }
@@ -898,25 +955,31 @@ async function extractUsefulFileFromZip(zipFilename: string, zipBytes: Buffer): 
 }
 
 export async function collectThreadAttachments(
-  input: JiraAnalyzeInput,
+  messages: GraphEmail[],
   token: string,
   selectedAttachmentKeys?: Set<string>,
 ): Promise<{ attachments: UploadableAttachment[]; report: AttachmentCollectionReport }> {
-  const thread = await listThreadMessages(input, token)
   const collected: UploadableAttachment[] = []
   const seenNames = new Set<string>()
   const report: AttachmentCollectionReport = { found: 0, skipped: 0, errors: [] }
 
-  for (const message of thread) {
+  for (const message of messages) {
     if (!message.id) continue
     const refs = await fetchMessageAttachmentRefs(message.id, token)
+    const uniqueBodyCids = extractCidsFromUniqueBody(message)
     for (const ref of refs) {
       report.found += 1
       const name = ref.name?.trim() || ''
       if (!name) { report.skipped += 1; continue }
       if (!ref.id) { report.skipped += 1; continue }
       const attachmentKey = `${message.id}:${ref.id}`
-      if (!selectedAttachmentKeys && isLikelyNoisyInlineImage(ref)) { report.skipped += 1; continue }
+      const isInlineImage = Boolean(ref.isInline) && (ref.contentType?.trim().toLowerCase() || '').startsWith('image/')
+      if (isInlineImage) {
+        const cid = normalizeContentId(ref.contentId)
+        const refName = normalizeContentId(ref.name)
+        const inUniqueBody = (cid && uniqueBodyCids.has(cid)) || (refName && uniqueBodyCids.has(refName))
+        if (!inUniqueBody) { report.skipped += 1; continue }
+      }
       if (selectedAttachmentKeys && !selectedAttachmentKeys.has(attachmentKey)) { report.skipped += 1; continue }
       const full = await fetchFileAttachment(message.id, ref.id, token)
       const contentBytes = full?.contentBytes

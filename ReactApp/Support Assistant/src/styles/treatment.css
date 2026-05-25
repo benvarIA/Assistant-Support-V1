@@ -2,6 +2,21 @@
    ASSISTANCE MODAL — Phase 5a
    ============================================================ */
 
+.assistance-modal {
+  width: min(1120px, 100%);
+  max-height: min(90vh, 980px);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
+}
+
+.assistance-modal .modal-body {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.35rem;
+  align-content: start;
+}
+
 .assistance-section {
   display: flex;
   flex-direction: column;
@@ -86,7 +101,8 @@
 .assistance-agent-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.45rem;
+  gap: 0.6rem;
+  align-items: start;
 }
 
 .assistance-agent-card {
@@ -97,6 +113,7 @@
   background: var(--bg-card);
   overflow: hidden;
   transition: border-color 0.15s var(--ease-out);
+  min-width: 0;
 }
 
 .assistance-agent-card--selected {
@@ -145,6 +162,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
+  min-width: 0;
 }
 
 .assistance-agent-label {
@@ -174,7 +192,7 @@
 
 .assistance-config-field {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.6rem;
 }
 
@@ -189,6 +207,7 @@
 .assistance-pill-group {
   display: flex;
   gap: 0.25rem;
+  flex-wrap: wrap;
 }
 
 .assistance-pill {
@@ -216,3 +235,26 @@
   font-weight: 600;
 }
 
+.assistance-modal .trace-preview {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  background: #faf9f7;
+  color: var(--text-primary);
+  font: 500 0.8rem/1.55 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow: auto;
+  max-height: 34vh;
+}
+
+.assistance-followup-textarea {
+  min-height: 120px;
+}
+
+@media (max-width: 980px) {
+  .assistance-agent-grid {
+    grid-template-columns: 1fr;
+  }
+}

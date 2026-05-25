@@ -93,6 +93,31 @@ export default function TreatmentPanel({ selectedEmail, assistanceState, onUpdat
                 {selectedEmail.jiraKey}
               </a>
             )}
+            {selectedEmail.clientInfo && (
+              <div className="treatment-client-info">
+                {selectedEmail.clientInfo.language && (
+                  <span
+                    className={`client-lang-badge lang-${selectedEmail.clientInfo.language.toLowerCase()}`}
+                    title={`Langue : ${selectedEmail.clientInfo.language}`}
+                  >
+                    {selectedEmail.clientInfo.language === 'English' ? 'EN' : 'FR'}
+                  </span>
+                )}
+                {selectedEmail.clientInfo.setup && (
+                  <span className="client-setup-badge" title={selectedEmail.clientInfo.setup}>
+                    {selectedEmail.clientInfo.setup}
+                  </span>
+                )}
+                {selectedEmail.clientInfo.status && (
+                  <span
+                    className={`client-status-badge status-${selectedEmail.clientInfo.status.toLowerCase()}`}
+                    title={`Statut plateforme : ${selectedEmail.clientInfo.status}`}
+                  >
+                    {selectedEmail.clientInfo.status}
+                  </span>
+                )}
+              </div>
+            )}
           </div>
           <h2 className="treatment-email-title">{selectedEmail.title}</h2>
         </div>
