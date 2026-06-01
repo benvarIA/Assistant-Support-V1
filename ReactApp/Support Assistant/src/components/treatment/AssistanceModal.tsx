@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import type { AgentId, AssistanceAgentRunResponse, AssistanceState, ExecutionMode, PrisEmailRow } from '../../types'
+import type { AgentId, AssistanceAgentRunResponse, AssistanceAgentStatusResponse, AssistanceState, ExecutionMode, PrisEmailRow } from '../../types'
 
 type AssistanceModalProps = {
   selectedEmail: PrisEmailRow
@@ -115,20 +115,53 @@ export default function AssistanceModal({
       if (!response.ok) {
         throw new Error(data.error ?? data.stderr ?? "L'agent d'analyse a échoué.")
       }
+      if (!data.runId) {
+        throw new Error("L'agent d'analyse n'a pas retourné de runId.")
+      }
 
-      onUpdateAssistance({
-        status: 'done',
-        summary: data.summary?.trim() || `Analyse Jira terminée — ${selectedEmail.jiraKey}`,
-        followUpPrompt,
-        reports: [{
-          agentId: 'analyse',
-          status: 'done',
-          report: data.report?.trim() || '',
-          startedAt: analyseReport?.startedAt ?? new Date().toISOString(),
-          finishedAt: new Date().toISOString(),
-          errorMessage: null,
-        }],
-      })
+      let completed = false
+      while (!completed) {
+        await new Promise((resolve) => window.setTimeout(resolve, 1200))
+        const statusResponse = await fetch(`/api/assistance/agents/${encodeURIComponent(data.runId)}/status`)
+        const statusData = await statusResponse.json() as AssistanceAgentStatusResponse
+        if (!statusResponse.ok) {
+          throw new Error(statusData.error ?? statusData.stderr ?? "Le suivi d'exécution a échoué.")
+        }
+
+        if (statusData.status === 'done') {
+          completed = true
+          onUpdateAssistance({
+            status: 'done',
+            summary: statusData.summary?.trim() || `Analyse Jira terminée — ${selectedEmail.jiraKey}`,
+            followUpPrompt,
+            reports: [{
+              agentId: 'analyse',
+              status: 'done',
+              report: statusData.report?.trim() || '',
+              startedAt: statusData.startedAt ?? analyseReport?.startedAt ?? new Date().toISOString(),
+              finishedAt: statusData.finishedAt ?? new Date().toISOString(),
+              errorMessage: null,
+            }],
+          })
+        } else if (statusData.status === 'error') {
+          completed = true
+          const message = statusData.error ?? "L'agent d'analyse a échoué."
+          setLaunchError(message)
+          onUpdateAssistance({
+            status: 'done',
+            summary: `Analyse Jira en échec — ${selectedEmail.jiraKey}`,
+            followUpPrompt,
+            reports: [{
+              agentId: 'analyse',
+              status: 'error',
+              report: statusData.report?.trim() || '',
+              startedAt: statusData.startedAt ?? analyseReport?.startedAt ?? new Date().toISOString(),
+              finishedAt: statusData.finishedAt ?? new Date().toISOString(),
+              errorMessage: message,
+            }],
+          })
+        }
+      }
     } catch (error) {
       const message = error instanceof Error ? error.message : "L'agent d'analyse a échoué."
       setLaunchError(message)

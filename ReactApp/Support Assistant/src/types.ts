@@ -318,6 +318,21 @@ export type AssistanceStoreResponse = CommandResponse & {
 }
 
 export type AssistanceAgentRunResponse = CommandResponse & {
+  runId?: string
+  agentId?: AgentId
+  status?: 'queued' | 'running' | 'done' | 'error'
+  startedAt?: string | null
+  finishedAt?: string | null
+  summary?: string
+  report?: string
+}
+
+export type AssistanceAgentStatusResponse = CommandResponse & {
+  runId?: string
+  agentId?: AgentId
+  status?: 'queued' | 'running' | 'done' | 'error'
+  startedAt?: string | null
+  finishedAt?: string | null
   summary?: string
   report?: string
 }

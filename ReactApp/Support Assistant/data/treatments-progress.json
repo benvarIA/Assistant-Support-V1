@@ -4765,31 +4765,6 @@
       "Contexte urgent mentionné ('bascule programmée cette après-midi')."
     ]
   },
-  "AAQkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgAQAFQFPkp6REUvsNTTi4DVErQ=": {
-    "selectedEmail": {
-      "id": "AAQkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgAQAFQFPkp6REUvsNTTi4DVErQ=",
-      "messageId": "AAMkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgBGAAAAAABWohzsLNOOT64UGgNTNA1uBwBbojBHmJ1vRqhmUrCEN0H-AAAAAAEMAABbojBHmJ1vRqhmUrCEN0H-AASZpAgxAAA=",
-      "conversationId": "AAQkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgAQAFQFPkp6REUvsNTTi4DVErQ=",
-      "title": "Pb reporter affiché dans une carte JIRA obtenue après transformation d'une carte iobeya",
-      "sender": "caroline.candio@orange.com",
-      "receivedDateTime": "2026-02-19T09:44:44Z",
-      "jiraKey": "SUPIOBEYA-30139",
-      "jiraUrl": "https://iobeya.atlassian.net/browse/SUPIOBEYA-30139",
-      "jiraMatches": []
-    },
-    "isAnalyzing": false,
-    "isProposingJira": false,
-    "analysisError": null,
-    "jiraDraft": null,
-    "isCreatingJira": false,
-    "createJiraError": null,
-    "createdIssue": null,
-    "isRealTreatmentActive": false,
-    "identificationCategoryText": "",
-    "isIdentificationValidated": false,
-    "identificationError": null,
-    "identificationWarnings": []
-  },
   "AAQkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgAQAHRdfrRNCE4Jojfon7RIUgI=": {
     "selectedEmail": {
       "id": "AAQkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgAQAHRdfrRNCE4Jojfon7RIUgI=",
@@ -6605,7 +6580,7 @@
   "AAQkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgAQABvM5CwEr03PrxcwXUL5OpU=": {
     "selectedEmail": {
       "id": "AAQkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgAQABvM5CwEr03PrxcwXUL5OpU=",
-      "messageId": "AAMkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgBGAAAAAABWohzsLNOOT64UGgNTNA1uBwBbojBHmJ1vRqhmUrCEN0H-AAAAAAEMAABbojBHmJ1vRqhmUrCEN0H-AATT0agBAAA=",
+      "messageId": "AAMkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgBGAAAAAABWohzsLNOOT64UGgNTNA1uBwBbojBHmJ1vRqhmUrCEN0H-AAAAAAEMAABbojBHmJ1vRqhmUrCEN0H-AATWh_4PAAA=",
       "conversationId": "AAQkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgAQABvM5CwEr03PrxcwXUL5OpU=",
       "title": "iObeya_support_029",
       "sender": "NAULEAU Stephane",
@@ -7344,7 +7319,7 @@
   "AAQkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgAQAERk_aJqekuZkM9NNQcmPR8=": {
     "selectedEmail": {
       "id": "AAQkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgAQAERk_aJqekuZkM9NNQcmPR8=",
-      "messageId": "AAMkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgBGAAAAAABWohzsLNOOT64UGgNTNA1uBwBbojBHmJ1vRqhmUrCEN0H-AAAAAAEJAABbojBHmJ1vRqhmUrCEN0H-AATT0daiAAA=",
+      "messageId": "AAMkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgBGAAAAAABWohzsLNOOT64UGgNTNA1uBwBbojBHmJ1vRqhmUrCEN0H-AAAAAAEMAABbojBHmJ1vRqhmUrCEN0H-AATWh_4EAAA=",
       "conversationId": "AAQkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgAQAERk_aJqekuZkM9NNQcmPR8=",
       "title": "[iObeya] - Licence pour environnement de DEV / AP",
       "sender": "SQUALLI HOUSSAINI Houda (SAFRAN AIRCRAFT ENGINES)",
@@ -7369,13 +7344,38 @@
   "AAQkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgAQAOhkW9c18kkDqJ7sS9L6NtE=": {
     "selectedEmail": {
       "id": "AAQkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgAQAOhkW9c18kkDqJ7sS9L6NtE=",
-      "messageId": "AAMkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgBGAAAAAABWohzsLNOOT64UGgNTNA1uBwBbojBHmJ1vRqhmUrCEN0H-AAAAAAEMAABbojBHmJ1vRqhmUrCEN0H-AATT0afgAAA=",
+      "messageId": "AAMkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgBGAAAAAABWohzsLNOOT64UGgNTNA1uBwBbojBHmJ1vRqhmUrCEN0H-AAAAAAEMAABbojBHmJ1vRqhmUrCEN0H-AATT0afpAAA=",
       "conversationId": "AAQkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgAQAOhkW9c18kkDqJ7sS9L6NtE=",
       "title": "iObeya - Upgrade Linux",
       "sender": "DELBOULLE Laure (SAFRAN ELECTRONICS & DEFENSE)",
       "receivedDateTime": "2026-05-22T08:04:27Z",
       "jiraKey": "SUPIOBEYA-30631",
       "jiraUrl": "https://iobeya.atlassian.net/browse/SUPIOBEYA-30631",
+      "jiraMatches": []
+    },
+    "isAnalyzing": false,
+    "isProposingJira": false,
+    "analysisError": null,
+    "jiraDraft": null,
+    "isCreatingJira": false,
+    "createJiraError": null,
+    "createdIssue": null,
+    "isRealTreatmentActive": false,
+    "identificationCategoryText": "",
+    "isIdentificationValidated": false,
+    "identificationError": null,
+    "identificationWarnings": []
+  },
+  "AAQkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgAQAPrFncPUI0xUh7pWZ6Fh38U=": {
+    "selectedEmail": {
+      "id": "AAQkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgAQAPrFncPUI0xUh7pWZ6Fh38U=",
+      "messageId": "AAMkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgBGAAAAAABWohzsLNOOT64UGgNTNA1uBwBbojBHmJ1vRqhmUrCEN0H-AAAAAAEMAABbojBHmJ1vRqhmUrCEN0H-AATXmYbdAAA=",
+      "conversationId": "AAQkAGY5MTgxYzhmLTk2YjAtNDRjZC04YzI3LTYyODkzNjE2N2FlNgAQAPrFncPUI0xUh7pWZ6Fh38U=",
+      "title": "Problèmes de modifications de panneaux",
+      "sender": "caroline.candio@orange.com",
+      "receivedDateTime": "2026-05-27T12:08:07Z",
+      "jiraKey": "SUPIOBEYA-30642",
+      "jiraUrl": "https://iobeya.atlassian.net/browse/SUPIOBEYA-30642",
       "jiraMatches": []
     },
     "isAnalyzing": false,

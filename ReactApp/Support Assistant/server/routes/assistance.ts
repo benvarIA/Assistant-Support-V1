@@ -1,11 +1,13 @@
 import type { IncomingMessage, ServerResponse } from 'node:http'
-import { runAnalyseTicketAgent } from '../services/analyseTicket.js'
 import { ASSISTANCE_STORE_PATH } from '../config.js'
+import { getAssistanceAgentRun, isRegisteredAssistanceAgent, startAssistanceAgentRun } from '../services/assistanceAgents.js'
 import { readJsonBody, readJsonFile, saveJsonFile, sendJson } from '../utils.js'
 
 type AssistanceStateMap = Record<string, unknown>
 
 export async function handleAssistanceRoutes(req: IncomingMessage, res: ServerResponse): Promise<boolean> {
+  const pathname = req.url ? new URL(req.url, 'http://localhost').pathname : ''
+
   if (req.method === 'GET' && req.url === '/api/assistance') {
     let states: AssistanceStateMap = {}
     try {
@@ -29,26 +31,56 @@ export async function handleAssistanceRoutes(req: IncomingMessage, res: ServerRe
     return true
   }
 
-  if (req.method === 'POST' && req.url === '/api/assistance/agents/analyse/run') {
+  const runMatch = req.method === 'POST' ? pathname.match(/^\/api\/assistance\/agents\/([^/]+)\/run$/) : null
+  if (runMatch) {
     const body = await readJsonBody(req)
-    const jiraKey = typeof body.jiraKey === 'string' ? body.jiraKey.trim() : ''
-    const guidance = typeof body.guidance === 'string' ? body.guidance.trim() : ''
-    const config = typeof body.config === 'object' && body.config && !Array.isArray(body.config)
-      ? body.config as { model?: string; effort?: 'low' | 'medium' | 'high' }
-      : undefined
+    const agentId = decodeURIComponent(runMatch[1] ?? '').trim()
 
-    if (!jiraKey) {
-      sendJson(res, 400, { error: 'Missing jiraKey' })
+    if (!isRegisteredAssistanceAgent(agentId)) {
+      sendJson(res, 404, { error: `Unknown or unimplemented agent: ${agentId}` })
       return true
     }
 
-    const analysis = await runAnalyseTicketAgent(jiraKey, config, guidance)
+    const run = startAssistanceAgentRun(agentId, {
+      jiraKey: typeof body.jiraKey === 'string' ? body.jiraKey.trim() : undefined,
+      guidance: typeof body.guidance === 'string' ? body.guidance.trim() : undefined,
+      config: typeof body.config === 'object' && body.config && !Array.isArray(body.config)
+        ? body.config as { model?: string; effort?: 'low' | 'medium' | 'high' }
+        : undefined,
+    })
+
+    sendJson(res, 202, {
+      code: 0,
+      stdout: '',
+      stderr: '',
+      runId: run.runId,
+      agentId: run.agentId,
+      status: run.status,
+    })
+    return true
+  }
+
+  const statusMatch = req.method === 'GET' ? pathname.match(/^\/api\/assistance\/agents\/([^/]+)\/status$/) : null
+  if (statusMatch) {
+    const runId = decodeURIComponent(statusMatch[1] ?? '').trim()
+    const run = getAssistanceAgentRun(runId)
+    if (!run) {
+      sendJson(res, 404, { error: `Unknown runId: ${runId}` })
+      return true
+    }
+
     sendJson(res, 200, {
       code: 0,
       stdout: '',
       stderr: '',
-      summary: analysis.summary,
-      report: analysis.report,
+      runId: run.runId,
+      agentId: run.agentId,
+      status: run.status,
+      summary: run.summary,
+      report: run.report,
+      error: run.error ?? undefined,
+      startedAt: run.startedAt,
+      finishedAt: run.finishedAt,
     })
     return true
   }
