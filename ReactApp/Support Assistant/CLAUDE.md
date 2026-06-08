@@ -10,9 +10,32 @@ Target users: support team processing customer emails in Outlook and routing the
 
 ## Tech stack
 
-- **React 19 + TypeScript 5.9** — monolithic `App.tsx` component (~2000 lines)
-- **Vite 7** — dev server with proxy to backend API
-- **Pure CSS** — no UI library, no Tailwind; all styling in `App.css`
+- **React 19 + TypeScript 5.9** — `App.tsx` orchestrates state/API; UI split into components + hooks
+- **Vite 7** — dev server with the backend API mounted as a Vite plugin (`server/plugin.ts`), port 5199
+- **Pure CSS** — no UI library, no Tailwind; styles split into `src/styles/*.css`, aggregated by `App.css`
+
+---
+
+## UI layout (single screen)
+
+The app is **one screen**, no tabs (the old "Tickets & Jira" / "Traitement" tabs were merged):
+
+- **`EmailSidebar`** (left) — the live overview of "Pris" threads. Each row shows a derived
+  **status pill** (À traiter → Identifié → Ticket créé → En cours → Analysé / Analyse en échec),
+  an optional **nature chip** (Assistance / Intervention / Information / Question), the Jira key,
+  and client badges.
+- **`EmailDetail`** (right, the "fiche") — header (status + nature + Jira pill), an **AI digest card**
+  (renders the Codex `assistanceState.summary` as a daily-standup line; falls back to a neutral
+  workflow hint when no analysis exists yet — never fabricates a status), the 4-step **workflow**
+  (stepper + action buttons), the **treatment** action cards (open Livraison/Administration/Assistance
+  modals), and an **analysis-history timeline** (per-run, expandable, with a structured report).
+
+Derived view-state lives in **`src/derive.ts`** (`deriveEmailStatus`, `deriveNature`,
+`parseReportSections`, …). Codex reports are rendered by **`src/components/AnalysisReport.tsx`**
+(splits numbered sections "1. …", "2. …" into scannable blocks).
+
+Selecting a thread calls `selectEmail()` → `treatment.resumeTreatment()` so the fiche reflects that
+thread's persisted progress (and the sync effect writes back consistent data).
 
 ---
 
@@ -20,15 +43,26 @@ Target users: support team processing customer emails in Outlook and routing the
 
 ```
 src/
-  App.tsx          # Entire UI + all state + all API calls
-  App.css          # All component styles
-  index.css        # Global resets + font
-  main.tsx         # React entry point
+  App.tsx               # State orchestration + API calls + modal wiring (single-screen composition)
+  derive.ts             # Pure view-state derivation (status, nature, report parsing)
+  types.ts              # Shared types (incl. AssistanceState.history: AssistanceRun[])
+  constants.ts utils.ts # Constants + helpers
+  main.tsx index.css    # Entry point + global resets/font
+  components/
+    TopNav EmailSidebar EmailDetail AnalysisReport WorkflowStepper KibaPanel ErrorBanner …
+    modals/             # JiraTicketModal, TraceModal, TraceWorklogModal, CloseTicketModal, JiraValidationModal
+    treatment/          # LivraisonModal (wraps KibaPanel), AdministrationModal, AssistanceModal
+  hooks/                # useEmails, useTreatment, useTrace, useKiba, useAssistance, useMicrosoftAuth, useSettings
+  styles/               # variables, layout, nav, buttons, forms, modals, workflow, status, treatment, kiba, detail, …
+                        # all @import-ed by App.css
+
+server/                 # Node API mounted by vite.config.ts (routes/ + services/)
 
 data/
   client-deployment-jira-mapping.json  # 579 client mappings (Excel export)
   jira-clients-reference.json          # 406 active Jira client names (refreshed via API)
   treatments-progress.json             # Backend-persisted treatment state snapshot
+  assistance-progress.json             # Backend-persisted assistance state (summary, reports, history)
 
 skills/
   jirayah/              # Jira ticket creation agent

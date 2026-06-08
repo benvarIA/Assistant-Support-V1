@@ -1,15 +1,11 @@
-type Tab = 'tickets' | 'treatment'
-
 type TopNavProps = {
   agentWorkStatus: string | null
   isConnectingJira: boolean
   isConnectingMicrosoft: boolean
   isMicrosoftLoginRunning: boolean
-  activeTab: Tab
   onConnectJira: () => void
   onConnectMicrosoft: () => void
   onReset: () => void
-  onTabChange: (tab: Tab) => void
 }
 
 export default function TopNav({
@@ -17,11 +13,9 @@ export default function TopNav({
   isConnectingJira,
   isConnectingMicrosoft,
   isMicrosoftLoginRunning,
-  activeTab,
   onConnectJira,
   onConnectMicrosoft,
   onReset,
-  onTabChange,
 }: TopNavProps) {
   return (
     <header className="top-nav">
@@ -29,23 +23,6 @@ export default function TopNav({
         <span className="brand-dot" />
         Support Assistant
       </button>
-
-      <nav className="nav-tabs">
-        <button
-          type="button"
-          className={`nav-tab${activeTab === 'tickets' ? ' nav-tab--active' : ''}`}
-          onClick={() => onTabChange('tickets')}
-        >
-          Tickets & Jira
-        </button>
-        <button
-          type="button"
-          className={`nav-tab${activeTab === 'treatment' ? ' nav-tab--active' : ''}`}
-          onClick={() => onTabChange('treatment')}
-        >
-          Traitement
-        </button>
-      </nav>
 
       <div className="nav-status">
         {agentWorkStatus && (

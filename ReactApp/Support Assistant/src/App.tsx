@@ -13,9 +13,7 @@ import type {
 
 import TopNav from './components/TopNav'
 import EmailSidebar from './components/EmailSidebar'
-import ActionPanel from './components/ActionPanel'
-import KibaPanel from './components/KibaPanel'
-import TreatmentPanel from './components/TreatmentPanel'
+import EmailDetail from './components/EmailDetail'
 import JiraTicketModal from './components/modals/JiraTicketModal'
 import TraceModal from './components/modals/TraceModal'
 import TraceWorklogModal from './components/modals/TraceWorklogModal'
@@ -26,15 +24,14 @@ import { useMicrosoftAuth } from './hooks/useMicrosoftAuth'
 import { useEmails } from './hooks/useEmails'
 import { useTreatment } from './hooks/useTreatment'
 import { useTrace } from './hooks/useTrace'
-import { useKiba } from './hooks/useKiba'
 import { useAssistance } from './hooks/useAssistance'
 import { useSettings } from './hooks/useSettings'
+import { deriveEmailStatus } from './derive'
 
 function App() {
 
   const [agentWorkStatus, setAgentWorkStatus] = useState<string | null>(null)
   const [selectedEmail, setSelectedEmail] = useState<PrisEmailRow | null>(null)
-  const [activeTab, setActiveTab] = useState<'tickets' | 'treatment'>('tickets')
 
   const [isConnectingJira, setIsConnectingJira] = useState(false)
   const [isRefreshingJiraClients, setIsRefreshingJiraClients] = useState(false)
@@ -77,7 +74,6 @@ function App() {
 
   const trace = useTrace(selectedEmail, setAgentWorkStatus)
 
-  const kiba = useKiba(selectedEmail, setAgentWorkStatus)
   const assistance = useAssistance()
   const { settings, updateContext } = useSettings()
 
@@ -267,10 +263,19 @@ function App() {
   }
 
   // --- Action launchers ---
-  const selectEmailFromTable = (email: PrisEmailRow) => {
-    setSelectedEmail(email)
+  // Selecting a thread loads its persisted treatment progress so the fiche
+  // reflects the real per-email state (and the sync effect writes back
+  // consistent data instead of leaking the previous email's state).
+  const selectEmail = (email: PrisEmailRow) => {
     setActionPlaceholderMessage(null)
     setCloseTicketSuccess(null)
+    const existing = treatment.treatmentsByThread[email.id]
+    if (existing) {
+      treatment.resumeTreatment(email, existing)
+    } else {
+      treatment.resetTreatmentState()
+      setSelectedEmail(email)
+    }
   }
 
   const launchAnalysis = () => {
@@ -312,6 +317,21 @@ function App() {
   const hasAssociatedJira = Boolean(selectedEmail?.jiraKey)
   const sequenceIndex = !treatment.isIdentificationValidated ? 0 : !hasAssociatedJira ? 1 : closeTicketSuccess ? 3 : 2
   const currentJiraValidation = pendingJiraValidationQueue[0] ?? null
+
+  const selectedAssistance = selectedEmail ? assistance.getState(selectedEmail.conversationId) : null
+  const derivedStatus = selectedEmail
+    ? deriveEmailStatus(
+        selectedEmail,
+        {
+          isAnalyzing: treatment.isAnalyzing,
+          isProposingJira: treatment.isProposingJira,
+          isCreatingJira: treatment.isCreatingJira,
+          isIdentificationValidated: treatment.isIdentificationValidated,
+          identificationCategoryText: treatment.identificationCategoryText,
+        },
+        selectedAssistance,
+      )
+    : null
 
   const microsoftFeedback: MicrosoftFeedback | null = microsoftAuth.microsoftConnectFeedback
 
@@ -431,11 +451,9 @@ function App() {
         isConnectingJira={isConnectingJira}
         isConnectingMicrosoft={microsoftAuth.isConnectingMicrosoft}
         isMicrosoftLoginRunning={microsoftAuth.isMicrosoftLoginRunning}
-        activeTab={activeTab}
         onConnectJira={() => void connectJira()}
         onConnectMicrosoft={() => void microsoftAuth.connectMicrosoft()}
         onReset={closeTreatment}
-        onTabChange={setActiveTab}
       />
 
       <div className="workspace">
@@ -443,68 +461,44 @@ function App() {
           prisEmails={prisEmails}
           selectedEmail={selectedEmail}
           treatmentsByThread={treatment.treatmentsByThread}
+          assistanceStates={assistance.states}
           isLoadingPrisEmails={isLoadingPrisEmails}
           isRefreshingJiraClients={isRefreshingJiraClients}
           microsoftFeedback={microsoftFeedback}
           jiraClientsFeedback={jiraClientsRefreshFeedback}
           loadEmailsError={loadEmailsError}
-          onSelectEmail={selectEmailFromTable}
+          onSelectEmail={selectEmail}
           onRefresh={() => void loadPrisEmails()}
           onRefreshClients={() => void refreshJiraClientsReference()}
-          effort={activeTab === 'tickets' ? settings.tickets.effort : settings.treatment.effort}
-          onEffortChange={(effort) => updateContext(activeTab === 'tickets' ? 'tickets' : 'treatment', {
-            ...(activeTab === 'tickets' ? settings.tickets : settings.treatment),
-            effort,
-          })}
+          effort={settings.treatment.effort}
+          onEffortChange={(effort) => updateContext('treatment', { ...settings.treatment, effort })}
         />
 
-        {activeTab === 'tickets' ? (
-          <>
-            <ActionPanel
-              selectedEmail={selectedEmail}
-              sequenceIndex={sequenceIndex}
-              isAnalyzing={treatment.isAnalyzing}
-              isProposingJira={treatment.isProposingJira}
-              isCreatingJira={treatment.isCreatingJira}
-              isTracingOrochimaru={trace.isTracingOrochimaru}
-              isIdentificationValidated={treatment.isIdentificationValidated}
-              hasAssociatedJira={hasAssociatedJira}
-              actionPlaceholderMessage={actionPlaceholderMessage}
-              closeTicketSuccess={closeTicketSuccess}
-              onLaunchAnalysis={launchAnalysis}
-              onLaunchCreate={launchCreate}
-              onLaunchTrace={launchTraceAction}
-              onOpenCloseModal={openCloseModal}
-            />
-
-            {selectedEmail && hasAssociatedJira && treatment.identificationCategoryText === 'Intervention livraison' && (
-              <KibaPanel
-                selectedEmail={selectedEmail}
-                isProposing={kiba.isKibaProposing}
-                proposal={kiba.kibaProposal}
-                proposeError={kiba.kibaProposeError}
-                isPreflight={kiba.isKibaPreflight}
-                preflight={kiba.kibaPreflight}
-                preflightError={kiba.kibaPreflightError}
-                isCreatingDraft={kiba.isKibaCreatingDraft}
-                draftResult={kiba.kibaDraftResult}
-                draftError={kiba.kibaDraftError}
-                onPropose={() => void kiba.proposeKiba()}
-                onRunPreflight={() => void kiba.runKibaPreflight(kiba.kibaProposal?.customerEmail ?? '')}
-                onSetProposalField={(field, value) => kiba.setKibaProposalField(field, value)}
-                onCreateDraft={() => void kiba.createKibaDraft((msg) => showToast(msg))}
-              />
-            )}
-          </>
-        ) : (
-          <TreatmentPanel
+        <div className="detail-scroll">
+          <EmailDetail
             selectedEmail={selectedEmail}
-            assistanceState={selectedEmail ? (assistance.getState(selectedEmail.conversationId) ?? null) : null}
+            identificationCategoryText={treatment.identificationCategoryText}
+            isIdentificationValidated={treatment.isIdentificationValidated}
+            hasAssociatedJira={hasAssociatedJira}
+            sequenceIndex={sequenceIndex}
+            isAnalyzing={treatment.isAnalyzing}
+            isProposingJira={treatment.isProposingJira}
+            isCreatingJira={treatment.isCreatingJira}
+            isTracingOrochimaru={trace.isTracingOrochimaru}
+            actionPlaceholderMessage={actionPlaceholderMessage}
+            closeTicketSuccess={closeTicketSuccess}
+            derivedStatus={derivedStatus}
+            defaultEffort={settings.treatment.effort}
+            assistanceState={selectedAssistance ?? null}
             onUpdateAssistance={(update) => {
               if (selectedEmail) assistance.updateState(selectedEmail.conversationId, update)
             }}
+            onLaunchAnalysis={launchAnalysis}
+            onLaunchCreate={launchCreate}
+            onLaunchTrace={launchTraceAction}
+            onOpenCloseModal={openCloseModal}
           />
-        )}
+        </div>
       </div>
     </main>
   )

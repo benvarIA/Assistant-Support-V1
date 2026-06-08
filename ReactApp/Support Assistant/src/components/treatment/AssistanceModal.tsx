@@ -1,9 +1,11 @@
 import { useMemo, useState } from 'react'
-import type { AgentId, AssistanceAgentRunResponse, AssistanceAgentStatusResponse, AssistanceState, ExecutionMode, PrisEmailRow } from '../../types'
+import type { AgentId, AssistanceAgentRunResponse, AssistanceAgentStatusResponse, AssistanceRun, AssistanceState, ExecutionMode, PrisEmailRow } from '../../types'
+import AnalysisReport from '../AnalysisReport'
 
 type AssistanceModalProps = {
   selectedEmail: PrisEmailRow
   assistanceState: AssistanceState | null
+  defaultEffort?: 'low' | 'medium' | 'high'
   onUpdateAssistance: (update: Partial<AssistanceState>) => void
   onClose: () => void
 }
@@ -46,13 +48,14 @@ const EFFORT_LEVELS = [
 export default function AssistanceModal({
   selectedEmail,
   assistanceState,
+  defaultEffort,
   onUpdateAssistance,
   onClose,
 }: AssistanceModalProps) {
   const [selectedAgents, setSelectedAgents] = useState<Set<AgentId>>(new Set(['analyse']))
   const [executionMode, setExecutionMode] = useState<ExecutionMode>('sequential')
   const [analyseModel, setAnalyseModel] = useState('gpt-5.4')
-  const [analyseEffort, setAnalyseEffort] = useState<'low' | 'medium' | 'high'>('medium')
+  const [analyseEffort, setAnalyseEffort] = useState<'low' | 'medium' | 'high'>(defaultEffort ?? 'medium')
   const [isLaunching, setIsLaunching] = useState(false)
   const [launchError, setLaunchError] = useState<string | null>(null)
   const [followUpPrompt, setFollowUpPrompt] = useState(assistanceState?.followUpPrompt ?? '')
@@ -84,6 +87,9 @@ export default function AssistanceModal({
       return
     }
 
+    const priorHistory: AssistanceRun[] = assistanceState?.history ?? []
+    const runStartedAt = new Date().toISOString()
+
     onUpdateAssistance({
       status: 'in_progress',
       summary: `Analyse Jira en cours — ${selectedEmail.jiraKey}`,
@@ -91,7 +97,7 @@ export default function AssistanceModal({
         agentId: 'analyse',
         status: 'running',
         report: '',
-        startedAt: new Date().toISOString(),
+        startedAt: runStartedAt,
         finishedAt: null,
         errorMessage: null,
       }],
@@ -130,53 +136,83 @@ export default function AssistanceModal({
 
         if (statusData.status === 'done') {
           completed = true
+          const startedAt = statusData.startedAt ?? analyseReport?.startedAt ?? runStartedAt
+          const finishedAt = statusData.finishedAt ?? new Date().toISOString()
+          const report = statusData.report?.trim() || ''
+          const summary = statusData.summary?.trim() || `Analyse Jira terminée — ${selectedEmail.jiraKey}`
+          const run: AssistanceRun = {
+            id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+            agentLabel: 'Analyse ticket',
+            model: analyseModel,
+            effort: analyseEffort,
+            guidance: followUpPrompt.trim(),
+            status: 'done',
+            summary,
+            report,
+            errorMessage: null,
+            startedAt,
+            finishedAt,
+          }
           onUpdateAssistance({
             status: 'done',
-            summary: statusData.summary?.trim() || `Analyse Jira terminée — ${selectedEmail.jiraKey}`,
+            summary,
             followUpPrompt,
-            reports: [{
-              agentId: 'analyse',
-              status: 'done',
-              report: statusData.report?.trim() || '',
-              startedAt: statusData.startedAt ?? analyseReport?.startedAt ?? new Date().toISOString(),
-              finishedAt: statusData.finishedAt ?? new Date().toISOString(),
-              errorMessage: null,
-            }],
+            reports: [{ agentId: 'analyse', status: 'done', report, startedAt, finishedAt, errorMessage: null }],
+            history: [run, ...priorHistory],
           })
         } else if (statusData.status === 'error') {
           completed = true
           const message = statusData.error ?? "L'agent d'analyse a échoué."
           setLaunchError(message)
+          const startedAt = statusData.startedAt ?? analyseReport?.startedAt ?? runStartedAt
+          const finishedAt = statusData.finishedAt ?? new Date().toISOString()
+          const report = statusData.report?.trim() || ''
+          const run: AssistanceRun = {
+            id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+            agentLabel: 'Analyse ticket',
+            model: analyseModel,
+            effort: analyseEffort,
+            guidance: followUpPrompt.trim(),
+            status: 'error',
+            summary: '',
+            report,
+            errorMessage: message,
+            startedAt,
+            finishedAt,
+          }
           onUpdateAssistance({
             status: 'done',
             summary: `Analyse Jira en échec — ${selectedEmail.jiraKey}`,
             followUpPrompt,
-            reports: [{
-              agentId: 'analyse',
-              status: 'error',
-              report: statusData.report?.trim() || '',
-              startedAt: statusData.startedAt ?? analyseReport?.startedAt ?? new Date().toISOString(),
-              finishedAt: statusData.finishedAt ?? new Date().toISOString(),
-              errorMessage: message,
-            }],
+            reports: [{ agentId: 'analyse', status: 'error', report, startedAt, finishedAt, errorMessage: message }],
+            history: [run, ...priorHistory],
           })
         }
       }
     } catch (error) {
       const message = error instanceof Error ? error.message : "L'agent d'analyse a échoué."
       setLaunchError(message)
+      const startedAt = analyseReport?.startedAt ?? runStartedAt
+      const finishedAt = new Date().toISOString()
+      const run: AssistanceRun = {
+        id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+        agentLabel: 'Analyse ticket',
+        model: analyseModel,
+        effort: analyseEffort,
+        guidance: followUpPrompt.trim(),
+        status: 'error',
+        summary: '',
+        report: '',
+        errorMessage: message,
+        startedAt,
+        finishedAt,
+      }
       onUpdateAssistance({
         status: 'done',
         summary: `Analyse Jira en échec — ${selectedEmail.jiraKey}`,
         followUpPrompt,
-        reports: [{
-          agentId: 'analyse',
-          status: 'error',
-          report: '',
-          startedAt: analyseReport?.startedAt ?? new Date().toISOString(),
-          finishedAt: new Date().toISOString(),
-          errorMessage: message,
-        }],
+        reports: [{ agentId: 'analyse', status: 'error', report: '', startedAt, finishedAt, errorMessage: message }],
+        history: [run, ...priorHistory],
       })
     } finally {
       setIsLaunching(false)
@@ -301,7 +337,9 @@ export default function AssistanceModal({
                 <p className="form-error">{analyseReport.errorMessage}</p>
               )}
               {analyseReport?.report && (
-                <pre className="trace-preview">{analyseReport.report}</pre>
+                <div className="assistance-report-render">
+                  <AnalysisReport report={analyseReport.report} />
+                </div>
               )}
             </div>
           )}

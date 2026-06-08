@@ -1,4 +1,12 @@
-import type { EffortLevel, PrisEmailRow, TreatmentProgress, MicrosoftFeedback, JiraClientsFeedback } from '../types'
+import type {
+  EffortLevel,
+  PrisEmailRow,
+  TreatmentProgress,
+  MicrosoftFeedback,
+  JiraClientsFeedback,
+  AssistanceStateMap,
+} from '../types'
+import { deriveEmailStatus, deriveNature } from '../derive'
 
 function formatSetupShort(setup: string): string {
   if (setup === 'Onsite') return 'Onsite'
@@ -18,6 +26,7 @@ type EmailSidebarProps = {
   prisEmails: PrisEmailRow[]
   selectedEmail: PrisEmailRow | null
   treatmentsByThread: Record<string, TreatmentProgress>
+  assistanceStates: AssistanceStateMap
   isLoadingPrisEmails: boolean
   isRefreshingJiraClients: boolean
   microsoftFeedback: MicrosoftFeedback | null
@@ -34,6 +43,7 @@ export default function EmailSidebar({
   prisEmails,
   selectedEmail,
   treatmentsByThread,
+  assistanceStates,
   isLoadingPrisEmails,
   isRefreshingJiraClients,
   microsoftFeedback,
@@ -49,7 +59,7 @@ export default function EmailSidebar({
     <aside className="sidebar">
       <div className="sidebar-header">
         <div className="sidebar-title-row">
-          <h2 className="sidebar-title">Emails Pris</h2>
+          <h2 className="sidebar-title">Emails Pris · en cours</h2>
           {prisEmails.length > 0 && (
             <span className="count-badge">{prisEmails.length}</span>
           )}
@@ -73,7 +83,7 @@ export default function EmailSidebar({
           </button>
         </div>
         <div className="sidebar-effort">
-          <span className="sidebar-effort-label">Effort</span>
+          <span className="sidebar-effort-label">Effort agents</span>
           <div className="sidebar-effort-pills">
             {EFFORTS.map(e => (
               <button
@@ -126,9 +136,10 @@ export default function EmailSidebar({
         ) : (
           prisEmails.map((email) => {
             const treatment = treatmentsByThread[email.id]
+            const assistance = assistanceStates[email.conversationId] ?? null
             const isActive = selectedEmail?.id === email.id
-            const hasJiraKey = Boolean(email.jiraKey)
-            const isIdentified = Boolean(treatment?.isIdentificationValidated) && !hasJiraKey
+            const status = deriveEmailStatus(email, treatment, assistance)
+            const nature = deriveNature(treatment?.identificationCategoryText)
 
             return (
               <button
@@ -138,8 +149,11 @@ export default function EmailSidebar({
                 onClick={() => onSelectEmail(email)}
               >
                 <div className="email-item-row">
-                  <span className="email-sender">{email.sender}</span>
-                  {hasJiraKey && email.jiraUrl ? (
+                  <span className={`email-status-pill email-status-pill--${status.tone}`}>
+                    <span className="email-status-dot" />
+                    {status.label}
+                  </span>
+                  {email.jiraKey && email.jiraUrl ? (
                     <a
                       className="jira-tag"
                       href={email.jiraUrl}
@@ -149,34 +163,38 @@ export default function EmailSidebar({
                     >
                       {email.jiraKey}
                     </a>
-                  ) : isIdentified ? (
-                    <span className="status-tag identified">Identifié</span>
                   ) : null}
                 </div>
+
                 <p className="email-subject">{email.title}</p>
+
                 <div className="email-item-footer">
-                  {email.receivedDateTime && (
-                    <time className="email-date">
-                      {new Date(email.receivedDateTime).toLocaleDateString('fr-FR', {
-                        day: '2-digit',
-                        month: '2-digit',
-                      })}
-                    </time>
-                  )}
-                  {email.clientInfo && (
-                    <div className="email-client-badges">
-                      {email.clientInfo.language && (
-                        <span className={`client-lang-badge lang-${email.clientInfo.language.toLowerCase()}`}>
-                          {email.clientInfo.language === 'English' ? 'EN' : 'FR'}
-                        </span>
-                      )}
-                      {email.clientInfo.setup && (
-                        <span className="client-setup-badge" title={email.clientInfo.setup}>
-                          {formatSetupShort(email.clientInfo.setup)}
-                        </span>
-                      )}
-                    </div>
-                  )}
+                  <span className="email-sender">{email.sender}</span>
+                  <div className="email-item-tags">
+                    {nature && (
+                      <span className={`nature-chip nature-chip--mini nature-chip--${nature.tone}`}>
+                        {nature.label}
+                      </span>
+                    )}
+                    {email.clientInfo?.language && (
+                      <span className={`client-lang-badge lang-${email.clientInfo.language.toLowerCase()}`}>
+                        {email.clientInfo.language === 'English' ? 'EN' : 'FR'}
+                      </span>
+                    )}
+                    {email.clientInfo?.setup && (
+                      <span className="client-setup-badge" title={email.clientInfo.setup}>
+                        {formatSetupShort(email.clientInfo.setup)}
+                      </span>
+                    )}
+                    {email.receivedDateTime && (
+                      <time className="email-date">
+                        {new Date(email.receivedDateTime).toLocaleDateString('fr-FR', {
+                          day: '2-digit',
+                          month: '2-digit',
+                        })}
+                      </time>
+                    )}
+                  </div>
                 </div>
               </button>
             )

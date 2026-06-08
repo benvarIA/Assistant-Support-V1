@@ -301,10 +301,25 @@ export type AgentReport = {
   errorMessage: string | null
 }
 
+export type AssistanceRun = {
+  id: string
+  agentLabel: string
+  model: string | null
+  effort: string | null
+  guidance: string
+  status: 'done' | 'error'
+  summary: string
+  report: string
+  errorMessage: string | null
+  startedAt: string
+  finishedAt: string
+}
+
 export type AssistanceState = {
   status: 'none' | 'in_progress' | 'done'
   summary: string
   reports: AgentReport[]
+  history?: AssistanceRun[]
   consolidation: string
   emailDraft: string
   followUpPrompt?: string
