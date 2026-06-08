@@ -70,32 +70,43 @@ export function isLikelyNoisyInlineImage(attachment: GraphAttachment): boolean {
   return noisePattern.test(name)
 }
 
+// Signature + quoted-history boundary markers. Everything from the earliest
+// match onward is treated as signature / quoted reply chain and excluded.
+// Note: when uniqueBody is available the quoted history is already stripped by
+// Graph, so these mainly protect the body-fallback path and trailing signatures.
+const SIGNATURE_AND_QUOTE_BOUNDARIES = [
+  // Standard HTML signature markers
+  /id=["']?[Ss]ignature["']?/i,
+  /class=["'][^"']*[Ss]ignature[^"']*["']/i,
+  /class=["'][^"']*gmail_signature[^"']*["']/i,
+  // Outlook web div wrapper that precedes the signature
+  /id=["']?divtagdefaultwrapper["']?/i,
+  // Outlook "append on send" wrapper + reply/forward header preceding quoted history
+  /id=["']?appendonsend["']?/i,
+  /id=["']?divRplyFwdMsg["']?/i,
+  // Gmail quoted-history container
+  /class=["'][^"']*gmail_quote[^"']*["']/i,
+  // HTML comment markers
+  /<!--\s*[Ss]ignature\s*-->/i,
+  // A standalone <hr> tag (common body/signature separator)
+  /<hr[\s/>]/i,
+]
+
+// Returns the HTML up to the earliest signature / quoted-history boundary.
+export function sliceHtmlBeforeSignature(html: string): string {
+  let boundaryIndex = html.length
+  for (const pattern of SIGNATURE_AND_QUOTE_BOUNDARIES) {
+    const idx = html.search(pattern)
+    if (idx >= 0 && idx < boundaryIndex) boundaryIndex = idx
+  }
+  return html.slice(0, boundaryIndex)
+}
+
 // Returns the set of normalised CIDs that appear in the body of the email,
 // before any signature boundary. Images referenced only in the signature zone
 // are not included.
 export function extractCidsBeforeSignature(html: string): Set<string> {
-  // Find the earliest signature boundary in the HTML
-  const signatureBoundaries = [
-    // Standard HTML signature markers
-    /id=["']?[Ss]ignature["']?/i,
-    /class=["'][^"']*[Ss]ignature[^"']*["']/i,
-    /class=["'][^"']*gmail_signature[^"']*["']/i,
-    // Outlook web div wrapper that precedes the signature
-    /id=["']?divtagdefaultwrapper["']?/i,
-    // HTML comment markers
-    /<!--\s*[Ss]ignature\s*-->/i,
-    // A standalone <hr> tag (common body/signature separator)
-    /<hr[\s/>]/i,
-  ]
-
-  let boundaryIndex = html.length
-  for (const pattern of signatureBoundaries) {
-    const idx = html.search(pattern)
-    if (idx >= 0 && idx < boundaryIndex) boundaryIndex = idx
-  }
-
-  const bodyHtml = html.slice(0, boundaryIndex)
-
+  const bodyHtml = sliceHtmlBeforeSignature(html)
   const cids = new Set<string>()
   const cidPattern = /cid:([^"'\s>)]+)/gi
   let match: RegExpExecArray | null
@@ -248,10 +259,10 @@ export function buildAdfWithEmbeddedImages(input: string, imageTargets: Embedded
 
 export function buildAdfFromEmailHtml(
   inputHtml: string,
-  imageTargetsBySrc: Map<string, EmbeddedImageTarget>,
+  imageTargetsByCid: Map<string, EmbeddedImageTarget>,
   fallbackText: string,
 ): Record<string, unknown> {
-  const imagePlaceholders: Array<{ src: string; alt: string }> = []
+  const imagePlaceholders: Array<{ cid: string; alt: string }> = []
 
   let normalized = inputHtml
     .replace(/<!doctype[^>]*>/gi, '')
@@ -260,9 +271,13 @@ export function buildAdfFromEmailHtml(
     .replace(/<!--[\s\S]*?-->/g, '')
     .replace(/<img\b([^>]*)>/gi, (_match, attrs: string) => {
       const src = extractHtmlAttribute(attrs, 'src')
+      const dataCid = extractHtmlAttribute(attrs, 'data-cid')
       const alt = decodeHtmlEntities(extractHtmlAttribute(attrs, 'alt'))
-      if (!src) return alt ? `\n${alt}\n` : '\n'
-      const index = imagePlaceholders.push({ src: src.trim(), alt: alt.trim() }) - 1
+      // Inline body images are referenced by Content-ID (src="cid:..."). Resolve
+      // them by normalised CID, which is stable across the different fetch paths.
+      const cid = normalizeContentId(dataCid || (/^cid:/i.test(src) ? src : ''))
+      if (!cid) return alt ? `\n${alt}\n` : '\n'
+      const index = imagePlaceholders.push({ cid, alt: alt.trim() }) - 1
       return `\n[[INLINE_IMAGE_${index}]]\n`
     })
     .replace(/<br\s*\/?>/gi, '\n')
@@ -301,7 +316,7 @@ export function buildAdfFromEmailHtml(
       const index = Number.parseInt(imageMatch[1] || '', 10)
       const placeholder = Number.isFinite(index) ? imagePlaceholders[index] : undefined
       if (!placeholder) continue
-      const target = imageTargetsBySrc.get(placeholder.src)
+      const target = imageTargetsByCid.get(placeholder.cid)
       if (target) {
         blocks.push(createAdfMediaSingle({ ...target, alt: target.alt || placeholder.alt }))
       } else if (placeholder.alt) {
@@ -426,7 +441,7 @@ export async function listThreadMessages(input: JiraAnalyzeInput, token: string)
   const fetchByConversationId = async (conversationId: string): Promise<GraphEmail[]> => {
     const queryUrl = new URL('https://graph.microsoft.com/v1.0/me/messages')
     queryUrl.searchParams.set('$filter', `conversationId eq '${escapeODataString(conversationId)}'`)
-    queryUrl.searchParams.set('$select', 'id,internetMessageId,subject,from,conversationId,receivedDateTime,body,hasAttachments,categories')
+    queryUrl.searchParams.set('$select', 'id,internetMessageId,subject,from,conversationId,receivedDateTime,body,uniqueBody,hasAttachments,categories')
     queryUrl.searchParams.set('$top', '50')
     const response = await fetch(queryUrl.toString(), {
       method: 'GET',
@@ -439,7 +454,7 @@ export async function listThreadMessages(input: JiraAnalyzeInput, token: string)
   }
 
   const fetchByMessageId = async (id: string): Promise<GraphEmail | null> => {
-    const url = `https://graph.microsoft.com/v1.0/me/messages/${encodeURIComponent(id)}?$select=id,internetMessageId,subject,from,conversationId,receivedDateTime,body,hasAttachments,categories`
+    const url = `https://graph.microsoft.com/v1.0/me/messages/${encodeURIComponent(id)}?$select=id,internetMessageId,subject,from,conversationId,receivedDateTime,body,uniqueBody,hasAttachments,categories`
     const response = await fetch(url, {
       method: 'GET',
       headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' },
@@ -464,7 +479,7 @@ export async function listThreadMessages(input: JiraAnalyzeInput, token: string)
   } else {
     const queryUrl = new URL('https://graph.microsoft.com/v1.0/me/messages')
     queryUrl.searchParams.set('$orderby', 'receivedDateTime desc')
-    queryUrl.searchParams.set('$select', 'id,internetMessageId,subject,from,conversationId,receivedDateTime,body,hasAttachments,categories')
+    queryUrl.searchParams.set('$select', 'id,internetMessageId,subject,from,conversationId,receivedDateTime,body,uniqueBody,hasAttachments,categories')
     queryUrl.searchParams.set('$top', '1')
     const response = await fetch(queryUrl.toString(), {
       method: 'GET',
@@ -958,14 +973,28 @@ export async function collectThreadAttachments(
   messages: GraphEmail[],
   token: string,
   selectedAttachmentKeys?: Set<string>,
+  // When set, inline body images are collected ONLY from this message (the
+  // original customer email). Real file attachments are still collected across
+  // the whole thread. This prevents replies' re-pasted signatures/logos from
+  // being captured as body images.
+  inlineImageMessageId?: string,
 ): Promise<{ attachments: UploadableAttachment[]; report: AttachmentCollectionReport }> {
   const collected: UploadableAttachment[] = []
-  const seenNames = new Set<string>()
+  const seenKeys = new Set<string>()
   const report: AttachmentCollectionReport = { found: 0, skipped: 0, errors: [] }
 
   for (const message of messages) {
     if (!message.id) continue
-    const refs = await fetchMessageAttachmentRefs(message.id, token)
+    let refs: GraphAttachment[]
+    try {
+      refs = await fetchMessageAttachmentRefs(message.id, token)
+    } catch (refsError) {
+      // One message failing must never abort the whole collection.
+      report.errors.push(
+        `Lecture des pièces jointes impossible (${message.subject?.trim() || message.id}): ${refsError instanceof Error ? refsError.message : String(refsError)}`,
+      )
+      continue
+    }
     const uniqueBodyCids = extractCidsFromUniqueBody(message)
     for (const ref of refs) {
       report.found += 1
@@ -974,51 +1003,79 @@ export async function collectThreadAttachments(
       if (!ref.id) { report.skipped += 1; continue }
       const attachmentKey = `${message.id}:${ref.id}`
       const isInlineImage = Boolean(ref.isInline) && (ref.contentType?.trim().toLowerCase() || '').startsWith('image/')
+      const normalizedCid = normalizeContentId(ref.contentId)
+      const normalizedRefName = normalizeContentId(ref.name)
       if (isInlineImage) {
-        const cid = normalizeContentId(ref.contentId)
-        const refName = normalizeContentId(ref.name)
-        const inUniqueBody = (cid && uniqueBodyCids.has(cid)) || (refName && uniqueBodyCids.has(refName))
+        // Only embed inline images coming from the original email body (between
+        // start and signature). Signature/logo/social/quoted-history images skipped.
+        if (inlineImageMessageId && message.id !== inlineImageMessageId) { report.skipped += 1; continue }
+        const inUniqueBody = (normalizedCid && uniqueBodyCids.has(normalizedCid)) || (normalizedRefName && uniqueBodyCids.has(normalizedRefName))
         if (!inUniqueBody) { report.skipped += 1; continue }
       }
       if (selectedAttachmentKeys && !selectedAttachmentKeys.has(attachmentKey)) { report.skipped += 1; continue }
-      const full = await fetchFileAttachment(message.id, ref.id, token)
-      const contentBytes = full?.contentBytes
-      const bytes = contentBytes
-        ? Buffer.from(contentBytes, 'base64')
-        : await fetchFileAttachmentBytesViaValue(message.id, ref.id, token)
-      if (!bytes) { report.skipped += 1; report.errors.push(`Lecture binaire impossible: ${name}`); continue }
-      if (bytes.length === 0 || bytes.length > 20 * 1024 * 1024) { report.skipped += 1; continue }
 
-      if (name.toLowerCase().endsWith('.zip')) {
-        const extracted = await extractUsefulFileFromZip(name, bytes)
-        if (!extracted) {
-          if (!seenNames.has(name)) {
-            seenNames.add(name)
-            collected.push({
-              filename: name,
-              contentType: full?.contentType?.trim() || 'application/zip',
-              bytes,
-              sourceKey: attachmentKey,
-              sourceKind: Boolean(ref.isInline) ? 'inline-image' : 'attachment',
-            })
-          }
-          report.errors.push(`Zip non extractible, zip joint tel quel: ${name}`)
-          continue
-        }
-        if (!seenNames.has(extracted.filename)) { seenNames.add(extracted.filename); collected.push(extracted) }
+      let full: GraphAttachment | null = null
+      let bytes: Buffer | null = null
+      try {
+        full = await fetchFileAttachment(message.id, ref.id, token)
+        const contentBytes = full?.contentBytes
+        bytes = contentBytes
+          ? Buffer.from(contentBytes, 'base64')
+          : await fetchFileAttachmentBytesViaValue(message.id, ref.id, token)
+      } catch (fetchError) {
+        report.skipped += 1
+        report.errors.push(`Téléchargement impossible: ${name} (${fetchError instanceof Error ? fetchError.message : String(fetchError)})`)
+        continue
+      }
+      if (!bytes) { report.skipped += 1; report.errors.push(`Lecture binaire impossible: ${name}`); continue }
+      if (bytes.length === 0) { report.skipped += 1; report.errors.push(`Pièce jointe vide ignorée: ${name}`); continue }
+      if (bytes.length > 20 * 1024 * 1024) {
+        report.skipped += 1
+        report.errors.push(`Trop volumineux (>20 Mo), non joint: ${name} (${Math.round(bytes.length / (1024 * 1024))} Mo)`)
         continue
       }
 
-      if (!seenNames.has(name)) {
-        seenNames.add(name)
-        collected.push({
-          filename: name,
-          contentType: full?.contentType?.trim() || 'application/octet-stream',
-          bytes,
-          sourceKey: attachmentKey,
-          sourceKind: Boolean(ref.isInline) ? 'inline-image' : 'attachment',
-        })
+      // Dedup key: inline body images by Content-ID (so two distinct images that
+      // share a generic Outlook name like image001.png both survive), real
+      // attachments by filename + size (so a real file is never dropped just
+      // because an inline image or another message reused the same name).
+      const dedupKey = isInlineImage
+        ? `inline:${normalizedCid || normalizedRefName || name.toLowerCase()}`
+        : `file:${name.toLowerCase()}:${bytes.length}`
+
+      // A .zip is never an inline body image; it is always a real attachment.
+      if (name.toLowerCase().endsWith('.zip')) {
+        const extracted = await extractUsefulFileFromZip(name, bytes)
+        if (!extracted) {
+          if (seenKeys.has(dedupKey)) { report.skipped += 1; report.errors.push(`Doublon ignoré: ${name}`); continue }
+          seenKeys.add(dedupKey)
+          collected.push({
+            filename: name,
+            contentType: full?.contentType?.trim() || 'application/zip',
+            bytes,
+            sourceKey: attachmentKey,
+            sourceKind: 'attachment',
+          })
+          report.errors.push(`Zip non extractible, zip joint tel quel: ${name}`)
+          continue
+        }
+        const extractedKey = `file:${extracted.filename.toLowerCase()}:${extracted.bytes.length}`
+        if (seenKeys.has(extractedKey)) { report.skipped += 1; report.errors.push(`Doublon ignoré: ${extracted.filename}`); continue }
+        seenKeys.add(extractedKey)
+        collected.push({ ...extracted, sourceKey: attachmentKey, sourceKind: 'attachment' })
+        continue
       }
+
+      if (seenKeys.has(dedupKey)) { report.skipped += 1; report.errors.push(`Doublon ignoré: ${name}`); continue }
+      seenKeys.add(dedupKey)
+      collected.push({
+        filename: name,
+        contentType: full?.contentType?.trim() || 'application/octet-stream',
+        bytes,
+        sourceKey: attachmentKey,
+        sourceKind: isInlineImage ? 'inline-image' : 'attachment',
+        contentId: isInlineImage ? (normalizedCid || normalizedRefName || undefined) : undefined,
+      })
     }
   }
 

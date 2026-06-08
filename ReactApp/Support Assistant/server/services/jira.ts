@@ -37,7 +37,6 @@ import {
   buildAdfFromEmailHtml,
   buildAdfFromText,
   buildAdfWithEmbeddedImages,
-  buildEmailPreview,
   collectThreadAttachments,
   cutAtSignatureAndQuote,
   ensureMicrosoftAccessToken,
@@ -48,6 +47,7 @@ import {
   getImageDimensions,
   listThreadMessages,
   normalizeContentId,
+  sliceHtmlBeforeSignature,
   stripHtml,
   updateThreadMessagesCategories,
 } from './microsoft.js'
@@ -478,6 +478,7 @@ export async function uploadJiraAttachments(
           mimeType: first?.mimeType?.trim() || attachment.contentType,
           sourceKey: attachment.sourceKey,
           sourceKind: attachment.sourceKind,
+          contentId: attachment.contentId,
         })
       }
     } catch {
@@ -486,6 +487,67 @@ export async function uploadJiraAttachments(
     uploaded += 1
   }
   return { uploaded, errors, uploadedItems }
+}
+
+// ---------------------------------------------------------------------------
+// Media Services UUID resolution (for embedding attachments inline in ADF)
+// ---------------------------------------------------------------------------
+
+function extractMediaUuid(url: string): string | null {
+  // Match the Media Services UUID segment (e.g. .../file/<uuid>/binary). The
+  // trailing boundary prevents capturing a 36-char prefix of a longer token.
+  const match = url.match(/\/file\/([0-9a-fA-F-]{36})(?![0-9a-fA-F-])/)
+  return match ? match[1] : null
+}
+
+// A Jira attachment cannot be embedded in ADF by its attachment id: the media
+// node requires the underlying Media Services UUID. Fetching the attachment
+// content redirects to the media file URL, from which the UUID is extracted.
+// Returns null if it cannot be resolved (the image then stays a regular
+// attachment instead of being embedded).
+export async function resolveMediaIdForAttachment(jira: JiraConfig, attachmentId: string): Promise<string | null> {
+  const { baseUrl, auth } = buildJiraAuth(jira)
+  const url = `${baseUrl}/rest/api/3/attachment/content/${encodeURIComponent(attachmentId)}`
+  const headers = { Authorization: `Basic ${auth}` }
+  // Preferred path: read the redirect Location without following it.
+  try {
+    const response = await fetch(url, { method: 'GET', headers, redirect: 'manual' })
+    const location = response.headers.get('location')
+    const fromLocation = location ? extractMediaUuid(location) : null
+    try { await response.body?.cancel() } catch { /* nothing to drain */ }
+    if (fromLocation) return fromLocation
+  } catch {
+    // fall through to the follow-redirect fallback
+  }
+  // Fallback: follow the redirect and read the resolved media URL. Covers
+  // runtimes/proxies that drop the Location header or ignore redirect:'manual'.
+  // The body is cancelled so the image bytes are not downloaded.
+  try {
+    const response = await fetch(url, { method: 'GET', headers })
+    const fromUrl = response.url ? extractMediaUuid(response.url) : null
+    try { await response.body?.cancel() } catch { /* avoid downloading the bytes */ }
+    return fromUrl
+  } catch {
+    return null
+  }
+}
+
+// Runs an async mapper over items with a bounded number of in-flight calls, so a
+// screenshot-heavy email does not fire dozens of simultaneous Jira requests
+// (which can trip rate limiting and leave images un-embedded).
+async function mapWithConcurrency<T, R>(items: T[], limit: number, fn: (item: T) => Promise<R>): Promise<R[]> {
+  const results = new Array<R>(items.length)
+  let cursor = 0
+  const workerCount = Math.max(1, Math.min(limit, items.length))
+  const workers = Array.from({ length: workerCount }, async () => {
+    while (cursor < items.length) {
+      const index = cursor
+      cursor += 1
+      results[index] = await fn(items[index])
+    }
+  })
+  await Promise.all(workers)
+  return results
 }
 
 // ---------------------------------------------------------------------------
@@ -557,39 +619,69 @@ export async function createJiraIssue(
         )
         return keys.size > 0 ? keys : undefined
       })()
-      const { attachments, report } = await collectThreadAttachments(threadMessages, microsoftToken, selectedAttachmentKeys)
+      // Inline body images are collected only from the original email; real file
+      // attachments are collected across the whole thread.
+      const { attachments, report } = await collectThreadAttachments(
+        threadMessages,
+        microsoftToken,
+        selectedAttachmentKeys,
+        firstMessage?.id,
+      )
       const upload = await uploadJiraAttachments(jira, key, attachments)
       const embedErrors: string[] = []
-      const inlineTargetsBySrc = new Map<string, EmbeddedImageTarget>()
 
-      for (const attachment of attachments) {
-        if (attachment.sourceKind !== 'inline-image' || !attachment.sourceKey) continue
-        const uploadedItem = upload.uploadedItems.find((item) => item.id && item.sourceKey === attachment.sourceKey)
-        if (!uploadedItem?.id) continue
-        const dimensions = getImageDimensions(attachment.bytes)
-        const dataUrl = `data:${attachment.contentType || 'application/octet-stream'};base64,${attachment.bytes.toString('base64')}`
-        inlineTargetsBySrc.set(dataUrl, {
-          id: uploadedItem.id,
-          alt: uploadedItem.filename?.trim() || attachment.filename,
+      // Build the CID -> embeddable-image map. The ADF media node id must be the
+      // Media Services UUID (NOT the Jira attachment id), resolved per attachment.
+      const inlineUploads = upload.uploadedItems.filter(
+        (item) => item.sourceKind === 'inline-image' && item.contentId && item.id,
+      )
+      const bytesBySourceKey = new Map<string, Buffer>()
+      for (const a of attachments) {
+        if (a.sourceKey) bytesBySourceKey.set(a.sourceKey, a.bytes)
+      }
+      const resolvedMediaIds = await mapWithConcurrency(
+        inlineUploads,
+        4,
+        (item) => resolveMediaIdForAttachment(jira, item.id),
+      )
+      const cidToTarget = new Map<string, EmbeddedImageTarget>()
+      const inlineTargetsList: EmbeddedImageTarget[] = []
+      for (let i = 0; i < inlineUploads.length; i += 1) {
+        const item = inlineUploads[i]
+        const mediaId = resolvedMediaIds[i]
+        if (!mediaId) {
+          embedErrors.push(`Image non intégrée à la description (média Jira non résolu): ${item.filename}`)
+          continue
+        }
+        const bytes = item.sourceKey ? bytesBySourceKey.get(item.sourceKey) : undefined
+        const dimensions = bytes ? getImageDimensions(bytes) : null
+        const target: EmbeddedImageTarget = {
+          id: mediaId,
+          alt: item.filename?.trim() || 'image',
           width: dimensions?.width,
           height: dimensions?.height,
-        })
+        }
+        inlineTargetsList.push(target)
+        const primaryCid = normalizeContentId(item.contentId)
+        if (primaryCid) cidToTarget.set(primaryCid, target)
+        const nameCid = normalizeContentId(item.filename)
+        if (nameCid && !cidToTarget.has(nameCid)) cidToTarget.set(nameCid, target)
       }
+
+      // Render the description from the original email body. uniqueBody excludes
+      // the quoted reply history; sliceHtmlBeforeSignature drops the signature.
+      // Inline body images are embedded in place by CID.
+      const descriptionHtmlSource =
+        firstMessage?.uniqueBody?.content?.trim() || firstMessage?.body?.content?.trim() || ''
+      const bodyHtml = sliceHtmlBeforeSignature(descriptionHtmlSource)
 
       let descriptionAdf: Record<string, unknown> | null = null
-      if (descriptionRenderMode === 'email-html' && firstMessage) {
-        try {
-          const preview = await buildEmailPreview(firstMessage, microsoftToken, threadMessages)
-          descriptionAdf = buildAdfFromEmailHtml(preview.html, inlineTargetsBySrc, baseDescription)
-        } catch (previewError) {
-          const previewMessage = previewError instanceof Error ? previewError.message : String(previewError)
-          embedErrors.push(`Rendu HTML email non repris dans la description: ${previewMessage}`)
-        }
+      if (descriptionRenderMode === 'email-html' && bodyHtml) {
+        descriptionAdf = buildAdfFromEmailHtml(bodyHtml, cidToTarget, baseDescription)
       }
-
-      if (!descriptionAdf) {
-        const inlineTargets = Array.from(inlineTargetsBySrc.values())
-        if (inlineTargets.length > 0) descriptionAdf = buildAdfWithEmbeddedImages(baseDescription, inlineTargets)
+      if (!descriptionAdf && inlineTargetsList.length > 0) {
+        // Plain-text description (user edited it): keep their text, append images.
+        descriptionAdf = buildAdfWithEmbeddedImages(baseDescription, inlineTargetsList)
       }
 
       if (descriptionAdf) {
@@ -597,7 +689,7 @@ export async function createJiraIssue(
           await updateJiraDescription(jira, key, descriptionAdf)
         } catch (embedError) {
           const embedMessage = embedError instanceof Error ? embedError.message : String(embedError)
-          embedErrors.push(`Description Jira non mise a jour avec le rendu email: ${embedMessage}`)
+          embedErrors.push(`Description Jira non mise à jour avec le rendu email: ${embedMessage}`)
         }
       }
 

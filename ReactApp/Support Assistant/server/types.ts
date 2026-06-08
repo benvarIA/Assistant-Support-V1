@@ -244,6 +244,7 @@ export type UploadableAttachment = {
   bytes: Buffer
   sourceKey?: string
   sourceKind?: 'attachment' | 'inline-image'
+  contentId?: string
 }
 
 export type JiraUploadedAttachment = {
@@ -252,6 +253,7 @@ export type JiraUploadedAttachment = {
   mimeType?: string
   sourceKey?: string
   sourceKind?: 'attachment' | 'inline-image'
+  contentId?: string
 }
 
 export type AttachmentCandidate = {
