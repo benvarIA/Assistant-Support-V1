@@ -3,2298 +3,2653 @@
     "name": "Nictiz NextGen",
     "setup": "Online NextGen - Enterprise",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "ADI NextGen",
     "setup": "Online NextGen - Enterprise",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Getelec (Nextgen)",
     "setup": "Online NextGen - Team",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "hartmann-ng-demo2",
     "setup": "Online NextGen - Trial",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "girbaunew",
     "setup": "Online NextGen - Trial",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "MBDA",
     "setup": "Online NextGen - Trial",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "sscdemo",
     "setup": "Online NextGen - Trial",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "nimrod",
     "setup": "Online NextGen - Trial",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "eiffage construction",
     "setup": "Online NextGen - Trial",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "obeya-association",
     "setup": "Online NextGen - Trial",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "APEM",
     "setup": "Online NextGen - Trial",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "POC Willemin Macodel",
     "setup": "Online NextGen - Trial",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
+  },
+  {
+    "name": "orano",
+    "setup": "Online NextGen - Trial",
+    "language": "English",
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Considi",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "IMMA",
     "setup": "Mutualised PARTNERS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "IUT NANTES",
     "setup": "Mutualised PARTNERS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Factories of Future",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Greg Woods",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Partners",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "BISQI - Partners",
     "setup": "Mutualised PARTNERS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Atryon",
     "setup": "Mutualised PARTNERS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Project 7 on Partners",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Coleg Cambria",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
-  },
-  {
-    "name": "Factories of Future",
-    "setup": "Mutualised PARTNERS",
-    "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Stanwick",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Aptiphar",
     "setup": "Mutualised PARTNERS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Kettering University",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Ominlytics",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "AITO LM CONSULTING",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "INEMA ROUEN",
     "setup": "Mutualised PARTNERS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Tron Consulting",
     "setup": "Mutualised PARTNERS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "La Grow BOX",
     "setup": "Mutualised PARTNERS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "UPD",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "SmartLeanMFG",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "CONSULT ING",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Talcott Ridge Consulting",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Obeya Builder",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Global Lean Summit",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Lean Sigma Projects LTD",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "HOSHIN PARTNERS",
     "setup": "Mutualised PARTNERS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "IBConsultants",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "EMELEAN",
     "setup": "Mutualised PARTNERS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "LEANXVERSE",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "CIMPA Germany",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "FICHLY",
     "setup": "Mutualised PARTNERS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "KPC on Partners",
     "setup": "Mutualised PARTNERS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "EliteOrga",
     "setup": "Mutualised PARTNERS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Alix Partners - Partner Platform",
     "setup": "Mutualised PARTNERS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "CARTIER HORLOGERIE",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Devillé ASC",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "LBL Brenta",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "SEPRO",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "NV Equipement via POP",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Sherbourne Recycling Ltd via EMS Cognito",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "BelEnergia via Considi",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "LBL Brenta via POP",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Smarter Start - Cloud",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Hutchinson Mexico",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Golding Capital Partners",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Schueco via Visine Consulting",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Tiofarma via Stanwick",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Fluidra TeamPlus",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "RAPIDO Team+ via CUBIK",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
-  },
-  {
-    "name": "Devillé ASC",
-    "setup": "Mutualised TEAMPLUS",
-    "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Hendrix Genetics via Cubik Partners",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "THE JACKSON LABORATORY",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "ELECTROPOLI ISIGNY via CUBIK PARTNERS",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "N+P SUBCOAL PRODUCTION FRM B.V. via EMS COGNITO",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Kwik Trip Inc.",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "KELVION via CUBIK PARTNERS",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "GUALAPACK via CONSIDI",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Mahindra aerospace",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "WATES via PROJECT 7",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Subsea 7 TeamPlus",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "TOYOTA OF NORTH AMERICA",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Edrington Distillers Ltd via EMS Cognito",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "AVIAGROUP",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "STRAPHARM via CUBIK PARTNERS",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "O2 via CUBIK PARTNERS",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Stago",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Evidens de beauté Team+",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "The North British Distillery Company Ltd via EMS Cognito",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Voltalis",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Sansera India",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Groupe Boulle",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "DAIKIN",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "NorthStar Nuclear Medicine",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Kroger TeamPlus",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "BIJOU via CUBIK PARTNERS",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "OFFICINA STELLARE via CONSIDI",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "SPINEART via CUBIK PARTNERS",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Spie Batignolles Team +",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Storylane",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Movella Technologies (ex Xsens) TeamPlus",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Lookupspace",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Bouygues Construction",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Mars Space Ltd",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Terega - TeamPlus",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "GXO Logistics TeamPlus",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "AISG",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "TAURA via STANWICK",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Amneal Pharmaceuticals - India",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "CODECHAMP via LA GROW BOX",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Kreios Space",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Laboratorios Silanes",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Club Car",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Kaizen Reliability Ltd",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "UNAM via TBM",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Eiffage Construction",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "LEM",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Petit Bateau",
     "setup": "Mutualised TEAMPLUS",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Magnum Manufacturing",
     "setup": "Mutualised TEAMPLUS",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Enedis",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Orsted Telte A/S",
     "setup": "Mutualised TEAM",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Wahl Clipper",
     "setup": "Mutualised TEAM",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Rockwool",
     "setup": "Mutualised TEAM",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Daunat",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Richemont MUT",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Olimpia Splendid",
     "setup": "Mutualised TEAM",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Souriau",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Bruker Biospin",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Demathieu Bard",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Fitness Boutique - NetQuattro",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "C.MENDES - SAINT LAURENT",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Pella Team",
     "setup": "Mutualised TEAM",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Longchamp",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "LNA Santé",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "SKF - Sweden",
     "setup": "Mutualised TEAM",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Serac Group",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Cubik Team",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
-    "name": "Life &amp; Mobility",
+    "name": "Life & Mobility",
     "setup": "Mutualised TEAM",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "B2WISE TEAM",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "STULZ S.p.A.",
     "setup": "Mutualised TEAM",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Tipiak",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "RATP - CML / SC / RCD",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "RIVACOLD",
     "setup": "Mutualised TEAM",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "La Poste DCFG - Team",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "EMS Cognito",
     "setup": "Mutualised TEAM",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Radiall",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Fenetrea",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Sofrilog Ouest",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "UGAP via Capgemini",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Coeff - Team Partner",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "RATP Départ M2E - Team",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Lean Analytics Org",
     "setup": "Mutualised TEAM",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "VITEC IMAGING SOLUTIONS",
     "setup": "Mutualised TEAM",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Bien-Air Surgery SA",
     "setup": "Mutualised TEAM",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "AZ Lean Consulting",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "La Poste DTN - Team",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Berkenhoff",
     "setup": "Mutualised TEAM",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Sartorius",
     "setup": "Mutualised TEAM",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Qwantiq - Partner",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Dirickx",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "LVMH Recherche",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Cabot Corporation",
     "setup": "Mutualised TEAM",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "RAPIDO via POP",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Cebi Motors S.p.A.",
     "setup": "Mutualised TEAM",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "B Braun Medical",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Beologic NV",
     "setup": "Mutualised TEAM",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Toyota Material Handling France",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Axlperf - partner",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "SiO",
     "setup": "Mutualised TEAM",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "PMI Services",
     "setup": "Mutualised TEAM",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "AXIMA via POP",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "FIVES via POP",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Ovale performance",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "UAPL Loire Propriétés via POP",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "LES FERMIERS DU SUD OUEST",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "LA MANUFACTURE via POP",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "PRATICIMA via POP",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "VEOLIA via POP",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "MGTECH via POP",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "EQUIPE INGENIERIE via POP",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "BT Blue via POP",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "ATELIERS PERRAULT via CUBIK PARTNERS",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "FLEURETTE via CUBIK PARTNERS",
     "setup": "Mutualised TEAM",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "CREDIT AGRICOLE - PACIFICA DOMMAGES",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Airbus OneWeb Satellites",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "ABB Italy",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
-    "name": "Safran Electronics &amp; Defense",
+    "name": "Safran Electronics & Defense",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "MinArm-Intradef",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Airbus Operations SAS",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "SIAE (Atelier Industriel de l’Aéronautique AIA)",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Nexter",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Thales Alenia Space LICENCE 1",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Chantiers de l'Atlantique",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "ABB Finland",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Western Digital On-site Trial license",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "CA-GIP (Ex SILCA)",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Lynred",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
-    "name": "Crédit Agricole Technologies &amp; Services (CATS)",
+    "name": "Crédit Agricole Technologies & Services (CATS)",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
-    "name": "Hutchinson Defense &amp; Mobility - Persan",
+    "name": "Hutchinson Defense & Mobility - Persan",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Safran AeroSystems",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Western Digital On-site Production license",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Saft Batteries",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Thales SIDR",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Crédit Agricole Assurances",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Airbus Aerostructures (ex Premium Aerotech)",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "SOGITEC",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "TechnipFMC",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Thales Netherlands CEG",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Thales Australia",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Thales UK",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
-    "name": "Airbus Defense &amp; Space - NEO GE",
+    "name": "Airbus Defense & Space - NEO GE",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Thales Netherlands - CEUK",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Ministerie van Defensie",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Thales DMS MMCM",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Moog Corp Onsite Prod",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Groupe SII",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "RIVM",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "MBDA Corporate",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Continental FR - onprem",
     "setup": "Onsite",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": null
   },
   {
     "name": "Dutch Tax Office - Belastingdienst",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Siemens Healthineers",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Thales Netherlands Tacticos",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "CA Pacifica Dommages",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "ANTAI - Enterprise OnSite",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "National Dutch Police",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "DICTU (EZK)",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "FAMAT",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
-    "name": "Airbus Defense &amp; Space - NEO UK",
+    "name": "Airbus Defense & Space - NEO UK",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
-    "name": "Airbus Defense &amp; Space - NEO FR",
+    "name": "Airbus Defense & Space - NEO FR",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Safran Aircraft Engines France",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "NHI",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "CEA",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "MBDA System UK",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Thales SGF - NEST - Dev",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Hutchinson Inc",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Thales TCJ TEST",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Thales Castle",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "DTNUM",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Dassault Aviation DEVOPS",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "FIVES Machining (HPM/Grinding - Ultra precision)",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Hitachi Rail GTS France",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "MBDA - France Only",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Eutelsat Onsite",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "BLEU",
     "setup": "Onsite",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Pratt and Whitney",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "GE AEROSPACE",
     "setup": "Onsite",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": null
   },
   {
     "name": "Safran Seats",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "HOFOR",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Orano - ex New Areva",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "EDF DSIT",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Dyno Nobel",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Air Liquide",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Pierre Fabre",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "CSP RH",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Safran Nacelles",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Axens",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
-    "name": "Schneider Electric - R&amp;D",
+    "name": "Schneider Electric - R&D",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Mews Partners",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Total Energies - TGITS",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Sanofi Group",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Churn"
+    "status": "Churn",
+    "version": "latest"
   },
   {
     "name": "Kimberly Clark",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Solid"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Eli Lilly",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Churn"
+    "status": "Churn",
+    "version": "latest"
   },
   {
     "name": "CSP comptabilité",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "bioMérieux",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Staubli",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "ERAMET",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Kuehne Nagel QCD",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Jaeger Lecoultre",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Safran Corp",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Lilly MQ",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Hilti",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Beckman Coulter Life Sciences",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Air France Industries",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Adi – Askea Design Ingenierie",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Atlantic LNG",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Solid"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Power Grids (Hitachi)",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Downsell"
+    "status": "Churn",
+    "version": "latest"
   },
   {
     "name": "Schneider Electric-  Dedicated online platform",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Mars",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Churn"
+    "status": "Churn",
+    "version": "latest"
   },
   {
     "name": "GE Vernova",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Churn"
+    "status": "Churn",
+    "version": "latest"
   },
   {
     "name": "Kaiser Permanente Main",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Downsell"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Serac Enterprise Online",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Lilly IBU",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Churn"
+    "status": "Churn",
+    "version": "latest"
   },
   {
     "name": "PGB Pensioendiensten",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Solid"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Capgemini ABL",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Churn"
+    "status": "Churn",
+    "version": "latest"
   },
   {
     "name": "Mirion",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Solid"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "GCI Communication Corp.",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Churn"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Daher Online",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Sekisui Aerospace",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Orange - Enterprise",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Wilo Enterprise QCD",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Pella SaaS",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Covea - Enterprise dédié",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Beckman Coulter Diagnostics",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "XL Groupe Enterprise",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Cartier Joaillerie International",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "European Space Agency (ESA)",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "CEVA",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Demathieu Bard Enterprise",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "ID Logistics",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Merck Serono",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Rehlko (ex Kohler Co.)",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "EUROAPI",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Baxter pharma singapore",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Milwaukee Tool",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Downsell"
+    "status": "Churn",
+    "version": "latest"
   },
   {
     "name": "Pernod Ricard Online",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "HOME",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Suivi Clients",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "La Banque Postale - Enterprise",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Merck Irvine",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "MIN JUSTICE",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "CureVac",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Hitachi Energy",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Fake Customer",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Satys",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "EACOP",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Churn"
+    "status": "Churn",
+    "version": "latest"
   },
   {
-    "name": "Aubert &amp; Duval",
+    "name": "Aubert & Duval",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Vaillant Group",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Alkegen",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "D'Ieteren Auto",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Eraneos Switzerland",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Churn"
+    "status": "Churn",
+    "version": "latest"
   },
   {
     "name": "POP CUBIK",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Obeya Association Dedicated Platform",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Churn"
+    "status": "Churn",
+    "version": "latest"
   },
   {
     "name": "Vinci Energies",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "AdaptivityGroup",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "AGC Glass Europe SA",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Agence du numérique de la sécurité civile",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Rolls Royce via Project 7",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "SNCF Réseau Online",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Churn",
+    "version": "latest"
   },
   {
     "name": "PICARD",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "ATR Aircraft Cloud",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Siemens Healthineers Cloud",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Churn"
+    "status": "Churn",
+    "version": "latest"
   },
   {
     "name": "Nictiz",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "KPConsulting",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "ACL",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Churn"
+    "status": "Churn",
+    "version": "latest"
   },
   {
     "name": "EvidenS de Beauté",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Vaupell",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Eaton",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Downsell"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Airbus Operation SAS - Cloud POC",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Vantive",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Showcase website",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Churn"
+    "status": "Churn",
+    "version": "latest"
   },
   {
     "name": "SOITEC",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Campbell's Soup",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Hartmann Czech Republic",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Downsell"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "Amicus Therapeutics",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Solid"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Getinge",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "DHL Express",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Churn"
+    "status": "Churn",
+    "version": "latest"
   },
   {
     "name": "Achmea",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "STMicroelectronics",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Gepsa",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": "Solid"
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "PRYSMIAN",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": "Downsell"
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Vibracoustic",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Rolls Royce UK",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "TBMConsulting - Dedicated",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Airbus Opérations 436",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "APEM POC",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "Alvotech",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "Churn",
+    "version": "latest"
   },
   {
     "name": "CA des Savoie Cloud",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Thermo Fisher",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Deloitte",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Viasat USA",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Donaldson POC",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "Solid",
+    "version": "latest"
   },
   {
     "name": "InvestCloud",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "Churn",
+    "version": "latest"
   },
   {
     "name": "Eli Lilly RFI Demo",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "STRADAL",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "ULTRAGENYX",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Astrea Pharma",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Nictiz NG",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "BLEU CLOUD",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "dsm Firmenich",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "Churn",
+    "version": "latest"
   },
   {
     "name": "IBConsultants-Dedicated",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "Churn",
+    "version": "latest"
   },
   {
     "name": "PC Brussels SA",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "Downsell",
+    "version": "latest"
   },
   {
     "name": "XPO Logistics",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Bio-Rad",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Gemeente Den Haag",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Adragos Pharma",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "NSE (Nippon Shokubai Europe)",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "IDEC Japan",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "LVMH Recherche",
     "setup": "Online Dedicated",
     "language": "French",
-    "status": ""
-  },
-  {
-    "name": "LVMH Recherche",
-    "setup": "Online Dedicated",
-    "language": "French",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Celltrion",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "ESCO via TBM",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "DEXCOM (Ireland)",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "DB Instandhaltung",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Club Car (Dedicated)",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "ING Poland",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "GateGourmet",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Bombardier",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Opella",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
+    "status": "",
+    "version": "latest"
   },
   {
     "name": "Viatris Inc.",
     "setup": "Online Dedicated",
     "language": "English",
-    "status": ""
-  },
-  {
-    "name": "Cylad - demo",
-    "setup": "",
-    "language": "French",
-    "status": ""
-  },
-  {
-    "name": "Total",
-    "setup": "",
-    "language": "",
-    "status": ""
+    "status": "",
+    "version": "latest"
   }
 ]

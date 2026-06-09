@@ -10,6 +10,8 @@ import { handleJirayahRoutes } from './routes/jirayah.js'
 import { handleTraceRoutes } from './routes/trace.js'
 import { handleTicketRoutes } from './routes/ticket.js'
 import { handleKibaRoutes } from './routes/kiba.js'
+import { handleClientsRoutes } from './routes/clients.js'
+import { startClientKnowledgeScheduler } from './services/clientKnowledgeScheduler.js'
 
 const ROUTE_HANDLERS = [
   handleConnectRoutes,
@@ -22,12 +24,17 @@ const ROUTE_HANDLERS = [
   handleTraceRoutes,
   handleTicketRoutes,
   handleKibaRoutes,
+  handleClientsRoutes,
 ]
 
 export function supportAssistantApi(): Plugin {
   return {
     name: 'support-assistant-api',
     configureServer(server) {
+      // Routine hebdomadaire de mise à jour de la base de connaissances clients
+      // (export Salesforce → Outlook). Démarrée une seule fois au boot du serveur.
+      startClientKnowledgeScheduler()
+
       server.middlewares.use(async (req, res, next) => {
         if (!req.url || !req.url.startsWith('/api/')) {
           next()

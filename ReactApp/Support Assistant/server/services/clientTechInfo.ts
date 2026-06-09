@@ -1,5 +1,5 @@
 import { readFile } from 'node:fs/promises'
-import { CLIENT_TECH_INFO_PATH } from '../config.js'
+import { CLIENT_KNOWLEDGE_META_PATH, CLIENT_TECH_INFO_PATH } from '../config.js'
 
 export type ClientSetup =
   | 'Onsite'
@@ -18,6 +18,32 @@ export type ClientTechInfo = {
   setup: ClientSetup | string
   language: ClientLanguage | string
   status: string
+  // 'latest' = plateforme hébergée par iObeya (toujours la dernière version) ·
+  // null = installation cliente (Onsite) dont la version n'est pas dans l'export Salesforce ·
+  // sinon = numéro de version explicite si l'export en fournit un (colonne auto-détectée).
+  version?: string | null
+}
+
+// Version iObeya par défaut à laquelle « latest » est résolu pour les plateformes
+// hébergées. Modifiable depuis la base de connaissances (méta `latestVersion`).
+export const DEFAULT_LATEST_VERSION = '4.43'
+
+// Seules les installations Onsite sont hébergées par le client : leur version varie
+// et n'est pas connue de l'export. Tous les autres setups (Online, Online Dedicated,
+// Mutualised*, Online NextGen*) sont hébergés par iObeya → toujours la dernière version.
+export function isHostedSetup(setup: string): boolean {
+  return setup.trim().toLowerCase() !== 'onsite'
+}
+
+// Version iObeya « latest » effective (méta éditable depuis l'UI), repli sur le défaut.
+export async function getConfiguredLatestVersion(): Promise<string> {
+  try {
+    const raw = await readFile(CLIENT_KNOWLEDGE_META_PATH, 'utf-8')
+    const meta = JSON.parse(raw) as { latestVersion?: string }
+    return meta.latestVersion?.trim() || DEFAULT_LATEST_VERSION
+  } catch {
+    return DEFAULT_LATEST_VERSION
+  }
 }
 
 // Maps Excel "Set up" values → Jira customfield_12413 allowed values
@@ -112,4 +138,48 @@ export function languageToKiba(language: string): 'FR' | 'EN' | null {
   if (language === 'French') return 'FR'
   if (language === 'English') return 'EN'
   return null
+}
+
+// Certains clients exploitent plusieurs plateformes (ex. « LVMH Recherche » ×3).
+// Renvoie toutes les fiches correspondant au nom (match exact puis sous-chaîne).
+export async function lookupClientTechInfoAll(clientName: string): Promise<ClientTechInfo[]> {
+  if (!clientName) return []
+  const map = await loadClientTechInfoMap()
+  if (map.size === 0) return []
+  const key = normalizeKey(clientName)
+  if (!key) return []
+
+  const exact: ClientTechInfo[] = []
+  const fuzzy: ClientTechInfo[] = []
+  for (const [storedKey, info] of map) {
+    if (storedKey === key) exact.push(info)
+    else if (storedKey.length >= 4 && (key.includes(storedKey) || storedKey.includes(key))) fuzzy.push(info)
+  }
+  return exact.length > 0 ? exact : fuzzy
+}
+
+// Libellé humain de la version pour une fiche client, en résolvant « latest ».
+export function resolveVersionLabel(info: Pick<ClientTechInfo, 'setup' | 'version'>, latestVersion = DEFAULT_LATEST_VERSION): string {
+  if (info.version && info.version !== 'latest') return info.version
+  if (info.version === 'latest' || isHostedSetup(info.setup)) return `dernière version (${latestVersion})`
+  return 'à confirmer avec l’utilisateur (installation Onsite, non hébergée)'
+}
+
+// Bloc de contexte « référentiel client » injecté dans les prompts des agents
+// (pattern « Node pré-charge, Codex raisonne »). Vide si aucune fiche connue.
+export function formatClientTechContext(infos: ClientTechInfo[], latestVersion = DEFAULT_LATEST_VERSION): string {
+  if (infos.length === 0) return ''
+  const lines = infos.slice(0, 4).map((info) => {
+    const parts = [
+      `Setup: ${info.setup || 'inconnu'}`,
+      `Langue support: ${info.language || 'inconnue'}`,
+      `Version iObeya: ${resolveVersionLabel(info, latestVersion)}`,
+    ]
+    if (info.status) parts.push(`Statut plateforme: ${info.status}`)
+    return `- ${info.name} — ${parts.join(' · ')}`
+  })
+  return [
+    'RÉFÉRENTIEL CLIENT (export Salesforce hebdomadaire, source de vérité pour langue / type d’installation / version) :',
+    ...lines,
+  ].join('\n')
 }

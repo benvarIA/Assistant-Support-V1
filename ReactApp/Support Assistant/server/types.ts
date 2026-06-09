@@ -26,6 +26,7 @@ export type ClientTechInfo = {
   setup: string
   language: string
   status: string
+  version?: string | null
 }
 
 export type GraphEmail = {

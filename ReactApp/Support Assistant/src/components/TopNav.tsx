@@ -5,6 +5,7 @@ type TopNavProps = {
   isMicrosoftLoginRunning: boolean
   onConnectJira: () => void
   onConnectMicrosoft: () => void
+  onOpenKnowledgeBase: () => void
   onReset: () => void
 }
 
@@ -15,6 +16,7 @@ export default function TopNav({
   isMicrosoftLoginRunning,
   onConnectJira,
   onConnectMicrosoft,
+  onOpenKnowledgeBase,
   onReset,
 }: TopNavProps) {
   return (
@@ -34,6 +36,14 @@ export default function TopNav({
       </div>
 
       <nav className="nav-actions">
+        <button
+          type="button"
+          className="btn btn-nav-kb"
+          onClick={onOpenKnowledgeBase}
+          title="Base de connaissances clients (langue, type d'installation, version)"
+        >
+          Base clients
+        </button>
         <button
           type="button"
           className="btn btn-nav-jira"

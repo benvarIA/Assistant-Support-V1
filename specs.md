@@ -3,6 +3,7 @@
 > Suite d'outils d'assistance au support client : traitement automatisé des emails Outlook → Jira, gestion de déploiements (RollOut Manager), et outillage QA (QAobeya). Conçue pour une équipe support gérant des tickets clients.
 
 **Date de rédaction :** 2026-06-03
+**Dernière MAJ :** 2026-06-09 — base de connaissances clients (export Salesforce hebdo → langue / type d'install / version, voir §2.10) + agents d'Assistance (Phase 5) + agent « Tickets Jira similaires »
 **Statut :** Fonctionnel (V1 en production interne)
 **Périmètre :** 3 sous-apps + skills/agents internes
 
@@ -59,6 +60,11 @@ L'équipe support reçoit des emails clients dans **Outlook**, doit créer les t
 ### 2.6 Données de référence
 - `data/client-deployment-jira-mapping.json` — 579 mappings clients (export Excel)
 - `data/jira-clients-reference.json` — 406 noms de clients Jira actifs (rafraîchi via API)
+- `data/client-technical-info.json` — **base de connaissances clients** (~378 fiches : nom,
+  type d'install, langue support, statut plateforme, **version**), rafraîchie depuis l'export
+  Salesforce (voir §2.10)
+- `data/client-knowledge-meta.json` — métadonnées de la base (date de MAJ, version iObeya « latest »,
+  source de l'export, stats du dernier rafraîchissement)
 
 ### 2.7 Skills internes
 | Skill | Rôle |
@@ -68,18 +74,108 @@ L'équipe support reçoit des emails clients dans **Outlook**, doit créer les t
 | `kiba` | Support email / templates |
 | `tsunade` | Support complémentaire |
 | `roll-out-manager` | Coordination déploiements |
-| `analyse-ticket` | Analyse et qualification |
+| `analyse-ticket` | Analyse d'un ticket Jira (champs + commentaires + PJ) → diagnostic |
+| `similar-tickets` | Jugement de similarité + extraction de résolution (agent `jira`, voir §2.9) |
 | `support-skill-creator` | Utilitaires de création de skills |
 
 ### 2.8 Idées / backlog (Todo)
 - [ ] Skill **FAQ** — réponse automatique aux questions fréquentes
-- [ ] Skill **JiraSearch** — recherche dans Jira depuis l'app
+- [~] Skill **JiraSearch** — partiellement livré : commandes read-only `search`/`issue get` sur
+  `jira_cli.py` + agent d'Assistance `jira` (tickets similaires, voir §2.9)
 - [ ] Skill **Log Analyser** — analyse de logs clients
 - [ ] Skill **API** — appels API clients
 - [ ] Skill **Livraison Licence** — automatisation livraison
 - [ ] Skill **Analyseur de problème sur Internet** — research web
 - [ ] Skill **SQL Request Builder** — génération de requêtes SQL
 - [ ] Refonte **UI/UX** (plus belle, plus pratique)
+
+### 2.9 Système d'agents d'Assistance (Phase 5)
+
+Au-delà du workflow 4 étapes, l'écran de traitement propose une action **Assistance** : un panel
+(`AssistanceModal`) où l'on sélectionne des **agents** spécialisés, un **mode d'exécution**
+(séquentiel / parallèle) et, par agent configurable, un **modèle** + un **effort**. Chaque agent
+produit un rapport ; l'historique des runs est conservé par thread (`AssistanceState.history`).
+
+**Contrainte d'architecture clé (vaut pour TOUS les agents) :** `codex exec` tourne dans un
+**sandbox sans réseau**. Aucun agent ne peut appeler une API/CLI réseau pendant son exécution.
+→ **Node pré-charge** toute donnée réseau (REST Jira, Graph…) puis l'embarque dans le prompt ;
+**Codex se limite au raisonnement** (analyse / jugement / rédaction). Routes génériques :
+`POST /api/assistance/agents/:agentId/run` + `GET /api/assistance/agents/:runId/status` (polling).
+Registry : `server/services/assistanceAgents.ts`.
+
+**Agents (11 prévus) :**
+
+| Agent | ID | Statut | Notes |
+|---|---|---|---|
+| Analyse ticket | `analyse` | ✅ | Lit ticket Jira + commentaires + PJ (`analyse-ticket`) |
+| Tickets Jira similaires | `jira` | ✅ | Voir ci-dessous |
+| Analyseur de logs | `logs` | ✅ | PJ du ticket (.log/.out/.txt/.gz/.zip), pré-traité par Node, voir ci-dessous |
+| Experts métier (DCM, QCD, addon Jira, addon ADO) | `dcm` `qcd` `addon-jira` `addon-ado` | ⏳ | Prompt expert + base de connaissances |
+| Recherche internet | `web` | ⏳ | |
+| Docs iObeya / FAQ | `docs` | ⏳ | RAG documentation |
+| Analyseur HAR / fichiers système | `har` `systeme` | ⏳ | Source = PJ du ticket Jira (pas d'upload) |
+
+**Agent `jira` — Tickets Jira similaires :**
+- **Skill :** `similar-tickets` (les sources sont fournies dans le prompt ; Codex juge, classe, écarte, extrait la résolution).
+- **Pipeline Node :** lit le ticket de référence → extrait mots-clés (code) → recherche JQL `text ~`
+  en **OR** (Jira fait un AND sur `text ~ "a b c"`) sur le périmètre → score par recouvrement de
+  tokens → lecture approfondie des ~8 meilleurs (titre/description/commentaires/PJ).
+- **Effort = périmètre projets :** `low` = SUPIOBEYA · `medium` = + SUPNG · `high` = + IOBEXP + IOB.
+- **Sortie :** JSON `{summary, report}`, sections numérotées, liens browse, candidats écartés explicités.
+
+**Agent `logs` — Analyseur de logs :**
+- **Source :** pièces jointes du ticket (`.log` / `.out` / `.txt` / `.gz` / `.zip`) — **pas d'upload**.
+- **Pipeline Node :** télécharge les PJ → décompresse (`zlib` gz, `unzip` zip) → pré-processeur
+  (niveaux, exceptions Java dédupliquées + extrait de stack, motifs d'erreurs récurrents, timeline)
+  → digests compacts ; Codex diagnostique (erreurs critiques, patterns, chronologie, cause racine, action).
+- **Module partagé :** `server/services/jiraAttachments.ts` (téléchargement + extraction des PJ),
+  réutilisé par les futurs agents `har` / `systeme`.
+
+---
+
+### 2.10 Base de connaissances clients (Salesforce → langue / type d'install / version)
+
+Source de vérité sur **qui est le client** : sa **langue** de communication, son **type
+d'installation** et sa **version** iObeya. Sert à fiabiliser l'identification client, la langue de
+l'email (Kiba) et le type de déploiement (JiraYah), et reste consultable à la demande.
+
+**Source — export Salesforce quotidien.** L'utilisateur reçoit chaque jour ~07:00 l'email
+**« Report results (New Technical Information Report) »** (qu'il archive automatiquement). C'est une
+pièce jointe `.xlsx` (~378 clients actifs, statut ≠ Closed) avec 4 colonnes : `Technical Information:
+Name`, `Set up`, `Support Language`, `Status of the platform` (Solid / Downsell / Churn).
+
+**Routine hebdomadaire (pas quotidienne).** Planificateur **in-process** (`clientKnowledgeScheduler.ts`,
+démarré une fois au boot via `configureServer`) :
+- exécution **chaque nuit de dimanche à lundi à 00:00 local** (« dimanche soir à minuit ») ;
+- **rattrapage au démarrage** si la base date de plus de 7 jours (app éteinte le dimanche) ;
+- **bouton manuel** « Rafraîchir depuis Salesforce » dans l'UI.
+> ⚠️ Le fetch nécessite le token Microsoft **local** → routine in-process (et non une routine cloud).
+
+**Pipeline Node** (`clientKnowledge.ts`, aucune dépendance externe) :
+1. recherche du **dernier** email d'export (Graph `$search` sur toute la boîte + requête explicite du
+   dossier **Archive**, tri `receivedDateTime` desc) ;
+2. téléchargement de la PJ `.xlsx` via `/$value` (`$select` **sans** `contentId` — propriété absente
+   du type de base `attachment`, sinon HTTP 400) ;
+3. **lecteur XLSX maison** (ZIP via `zlib.inflateRawSync` + parsing XML par regex, chaînes « inline ») ;
+4. **en-têtes auto-détectés par nom** → une future colonne `Version` serait captée sans toucher au code ;
+5. **dérivation de version** : explicite si présente, sinon `latest` pour les setups **hébergés**
+   (Online, Online Dedicated, Mutualised\*, NextGen) et `null` pour **Onsite** (version non fournie →
+   l'assistant la demande à l'utilisateur le cas échéant) ;
+6. écriture de `client-technical-info.json` (+ `client-knowledge-meta.json`), diff added/modified/removed.
+
+**Résolution de « latest ».** `meta.latestVersion` (défaut `4.43`, éditable depuis l'UI) donne le
+numéro affiché pour les plateformes hébergées.
+
+**Exploitation par l'assistant** (`lookupClientTechInfo` / `lookupClientTechInfoAll`) :
+- enrichissement des emails → badges **langue / setup / version / statut** sur la fiche ;
+- bloc « RÉFÉRENTIEL CLIENT » (`formatClientTechContext`) injecté dans le prompt **JiraYah**
+  (pattern « Node pré-charge, Codex raisonne ») ;
+- override haute confiance du `clientType`/langue côté **Kiba** (inchangé) ;
+- **modal « Base clients »** (TopNav) : table cherchable (nom / install / langue / version / statut),
+  bouton de rafraîchissement, champ d'édition de la version « latest ».
+
+**Routes :** `GET /api/clients/knowledge` · `POST /api/clients/knowledge/refresh` ·
+`POST /api/clients/knowledge/latest-version`.
 
 ---
 
@@ -126,7 +222,7 @@ docker/     → Docker Compose
 
 | Dossier | Workspace |
 |---|---|
-| `jira-workspace` | Accès et opérations Jira |
+| `jira-workspace` | Accès et opérations Jira via `jira_cli.py` : auth, issue create/edit/delete, comment, attachment, **+ read-only `search` (JQL) et `issue get`** |
 | `microsoft-365-workspace` | Emails Outlook via Graph API |
 | `panda` | (à documenter) |
 

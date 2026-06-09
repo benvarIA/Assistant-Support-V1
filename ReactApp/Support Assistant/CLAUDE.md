@@ -63,6 +63,8 @@ data/
   jira-clients-reference.json          # 406 active Jira client names (refreshed via API)
   treatments-progress.json             # Backend-persisted treatment state snapshot
   assistance-progress.json             # Backend-persisted assistance state (summary, reports, history)
+  client-technical-info.json           # Client knowledge base (~378: name/setup/language/version/status)
+  client-knowledge-meta.json           # KB metadata (updatedAt, latestVersion, source export, diff stats)
 
 skills/
   jirayah/              # Jira ticket creation agent
@@ -155,6 +157,9 @@ When loading emails, if an email has `jiraMatches` (high-confidence existing tic
 | `/api/email/preview` | POST | Fetch email HTML preview |
 | `/api/treatments` | GET | Load persisted treatment state |
 | `/api/treatments/save` | POST | Save treatment state |
+| `/api/clients/knowledge` | GET | Load client knowledge base (name/setup/language/version/status + meta) |
+| `/api/clients/knowledge/refresh` | POST | Rebuild KB from the latest Salesforce export email (Graph) |
+| `/api/clients/knowledge/latest-version` | POST | Set the iObeya version that `"latest"` resolves to |
 
 ---
 
@@ -188,3 +193,5 @@ npm run lint     # ESLint
 - The Microsoft login uses a polling loop (`isMicrosoftLoginRunning` drives a `useEffect` with 1.5s intervals).
 - `MIN_ANALYSIS_DURATION_MS = 1800` enforces a minimum UX delay during identification to avoid jarring instant transitions.
 - Treatment state is debounced 300ms before saving to backend to avoid spamming on rapid state changes.
+- The **client knowledge base** is refreshed by an in-process weekly scheduler (`clientKnowledgeScheduler.ts`, started once in `plugin.ts`'s `configureServer`): runs Sunday→Monday 00:00 local, with a startup catch-up if the KB is >7 days stale. The Salesforce export fetch needs the **local** Microsoft token, so this is intentionally in-process (not a cloud routine). `client-technical-info.json` stays a bare array (loader in `clientTechInfo.ts` is unchanged) — version is an optional additive field; metadata lives in the separate `client-knowledge-meta.json`.
+- When listing email attachments via Graph, **do not** `$select` `contentId` on `/messages/{id}/attachments` — it 400s (not a property of the base `attachment` type). `clientKnowledge.ts` lists with a safe select; `fetchMessageAttachmentRefs` in `microsoft.ts` tolerates the 400 only via its MIME fallback.

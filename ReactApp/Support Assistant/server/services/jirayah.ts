@@ -1,7 +1,7 @@
 import { readFile, unlink } from 'node:fs/promises'
 import path from 'node:path'
 import { APP_DIR, CLIENT_DEPLOYMENT_MAPPING_PATH, JIRAYAH_RULES_PATH, TSUNADE_SKILL_PATH } from '../config.js'
-import { lookupClientTechInfo, setupToJiraDeployment } from './clientTechInfo.js'
+import { formatClientTechContext, getConfiguredLatestVersion, lookupClientTechInfo, lookupClientTechInfoAll, setupToJiraDeployment } from './clientTechInfo.js'
 import type {
   IdentificationCategory,
   JiraAnalyzeInput,
@@ -356,6 +356,10 @@ async function classifyWithCodex(input: {
   const hintedClientsBlock = hintedClients.length > 0
     ? hintedClients.map((c) => `- ${c}`).join('\n')
     : '- (aucun indice domaine exploitable)'
+  // Référentiel technique (langue / type d'installation / version) des clients
+  // suggérés — pré-chargé par Node, exploité par Codex (sandbox sans réseau).
+  const techInfos = (await Promise.all(hintedClients.slice(0, 3).map((c) => lookupClientTechInfoAll(c)))).flat()
+  const techContextBlock = formatClientTechContext(techInfos, await getConfiguredLatestVersion())
 
   const prompt = [
     'Tu es JiraYah. Classe un email support en appliquant strictement le referentiel.',
@@ -372,6 +376,7 @@ async function classifyWithCodex(input: {
     otherSendersBlock,
     'Clients suggeres par les domaines expediteurs non-iObeya (indice fort):',
     hintedClientsBlock,
+    ...(techContextBlock ? [techContextBlock] : []),
     'Description (copie client):',
     input.description,
     '',

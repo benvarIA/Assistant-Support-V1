@@ -19,6 +19,7 @@ import TraceModal from './components/modals/TraceModal'
 import TraceWorklogModal from './components/modals/TraceWorklogModal'
 import CloseTicketModal from './components/modals/CloseTicketModal'
 import JiraValidationModal from './components/modals/JiraValidationModal'
+import KnowledgeBaseModal from './components/modals/KnowledgeBaseModal'
 
 import { useMicrosoftAuth } from './hooks/useMicrosoftAuth'
 import { useEmails } from './hooks/useEmails'
@@ -26,6 +27,7 @@ import { useTreatment } from './hooks/useTreatment'
 import { useTrace } from './hooks/useTrace'
 import { useAssistance } from './hooks/useAssistance'
 import { useSettings } from './hooks/useSettings'
+import { useKnowledgeBase } from './hooks/useKnowledgeBase'
 import { deriveEmailStatus } from './derive'
 
 function App() {
@@ -76,6 +78,8 @@ function App() {
 
   const assistance = useAssistance()
   const { settings, updateContext } = useSettings()
+  const knowledgeBase = useKnowledgeBase()
+  const [isKnowledgeBaseOpen, setIsKnowledgeBaseOpen] = useState(false)
 
   // --- Auto-load on mount ---
   useEffect(() => {
@@ -432,6 +436,20 @@ function App() {
         />
       )}
 
+      {isKnowledgeBaseOpen && (
+        <KnowledgeBaseModal
+          knowledge={knowledgeBase.knowledge}
+          isLoading={knowledgeBase.isLoading}
+          isRefreshing={knowledgeBase.isRefreshing}
+          isDetecting={knowledgeBase.isDetecting}
+          feedback={knowledgeBase.feedback}
+          onRefresh={() => void knowledgeBase.refresh()}
+          onSetLatestVersion={(version) => void knowledgeBase.setLatestVersion(version)}
+          onDetectLatestVersion={() => void knowledgeBase.detectLatestVersion()}
+          onClose={() => { setIsKnowledgeBaseOpen(false); knowledgeBase.setFeedback(null) }}
+        />
+      )}
+
       {toastMessage && (
         <div className={`toast toast-${toastType}`} role={toastType === 'error' ? 'alert' : 'status'} aria-live="polite">
           <span>{toastMessage}</span>
@@ -453,6 +471,7 @@ function App() {
         isMicrosoftLoginRunning={microsoftAuth.isMicrosoftLoginRunning}
         onConnectJira={() => void connectJira()}
         onConnectMicrosoft={() => void microsoftAuth.connectMicrosoft()}
+        onOpenKnowledgeBase={() => setIsKnowledgeBaseOpen(true)}
         onReset={closeTreatment}
       />
 

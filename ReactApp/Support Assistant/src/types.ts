@@ -76,6 +76,45 @@ export type ClientTechInfo = {
   setup: string
   language: string
   status: string
+  version?: string | null
+}
+
+export type ClientKnowledgeEntry = {
+  name: string
+  setup: string
+  language: string
+  status: string
+  version?: string | null
+}
+
+export type ClientKnowledgeSource = {
+  messageId: string
+  subject: string
+  receivedDateTime: string | null
+  attachmentName: string
+  totalRecords: number
+}
+
+export type ClientKnowledgeStats = {
+  added: number
+  modified: number
+  removed: number
+  total: number
+  addedNames: string[]
+  removedNames: string[]
+}
+
+export type ClientKnowledge = {
+  updatedAt: string | null
+  latestVersion: string
+  source: ClientKnowledgeSource | null
+  stats: ClientKnowledgeStats | null
+  count: number
+  entries: ClientKnowledgeEntry[]
+}
+
+export type ClientKnowledgeResponse = CommandResponse & {
+  knowledge?: ClientKnowledge
 }
 
 export type PrisEmailRow = {

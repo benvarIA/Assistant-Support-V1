@@ -17,7 +17,7 @@ async function attachClientTechInfo(emails: GraphEmail[]): Promise<GraphEmail[]>
     if (!clientName) return email
     const info = await lookupClientTechInfo(clientName)
     if (!info) return email
-    return { ...email, clientInfo: { setup: info.setup, language: info.language, status: info.status } }
+    return { ...email, clientInfo: { setup: info.setup, language: info.language, status: info.status, version: info.version ?? null } }
   }))
 }
 

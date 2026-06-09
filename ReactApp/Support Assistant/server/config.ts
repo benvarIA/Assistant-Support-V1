@@ -16,12 +16,23 @@ export const TSUNADE_SKILL_PATH = path.join(APP_DIR, 'skills', 'tsunade')
 export const JIRA_CLIENTS_REFERENCE_PATH = path.join(APP_DIR, 'data', 'jira-clients-reference.json')
 export const CLIENT_DEPLOYMENT_MAPPING_PATH = path.join(APP_DIR, 'data', 'client-deployment-jira-mapping-unique.csv')
 export const CLIENT_TECH_INFO_PATH = path.join(APP_DIR, 'data', 'client-technical-info.json')
+export const CLIENT_KNOWLEDGE_META_PATH = path.join(APP_DIR, 'data', 'client-knowledge-meta.json')
 export const TREATMENTS_STORE_PATH = path.join(APP_DIR, 'data', 'treatments-progress.json')
 export const SETTINGS_PATH = path.join(APP_DIR, 'data', 'settings.json')
 export const ASSISTANCE_STORE_PATH = path.join(APP_DIR, 'data', 'assistance-progress.json')
 export const OROCHIMARU_SKILL_PATH = path.join(APP_DIR, 'skills', 'orochimaru')
 export const KIBA_SKILL_PATH = path.join(APP_DIR, 'skills', 'kiba')
 export const ANALYSE_TICKET_SKILL_PATH = path.join(APP_DIR, 'skills', 'analyse-ticket')
+export const SIMILAR_TICKETS_SKILL_PATH = path.join(APP_DIR, 'skills', 'similar-tickets')
+export const LOG_ANALYZER_SKILL_PATH = path.join(APP_DIR, 'skills', 'log-analyzer')
+
+// Recherche de tickets similaires : périmètre par effort.
+// low → SUPIOBEYA seul · medium → + SUPNG · high → + IOBEXP + IOB.
+export const SIMILAR_SEARCH_PROJECTS_BY_EFFORT = {
+  low: ['SUPIOBEYA'],
+  medium: ['SUPIOBEYA', 'SUPNG'],
+  high: ['SUPIOBEYA', 'SUPNG', 'IOBEXP', 'IOB'],
+} as const
 
 export const EXCLUDED_CLIENT_NAME_OPTIONS = new Set(['_IOBEYA_', '_IOBEYA_ (SALES)'])
 export const TRACE_EXEC_LOCKS = new Set<string>()

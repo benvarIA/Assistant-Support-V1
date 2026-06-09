@@ -213,6 +213,16 @@ export default function EmailDetail({
                     {selectedEmail.clientInfo.setup}
                   </span>
                 )}
+                {selectedEmail.clientInfo.version && (
+                  <span
+                    className="client-version-badge"
+                    title={selectedEmail.clientInfo.version === 'latest'
+                      ? 'Plateforme hébergée iObeya — dernière version'
+                      : `Version iObeya ${selectedEmail.clientInfo.version}`}
+                  >
+                    {selectedEmail.clientInfo.version === 'latest' ? 'dernière version' : `v${selectedEmail.clientInfo.version}`}
+                  </span>
+                )}
                 {selectedEmail.clientInfo.status && (
                   <span
                     className={`client-status-badge status-${selectedEmail.clientInfo.status.toLowerCase()}`}
@@ -341,6 +351,21 @@ export default function EmailDetail({
                 </button>
               )
             })}
+
+            {/* Placeholder — FAQ / TroubleShootings (à venir) */}
+            <div
+              className="treatment-action-card treatment-action-card--placeholder"
+              aria-disabled="true"
+            >
+              <span className="treatment-action-top">
+                <span className="treatment-action-icon">📚</span>
+                <span className="treatment-action-flag treatment-action-flag--soon">Bientôt</span>
+              </span>
+              <span className="treatment-action-label">FAQ / TroubleShootings</span>
+              <span className="treatment-action-desc">
+                Base de connaissances et guides de résolution — à venir.
+              </span>
+            </div>
           </div>
         </section>
 
