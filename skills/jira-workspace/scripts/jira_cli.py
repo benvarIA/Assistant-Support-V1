@@ -118,6 +118,27 @@ def to_adf(text: str) -> dict:
     }
 
 
+def adf_to_text(node: object) -> str:
+    """Flatten an Atlassian Document Format node (or plain string) to readable text."""
+    if node is None:
+        return ""
+    if isinstance(node, str):
+        return node
+    if isinstance(node, list):
+        return "".join(adf_to_text(child) for child in node)
+    if isinstance(node, dict):
+        ntype = node.get("type")
+        if ntype == "text":
+            return str(node.get("text", ""))
+        if ntype == "hardBreak":
+            return "\n"
+        inner = adf_to_text(node.get("content"))
+        if ntype in ("paragraph", "heading", "blockquote", "listItem", "codeBlock", "rule", "panel"):
+            return inner + "\n"
+        return inner
+    return ""
+
+
 def jira_request(method: str, path: str, payload: dict | None = None, expected: tuple[int, ...] = (200, 201, 204)) -> dict:
     base_url, email, api_token = get_auth_settings(interactive=True)
     url = f"{base_url}{path}"
@@ -541,6 +562,75 @@ def cmd_comment_delete(args: argparse.Namespace) -> None:
     print(json.dumps({"issue_key": args.issue_key, "deleted_comment_id": args.comment_id}, indent=2))
 
 
+def cmd_issue_get(args: argparse.Namespace) -> None:
+    path = f"/rest/api/3/issue/{urllib.parse.quote(args.issue_key)}?fields={urllib.parse.quote(args.fields)}"
+    data = jira_request("GET", path, expected=(200,))
+    fields = data.get("fields") or {}
+    status = fields.get("status") or {}
+    resolution = fields.get("resolution") or {}
+    result = {
+        "key": data.get("key"),
+        "summary": fields.get("summary"),
+        "status": status.get("name"),
+        "statusCategory": ((status.get("statusCategory") or {}).get("name")),
+        "issuetype": (fields.get("issuetype") or {}).get("name"),
+        "priority": (fields.get("priority") or {}).get("name"),
+        "resolution": resolution.get("name") if resolution else None,
+        "created": fields.get("created"),
+        "updated": fields.get("updated"),
+        "labels": fields.get("labels", []),
+        "description": adf_to_text(fields.get("description")).strip(),
+        "attachments": [
+            {
+                "filename": a.get("filename"),
+                "mimeType": a.get("mimeType"),
+                "size": a.get("size"),
+            }
+            for a in (fields.get("attachment") or [])
+        ],
+    }
+    if args.raw:
+        result["fields"] = fields
+    print(json.dumps(result, indent=2, ensure_ascii=False))
+
+
+def cmd_search(args: argparse.Namespace) -> None:
+    collected: list[dict] = []
+    next_token: str | None = None
+    remaining = max(1, args.max_results)
+    while remaining > 0:
+        params = {
+            "jql": args.jql,
+            "maxResults": str(min(100, remaining)),
+            "fields": args.fields,
+        }
+        if next_token:
+            params["nextPageToken"] = next_token
+        query = urllib.parse.urlencode(params)
+        data = jira_request("GET", f"/rest/api/3/search/jql?{query}", expected=(200,))
+        issues = data.get("issues", []) or []
+        for issue in issues:
+            fields = issue.get("fields") or {}
+            row = {
+                "key": issue.get("key"),
+                "summary": fields.get("summary"),
+                "status": (fields.get("status") or {}).get("name"),
+                "statusCategory": (((fields.get("status") or {}).get("statusCategory") or {}).get("name")),
+                "created": fields.get("created"),
+                "updated": fields.get("updated"),
+            }
+            if args.with_description:
+                row["description"] = adf_to_text(fields.get("description")).strip()[:1500]
+            collected.append(row)
+        remaining -= len(issues)
+        next_token = data.get("nextPageToken")
+        if data.get("isLast") or not next_token or not issues:
+            break
+    # Le endpoint /search/jql traite maxResults comme une borne indicative : on tronque pour respecter --max-results.
+    collected = collected[: max(0, args.max_results)]
+    print(json.dumps({"jql": args.jql, "count": len(collected), "issues": collected}, indent=2, ensure_ascii=False))
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Jira CLI via Jira REST API")
     sub = parser.add_subparsers(dest="domain", required=True)
@@ -572,6 +662,15 @@ def build_parser() -> argparse.ArgumentParser:
     issue_delete = issue_sub.add_parser("delete", help="Delete issue")
     issue_delete.add_argument("--issue-key", required=True)
     issue_delete.set_defaults(func=cmd_issue_delete)
+
+    issue_get = issue_sub.add_parser("get", help="Read one issue (compact, description ADF flattened)")
+    issue_get.add_argument("--issue-key", required=True)
+    issue_get.add_argument(
+        "--fields",
+        default="summary,status,issuetype,priority,resolution,created,updated,labels,description,attachment",
+    )
+    issue_get.add_argument("--raw", action="store_true", help="Also include the raw Jira fields object")
+    issue_get.set_defaults(func=cmd_issue_get)
 
     project = sub.add_parser("project", help="Project operations")
     project_sub = project.add_subparsers(dest="action", required=True)
@@ -613,6 +712,13 @@ def build_parser() -> argparse.ArgumentParser:
     comment_delete.add_argument("--issue-key", required=True)
     comment_delete.add_argument("--comment-id", required=True)
     comment_delete.set_defaults(func=cmd_comment_delete)
+
+    search = sub.add_parser("search", help="Search issues with JQL (read-only)")
+    search.add_argument("--jql", required=True, help='JQL, e.g. project IN (SUPIOBEYA, SUPNG) AND text ~ "licence"')
+    search.add_argument("--max-results", type=int, default=50, help="Max issues to return (paginated, default 50)")
+    search.add_argument("--fields", default="summary,status,created,updated", help="Comma-separated fields")
+    search.add_argument("--with-description", action="store_true", help="Include a truncated flattened description per issue")
+    search.set_defaults(func=cmd_search)
 
     attachment = sub.add_parser("attachment", help="Attachment operations")
     attachment_sub = attachment.add_subparsers(dest="action", required=True)

@@ -51,7 +51,13 @@ un agent consolide tout et propose un draft de réponse client.
 
 > **Principe :** chaque agent est un skill Codex invoqué via `codex exec`.
 > Il reçoit un contexte (email, thread, ticket Jira, fichiers), produit un rapport texte.
-> Une route backend `/api/assistance/agents/:id/run` lance l'agent et streame le résultat.
+> Routes génériques (déjà en place) : `POST /api/assistance/agents/:agentId/run` +
+> `GET /api/assistance/agents/:runId/status` (polling). Registry : `server/services/assistanceAgents.ts`.
+
+> ⚠️ **Contrainte d'architecture (vaut pour TOUS les agents) :** le sandbox de `codex exec`
+> **n'a pas de réseau** (échec DNS). Aucun agent ne peut appeler une API/CLI réseau pendant son run.
+> → **Node pré-charge** toute donnée réseau (REST Jira, Graph…) et l'embarque dans le prompt ;
+> **Codex se limite au raisonnement**. Modèles de référence : `analyseTicket.ts`, `similarTickets.ts`.
 
 ---
 
@@ -64,15 +70,23 @@ un agent consolide tout et propose un draft de réponse client.
 - **Input :** `conversationId`, `jiraKey`
 - **Output :** état des lieux structuré (problème, contexte client, pistes, questions)
 - **Config :** modèle (Opus/Sonnet/Haiku) + effort (low/medium/high)
-- [ ] Créer `skills/analyse-ticket/` (SKILL.md + prompt)
-- [ ] Route backend `POST /api/assistance/agents/analyse/run`
+- [x] Créer `skills/analyse-ticket/` (SKILL.md + prompt)
+- [x] Route backend `POST /api/assistance/agents/analyse/run`
 
-#### 5-agents-2 : `jira-search` — tickets similaires
-- **Base :** réutilise `jira-workspace/jira_cli.py` — recherche full-text dans Jira
-- **Input :** summary du ticket + mots-clés extraits du thread
-- **Output :** liste de tickets similaires résolus avec résumé + lien
-- [ ] Créer `skills/jira-search/` (SKILL.md + script Python ou prompt)
-- [ ] Route backend `POST /api/assistance/agents/jira/run`
+#### 5-agents-2 : `jira` — tickets similaires ✅
+- **Architecture :** **Node fait la recherche, Codex juge** (le sandbox de `codex exec` n'a PAS
+  de réseau — d'où le même pré-chargement que l'agent `analyse`). Node lit le ticket de référence,
+  extrait des mots-clés (code), lance la recherche JQL multi-projets (`text ~`, exclut le ticket
+  courant), score les candidats et lit les meilleurs (titre/description/commentaires/PJ) ; Codex
+  classe, écarte les non-pertinents et extrait la résolution de chacun.
+- **Effort = périmètre projets :** low = SUPIOBEYA · medium = + SUPNG · high = + IOBEXP + IOB.
+- **Output :** JSON `{summary, report}` (sections numérotées, liens browse, transparence des écartés).
+- [x] Service `server/services/similarTickets.ts` (recherche + scoring + lecture Node, jugement Codex)
+- [x] Skill `skills/similar-tickets/` (SKILL.md — sources fournies, Codex juge)
+- [x] Enregistrer `jira` dans `assistanceAgents.ts` (route `:agentId/run` déjà générique)
+- [x] Front : lancement multi-agents généralisé + dial d'effort par agent (verrou `analyse`-only levé)
+- [x] Bonus : commandes read-only `search` (JQL) + `issue get` ajoutées à `jira_cli.py` (comblent
+      un manque de jira-workspace ; non utilisées par cet agent mais utiles ailleurs)
 
 #### 5-agents-3 : Experts métier (4 agents, même pattern)
 > Chacun est un skill Codex avec un prompt spécialisé + une base de connaissances intégrée.
@@ -85,31 +99,36 @@ un agent consolide tout et propose un draft de réponse client.
 
 ---
 
-### Groupe B — Agents avec upload de fichiers
+### Groupe B — Agents analysant des fichiers
 
-> Ces agents nécessitent que l'utilisateur joigne un fichier (logs, HAR, fichiers système).
-> Implique : UI d'upload dans `AssistanceModal` pour les agents concernés.
+> **Décision (2026-06-09) :** source = **pièces jointes du ticket Jira** (Node les télécharge et
+> pré-traite, contrainte réseau Codex). **Pas d'UI d'upload** pour l'instant (upload manuel = 2ᵉ
+> itération éventuelle). Module partagé : `server/services/jiraAttachments.ts`
+> (`downloadAttachmentBytes`, `extractAttachmentText`, `fetchIssue`…).
 
-#### 5-agents-4 : `log-analyzer`
-- **Input :** fichier(s) de logs iObeya (`.log`, `.txt`)
-- **Output :** erreurs critiques, stack traces, patterns répétés, timeline
-- [ ] Créer `skills/log-analyzer/` (SKILL.md + prompt)
-- [ ] Ajouter zone de drop/upload dans la carte agent dans `AssistanceModal`
-- [ ] Route backend `POST /api/assistance/agents/logs/run` (reçoit fichier en multipart)
+#### 5-agents-4 : `logs` — Analyseur de logs ✅
+- **Source :** PJ du ticket (`.log` / `.out` / `.txt` / `.gz` / `.zip`).
+- **Pipeline Node :** télécharge → décompresse (`zlib` pour `.gz`, `unzip` pour `.zip`) →
+  pré-processeur (niveaux ERROR/WARN/SEVERE/FATAL, exceptions Java dédupliquées + extrait de stack,
+  motifs d'erreurs récurrents normalisés, timeline) → digest compact. Codex diagnostique.
+- **Output :** JSON `{summary, report}` — 1. Erreurs critiques · 2. Patterns · 3. Chronologie ·
+  4. Cause racine · 5. Prochaine action.
+- [x] `server/services/logAnalyzer.ts` + `skills/log-analyzer/SKILL.md`
+- [x] Module partagé `jiraAttachments.ts` (réutilisé par har/systeme)
+- [x] `logs` enregistré dans le registry + lançable/configurable dans `AssistanceModal`
+- [x] Testé end-to-end (SUPIOBEYA-30584 : logs dans les ZIP → diagnostic purge/ClassCastException)
 
-#### 5-agents-5 : `har-analyzer`
-- **Input :** fichier HAR (`.har`, JSON)
-- **Output :** requêtes en erreur, timeouts, chaînes de redirections, headers suspects
-- [ ] Créer `skills/har-analyzer/`
-- [ ] Zone upload dans `AssistanceModal`
-- [ ] Route backend `POST /api/assistance/agents/har/run`
+#### 5-agents-5 : `har-analyzer` ⏳
+- **Input :** PJ HAR (`.har`, JSON) du ticket
+- **Output :** requêtes en erreur (4xx/5xx), timeouts/lenteurs, chaînes de redirections, headers suspects
+- [ ] Pré-processeur HAR Node (parse JSON → entrées en erreur/lentes) + `skills/har-analyzer/`
+- [ ] Service `harAnalyzer.ts` + registry + lançable dans `AssistanceModal`
 
-#### 5-agents-6 : `system-files`
-- **Input :** fichier(s) système iObeya (format spécifique — à documenter)
+#### 5-agents-6 : `system-files` ⏳
+- **Input :** fichier(s) système iObeya (format spécifique — **à documenter, exemple requis**)
 - **Output :** infos serveur : version, config, modules activés, problèmes détectés
-- [ ] Documenter le format des fichiers système iObeya
-- [ ] Créer `skills/system-files/`
-- [ ] Route backend `POST /api/assistance/agents/systeme/run`
+- [ ] Documenter le format des fichiers système iObeya (bloquant)
+- [ ] Pré-processeur + `skills/system-files/` + service + registry
 
 ---
 

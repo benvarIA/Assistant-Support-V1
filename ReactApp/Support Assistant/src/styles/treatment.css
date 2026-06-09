@@ -235,6 +235,51 @@
   font-weight: 600;
 }
 
+.assistance-config-hint {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+
+.assistance-config-check {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.assistance-config-check input {
+  cursor: pointer;
+}
+
+.assistance-config-field--stacked {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.3rem;
+}
+
+.assistance-skip-textarea {
+  min-height: 56px;
+  font-size: 0.72rem;
+}
+
+.assistance-report-block {
+  margin-top: 0.75rem;
+}
+
+.assistance-report-block:first-of-type {
+  margin-top: 0.25rem;
+}
+
+.assistance-report-agent {
+  margin: 0 0 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
 .assistance-modal .trace-preview {
   margin: 0;
   padding: 0.9rem 1rem;

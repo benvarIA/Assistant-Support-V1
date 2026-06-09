@@ -61,6 +61,22 @@ python3 scripts/jira_cli.py issue edit \
 python3 scripts/jira_cli.py issue delete --issue-key SUPNG-123
 ```
 
+## Lecture / Recherche (read-only)
+
+- Rechercher des tickets en JQL (recherche plein-texte sur titre + description + commentaires via `text ~`):
+```bash
+python3 scripts/jira_cli.py search \
+  --jql 'project IN (SUPIOBEYA, SUPNG) AND text ~ "licence expirée" ORDER BY updated DESC' \
+  --max-results 30
+```
+  Ajouter `--with-description` pour inclure un extrait de description par ticket, `--fields` pour choisir les champs.
+
+- Lire un ticket précis (description ADF aplatie en texte + liste des pièces jointes):
+```bash
+python3 scripts/jira_cli.py issue get --issue-key SUPIOBEYA-12345
+```
+  Ajouter `--raw` pour aussi obtenir l'objet `fields` brut.
+
 ## Projets
 
 - Creer un projet:

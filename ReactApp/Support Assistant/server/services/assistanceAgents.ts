@@ -1,5 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import { runAnalyseTicketAgent } from './analyseTicket.js'
+import { runSimilarTicketsAgent } from './similarTickets.js'
+import { runLogAnalyzerAgent } from './logAnalyzer.js'
 
 type EffortLevel = 'low' | 'medium' | 'high'
 
@@ -16,6 +18,11 @@ export type AssistanceAgentId =
   | 'addon-jira'
   | 'addon-ado'
 
+export type LogFilterOptions = {
+  ignoreAuthErrors?: boolean
+  skipPatterns?: string[]
+}
+
 export type AssistanceAgentPayload = {
   jiraKey?: string
   guidance?: string
@@ -23,6 +30,7 @@ export type AssistanceAgentPayload = {
     model?: string
     effort?: EffortLevel
   }
+  options?: LogFilterOptions
 }
 
 export type AssistanceAgentResult = {
@@ -50,6 +58,16 @@ const AGENT_REGISTRY: Partial<Record<AssistanceAgentId, AssistanceAgentHandler>>
     const jiraKey = payload.jiraKey?.trim()
     if (!jiraKey) throw new Error('Missing jiraKey')
     return runAnalyseTicketAgent(jiraKey, payload.config, payload.guidance?.trim())
+  },
+  jira: async (payload) => {
+    const jiraKey = payload.jiraKey?.trim()
+    if (!jiraKey) throw new Error('Missing jiraKey')
+    return runSimilarTicketsAgent(jiraKey, payload.config, payload.guidance?.trim())
+  },
+  logs: async (payload) => {
+    const jiraKey = payload.jiraKey?.trim()
+    if (!jiraKey) throw new Error('Missing jiraKey')
+    return runLogAnalyzerAgent(jiraKey, payload.config, payload.guidance?.trim(), payload.options)
   },
 }
 

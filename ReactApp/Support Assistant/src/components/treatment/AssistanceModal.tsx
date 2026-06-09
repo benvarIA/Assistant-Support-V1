@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react'
-import type { AgentId, AssistanceAgentRunResponse, AssistanceAgentStatusResponse, AssistanceRun, AssistanceState, ExecutionMode, PrisEmailRow } from '../../types'
+import { useRef, useState } from 'react'
+import type { AgentId, AgentReport, AssistanceAgentRunResponse, AssistanceAgentStatusResponse, AssistanceRun, AssistanceState, ExecutionMode, PrisEmailRow } from '../../types'
 import AnalysisReport from '../AnalysisReport'
 
 type AssistanceModalProps = {
@@ -21,15 +21,20 @@ const AGENTS: AgentDef[] = [
   { id: 'analyse',    label: 'Analyse ticket',          desc: 'État des lieux Codex — lit le ticket Jira, ses commentaires et ses pièces jointes', configurable: true },
   { id: 'web',        label: 'Recherche internet',       desc: 'Recherche en ligne sur le problème' },
   { id: 'docs',       label: 'Docs iObeya / FAQ',        desc: 'Documentation, FAQ et guides de troubleshooting' },
-  { id: 'jira',       label: 'Tickets Jira similaires',  desc: 'Tickets similaires déjà résolus dans Jira' },
+  { id: 'jira',       label: 'Tickets Jira similaires',  desc: 'Tickets similaires déjà traités dans Jira (recherche live)', configurable: true },
   { id: 'systeme',    label: 'Fichiers système',         desc: 'Infos serveur client extraites des fichiers système iObeya' },
-  { id: 'logs',       label: 'Analyseur de logs',        desc: 'Erreurs et patterns dans les fichiers de logs' },
+  { id: 'logs',       label: 'Analyseur de logs',        desc: 'Erreurs, exceptions et patterns dans les logs joints au ticket (.log/.out/.txt/.gz/.zip)', configurable: true },
   { id: 'har',        label: 'Analyseur de HAR',         desc: 'Traces réseau — fichiers HAR' },
   { id: 'dcm',        label: 'Expert DCM',               desc: 'Expertise sur le module DCM' },
   { id: 'qcd',        label: 'Expert QCD',               desc: 'Expertise sur le module QCD' },
   { id: 'addon-jira', label: 'Expert addon Jira',        desc: 'Addon iObeya pour Jira' },
   { id: 'addon-ado',  label: 'Expert addon ADO',         desc: 'Addon iObeya pour Azure DevOps' },
 ]
+
+// Agents réellement branchés côté backend (registry assistanceAgents.ts).
+const LAUNCHABLE_AGENTS: AgentId[] = ['analyse', 'jira', 'logs']
+
+type AgentRunConfig = { model: string; effort: 'low' | 'medium' | 'high' }
 
 const MODELS = [
   { value: 'gpt-5.5',       label: 'GPT-5.5',      hint: 'Qualité max' },
@@ -54,17 +59,28 @@ export default function AssistanceModal({
 }: AssistanceModalProps) {
   const [selectedAgents, setSelectedAgents] = useState<Set<AgentId>>(new Set(['analyse']))
   const [executionMode, setExecutionMode] = useState<ExecutionMode>('sequential')
-  const [analyseModel, setAnalyseModel] = useState('gpt-5.4')
-  const [analyseEffort, setAnalyseEffort] = useState<'low' | 'medium' | 'high'>(defaultEffort ?? 'medium')
+  const defaultConfig: AgentRunConfig = { model: 'gpt-5.4', effort: defaultEffort ?? 'medium' }
+  const [agentConfig, setAgentConfig] = useState<Record<string, AgentRunConfig>>({
+    analyse: { ...defaultConfig },
+    jira: { ...defaultConfig },
+    logs: { ...defaultConfig },
+  })
   const [isLaunching, setIsLaunching] = useState(false)
   const [launchError, setLaunchError] = useState<string | null>(null)
   const [followUpPrompt, setFollowUpPrompt] = useState(assistanceState?.followUpPrompt ?? '')
 
+  // Options spécifiques à l'agent « Analyseur de logs ».
+  const [logsIgnoreAuth, setLogsIgnoreAuth] = useState(false)
+  const [logsSkipText, setLogsSkipText] = useState('')
+
+  // Live accumulator so parallel agent runs merge into one reports array without races.
+  const reportsRef = useRef<AgentReport[]>(assistanceState?.reports ?? [])
   const reports = assistanceState?.reports ?? []
-  const analyseReport = useMemo(
-    () => reports.find((report) => report.agentId === 'analyse') ?? null,
-    [reports],
-  )
+
+  const getConfig = (id: AgentId): AgentRunConfig => agentConfig[id] ?? defaultConfig
+  const setConfig = (id: AgentId, patch: Partial<AgentRunConfig>) => {
+    setAgentConfig((prev) => ({ ...prev, [id]: { ...(prev[id] ?? defaultConfig), ...patch } }))
+  }
 
   const toggleAgent = (id: AgentId) => {
     setSelectedAgents((prev) => {
@@ -75,6 +91,8 @@ export default function AssistanceModal({
     })
   }
 
+  const labelFor = (id: AgentId): string => AGENTS.find((a) => a.id === id)?.label ?? id
+
   const handleLaunch = async () => {
     if (isLaunching) return
     setLaunchError(null)
@@ -82,144 +100,125 @@ export default function AssistanceModal({
       setLaunchError('Aucun ticket Jira associé à cet email.')
       return
     }
-    if (selectedAgents.size !== 1 || !selectedAgents.has('analyse')) {
-      setLaunchError("Pour l'instant, seul l'agent « Analyse ticket » est réellement branché.")
+    const toRun = [...selectedAgents].filter((id) => LAUNCHABLE_AGENTS.includes(id))
+    if (toRun.length === 0) {
+      setLaunchError('Aucun agent branché sélectionné (disponibles : Analyse ticket, Tickets Jira similaires, Analyseur de logs).')
       return
     }
 
+    const jiraKey = selectedEmail.jiraKey
+    const guidance = followUpPrompt.trim()
     const priorHistory: AssistanceRun[] = assistanceState?.history ?? []
-    const runStartedAt = new Date().toISOString()
+    const historyAcc: AssistanceRun[] = []
+    const summaries: Record<string, string> = {}
 
+    // Seed the accumulator with a running report per launched agent.
+    reportsRef.current = toRun.map((id) => ({
+      agentId: id,
+      status: 'running' as const,
+      report: '',
+      startedAt: new Date().toISOString(),
+      finishedAt: null,
+      errorMessage: null,
+    }))
     onUpdateAssistance({
       status: 'in_progress',
-      summary: `Analyse Jira en cours — ${selectedEmail.jiraKey}`,
-      reports: [{
-        agentId: 'analyse',
-        status: 'running',
-        report: '',
-        startedAt: runStartedAt,
-        finishedAt: null,
-        errorMessage: null,
-      }],
+      summary: `Assistance en cours — ${jiraKey}`,
+      reports: [...reportsRef.current],
     })
+
+    const patchReport = (report: AgentReport) => {
+      reportsRef.current = [...reportsRef.current.filter((r) => r.agentId !== report.agentId), report]
+      onUpdateAssistance({ reports: [...reportsRef.current] })
+    }
+
+    const runOneAgent = async (agentId: AgentId) => {
+      const label = labelFor(agentId)
+      const cfg = getConfig(agentId)
+      const startedAt = new Date().toISOString()
+      const options = agentId === 'logs'
+        ? {
+            ignoreAuthErrors: logsIgnoreAuth,
+            skipPatterns: logsSkipText.split(/[\n,]/).map((p) => p.trim()).filter((p) => p.length > 0),
+          }
+        : undefined
+      try {
+        const response = await fetch(`/api/assistance/agents/${encodeURIComponent(agentId)}/run`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ jiraKey, guidance, config: { model: cfg.model, effort: cfg.effort }, options }),
+        })
+        const data = await response.json() as AssistanceAgentRunResponse
+        if (!response.ok) throw new Error(data.error ?? data.stderr ?? `${label} a échoué.`)
+        if (!data.runId) throw new Error(`${label} n'a pas retourné de runId.`)
+        const runId = data.runId
+
+        for (;;) {
+          await new Promise((resolve) => window.setTimeout(resolve, 1200))
+          const statusResponse = await fetch(`/api/assistance/agents/${encodeURIComponent(runId)}/status`)
+          const statusData = await statusResponse.json() as AssistanceAgentStatusResponse
+          if (!statusResponse.ok) throw new Error(statusData.error ?? statusData.stderr ?? `Le suivi de ${label} a échoué.`)
+
+          if (statusData.status === 'done') {
+            const finishedAt = statusData.finishedAt ?? new Date().toISOString()
+            const report = statusData.report?.trim() ?? ''
+            const summary = statusData.summary?.trim() || `${label} terminé — ${jiraKey}`
+            summaries[agentId] = summary
+            patchReport({ agentId, status: 'done', report, startedAt: statusData.startedAt ?? startedAt, finishedAt, errorMessage: null })
+            historyAcc.push({
+              id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+              agentLabel: label, model: cfg.model, effort: cfg.effort, guidance,
+              status: 'done', summary, report, errorMessage: null,
+              startedAt: statusData.startedAt ?? startedAt, finishedAt,
+            })
+            return
+          }
+          if (statusData.status === 'error') {
+            throw new Error(statusData.error ?? `${label} a échoué.`)
+          }
+        }
+      } catch (error) {
+        // Erreur par agent : rendue dans le bloc de rapport de l'agent (pas de bannière globale,
+        // sinon l'échec d'un agent masquerait le succès d'un autre).
+        const message = error instanceof Error ? error.message : `${label} a échoué.`
+        const finishedAt = new Date().toISOString()
+        patchReport({ agentId, status: 'error', report: '', startedAt, finishedAt, errorMessage: message })
+        historyAcc.push({
+          id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+          agentLabel: label, model: cfg.model, effort: cfg.effort, guidance,
+          status: 'error', summary: '', report: '', errorMessage: message, startedAt, finishedAt,
+        })
+      }
+    }
 
     setIsLaunching(true)
     try {
-      const response = await fetch('/api/assistance/agents/analyse/run', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          jiraKey: selectedEmail.jiraKey,
-          guidance: followUpPrompt.trim(),
-          config: {
-            model: analyseModel,
-            effort: analyseEffort,
-          },
-        }),
-      })
-      const data = await response.json() as AssistanceAgentRunResponse
-      if (!response.ok) {
-        throw new Error(data.error ?? data.stderr ?? "L'agent d'analyse a échoué.")
-      }
-      if (!data.runId) {
-        throw new Error("L'agent d'analyse n'a pas retourné de runId.")
-      }
-
-      let completed = false
-      while (!completed) {
-        await new Promise((resolve) => window.setTimeout(resolve, 1200))
-        const statusResponse = await fetch(`/api/assistance/agents/${encodeURIComponent(data.runId)}/status`)
-        const statusData = await statusResponse.json() as AssistanceAgentStatusResponse
-        if (!statusResponse.ok) {
-          throw new Error(statusData.error ?? statusData.stderr ?? "Le suivi d'exécution a échoué.")
-        }
-
-        if (statusData.status === 'done') {
-          completed = true
-          const startedAt = statusData.startedAt ?? analyseReport?.startedAt ?? runStartedAt
-          const finishedAt = statusData.finishedAt ?? new Date().toISOString()
-          const report = statusData.report?.trim() || ''
-          const summary = statusData.summary?.trim() || `Analyse Jira terminée — ${selectedEmail.jiraKey}`
-          const run: AssistanceRun = {
-            id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
-            agentLabel: 'Analyse ticket',
-            model: analyseModel,
-            effort: analyseEffort,
-            guidance: followUpPrompt.trim(),
-            status: 'done',
-            summary,
-            report,
-            errorMessage: null,
-            startedAt,
-            finishedAt,
-          }
-          onUpdateAssistance({
-            status: 'done',
-            summary,
-            followUpPrompt,
-            reports: [{ agentId: 'analyse', status: 'done', report, startedAt, finishedAt, errorMessage: null }],
-            history: [run, ...priorHistory],
-          })
-        } else if (statusData.status === 'error') {
-          completed = true
-          const message = statusData.error ?? "L'agent d'analyse a échoué."
-          setLaunchError(message)
-          const startedAt = statusData.startedAt ?? analyseReport?.startedAt ?? runStartedAt
-          const finishedAt = statusData.finishedAt ?? new Date().toISOString()
-          const report = statusData.report?.trim() || ''
-          const run: AssistanceRun = {
-            id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
-            agentLabel: 'Analyse ticket',
-            model: analyseModel,
-            effort: analyseEffort,
-            guidance: followUpPrompt.trim(),
-            status: 'error',
-            summary: '',
-            report,
-            errorMessage: message,
-            startedAt,
-            finishedAt,
-          }
-          onUpdateAssistance({
-            status: 'done',
-            summary: `Analyse Jira en échec — ${selectedEmail.jiraKey}`,
-            followUpPrompt,
-            reports: [{ agentId: 'analyse', status: 'error', report, startedAt, finishedAt, errorMessage: message }],
-            history: [run, ...priorHistory],
-          })
+      if (executionMode === 'parallel') {
+        await Promise.all(toRun.map((id) => runOneAgent(id)))
+      } else {
+        for (const id of toRun) {
+          await runOneAgent(id)
         }
       }
-    } catch (error) {
-      const message = error instanceof Error ? error.message : "L'agent d'analyse a échoué."
-      setLaunchError(message)
-      const startedAt = analyseReport?.startedAt ?? runStartedAt
-      const finishedAt = new Date().toISOString()
-      const run: AssistanceRun = {
-        id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
-        agentLabel: 'Analyse ticket',
-        model: analyseModel,
-        effort: analyseEffort,
-        guidance: followUpPrompt.trim(),
-        status: 'error',
-        summary: '',
-        report: '',
-        errorMessage: message,
-        startedAt,
-        finishedAt,
-      }
+      const okSummaries = toRun.map((id) => summaries[id]).filter(Boolean)
+      const aggregateSummary = okSummaries.length > 0
+        ? okSummaries.join(' · ')
+        : `Assistance en échec — ${jiraKey}`
       onUpdateAssistance({
         status: 'done',
-        summary: `Analyse Jira en échec — ${selectedEmail.jiraKey}`,
+        summary: aggregateSummary,
         followUpPrompt,
-        reports: [{ agentId: 'analyse', status: 'error', report: '', startedAt, finishedAt, errorMessage: message }],
-        history: [run, ...priorHistory],
+        reports: [...reportsRef.current],
+        history: [...historyAcc, ...priorHistory],
       })
     } finally {
       setIsLaunching(false)
     }
   }
 
-  const canLaunch = selectedAgents.size > 0 && !isLaunching
+  const launchableSelected = [...selectedAgents].filter((id) => LAUNCHABLE_AGENTS.includes(id))
+  const canLaunch = launchableSelected.length > 0 && !isLaunching
+  const hasAnyReport = reports.some((r) => r.report || r.status === 'error')
 
   return (
     <div className="modal-backdrop">
@@ -294,8 +293,8 @@ export default function AssistanceModal({
                               <button
                                 key={m.value}
                                 type="button"
-                                className={`assistance-pill${analyseModel === m.value ? ' assistance-pill--active' : ''}`}
-                                onClick={() => setAnalyseModel(m.value)}
+                                className={`assistance-pill${getConfig(agent.id).model === m.value ? ' assistance-pill--active' : ''}`}
+                                onClick={() => setConfig(agent.id, { model: m.value })}
                                 title={m.hint}
                               >
                                 {m.label}
@@ -310,14 +309,40 @@ export default function AssistanceModal({
                               <button
                                 key={e.value}
                                 type="button"
-                                className={`assistance-pill${analyseEffort === e.value ? ' assistance-pill--active' : ''}`}
-                                onClick={() => setAnalyseEffort(e.value as 'low' | 'medium' | 'high')}
+                                className={`assistance-pill${getConfig(agent.id).effort === e.value ? ' assistance-pill--active' : ''}`}
+                                onClick={() => setConfig(agent.id, { effort: e.value as 'low' | 'medium' | 'high' })}
                               >
                                 {e.label}
                               </button>
                             ))}
                           </div>
                         </label>
+                        {agent.id === 'jira' && (
+                          <span className="assistance-config-hint">
+                            Périmètre : Faible = SUPIOBEYA · Moyen = + SUPNG · Élevé = + IOBEXP + IOB
+                          </span>
+                        )}
+                        {agent.id === 'logs' && (
+                          <>
+                            <label className="assistance-config-check">
+                              <input
+                                type="checkbox"
+                                checked={logsIgnoreAuth}
+                                onChange={(e) => setLogsIgnoreAuth(e.target.checked)}
+                              />
+                              <span>Ignorer les erreurs d'authentification</span>
+                            </label>
+                            <label className="assistance-config-field assistance-config-field--stacked">
+                              <span className="assistance-config-label">À ignorer</span>
+                              <textarea
+                                className="form-textarea assistance-skip-textarea"
+                                placeholder="Un motif par ligne (ou séparés par des virgules). Toute ligne de log contenant ce texte sera ignorée. Ex: HealthCheck, favicon, broken pipe"
+                                value={logsSkipText}
+                                onChange={(e) => setLogsSkipText(e.target.value)}
+                              />
+                            </label>
+                          </>
+                        )}
                       </div>
                     )}
                   </div>
@@ -326,26 +351,31 @@ export default function AssistanceModal({
             </div>
           </div>
 
-          {(launchError || analyseReport) && (
+          {(launchError || reports.length > 0) && (
             <div className="assistance-section">
-              <p className="assistance-section-label">Rapport d'analyse</p>
+              <p className="assistance-section-label">Rapports</p>
               {launchError && <p className="form-error">{launchError}</p>}
-              {analyseReport?.status === 'running' && (
-                <p className="modal-agent-status">Analyse en cours sur {selectedEmail.jiraKey}…</p>
-              )}
-              {analyseReport?.status === 'error' && analyseReport.errorMessage && (
-                <p className="form-error">{analyseReport.errorMessage}</p>
-              )}
-              {analyseReport?.report && (
-                <div className="assistance-report-render">
-                  <AnalysisReport report={analyseReport.report} />
+              {reports.map((r) => (
+                <div key={r.agentId} className="assistance-report-block">
+                  <p className="assistance-report-agent">{labelFor(r.agentId)}</p>
+                  {r.status === 'running' && (
+                    <p className="modal-agent-status">{labelFor(r.agentId)} en cours sur {selectedEmail.jiraKey}…</p>
+                  )}
+                  {r.status === 'error' && r.errorMessage && (
+                    <p className="form-error">{r.errorMessage}</p>
+                  )}
+                  {r.report && (
+                    <div className="assistance-report-render">
+                      <AnalysisReport report={r.report} />
+                    </div>
+                  )}
                 </div>
-              )}
+              ))}
             </div>
           )}
 
           <div className="assistance-section">
-            <p className="assistance-section-label">Complément pour relancer l'analyse</p>
+            <p className="assistance-section-label">Complément pour relancer l'assistance</p>
             <textarea
               className="form-textarea assistance-followup-textarea"
               placeholder="Ex: le client confirme que le problème n'arrive qu'en VPN, un redémarrage a déjà été tenté, ou voici une info métier manquante..."
@@ -367,7 +397,7 @@ export default function AssistanceModal({
             disabled={!canLaunch}
             onClick={() => { void handleLaunch() }}
           >
-            {isLaunching ? 'Analyse en cours…' : analyseReport?.report ? "Relancer l'analyse →" : "Lancer l'analyse →"}
+            {isLaunching ? 'Assistance en cours…' : hasAnyReport ? 'Relancer →' : "Lancer l'assistance →"}
           </button>
         </footer>
       </section>

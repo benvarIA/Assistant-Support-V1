@@ -2,6 +2,7 @@ import { readFile, unlink } from 'node:fs/promises'
 import path from 'node:path'
 import { APP_DIR, CLIENT_DEPLOYMENT_MAPPING_PATH, JIRAYAH_RULES_PATH, TSUNADE_SKILL_PATH } from '../config.js'
 import { formatClientTechContext, getConfiguredLatestVersion, lookupClientTechInfo, lookupClientTechInfoAll, setupToJiraDeployment } from './clientTechInfo.js'
+import { extractClientDomains, lookupClientByDomain } from './clientDomainMap.js'
 import type {
   IdentificationCategory,
   JiraAnalyzeInput,
@@ -527,6 +528,80 @@ export async function identifyDemandWithCodex(input: {
 // Proposal builder
 // ---------------------------------------------------------------------------
 
+// Identification du client par Codex AVEC recherche web + lecture de la signature.
+// 1) Table apprise (domaine → client) consultée en premier : raccourci exact, zéro coût.
+// 2) Sinon Codex `--search` : l'outil web_search natif (Responses OpenAI) tourne côté serveur,
+//    donc il fonctionne malgré le sandbox local sans réseau. Codex résout le domaine sur le web,
+//    lit la signature (entité exacte pour les groupes), puis choisit le client EXACT de la liste.
+async function identifyClientWithCodex(input: {
+  domains: string[]
+  senders: string[]
+  signatureText: string
+  clientOptions: string[]
+}): Promise<{ client: string; candidates: string[]; confidence: number; source: 'map' | 'codex' } | null> {
+  // Raccourci : table apprise (hors domaines ambigus type Safran).
+  const mapHit = await lookupClientByDomain(input.domains)
+  if (mapHit) {
+    const resolved = resolveClientOption(mapHit.client, input.clientOptions)
+    if (resolved !== 'TBD') return { client: resolved, candidates: [resolved], confidence: 1, source: 'map' }
+  }
+
+  if (input.domains.length === 0 && !input.signatureText.trim()) return null
+
+  type CodexClientId = { companyGuess?: string; client?: string; candidates?: string[]; confidence?: number }
+  const prompt = [
+    'Tu es un identifieur de client pour le support iObeya.',
+    "À partir des informations d'un email client, identifie l'organisation cliente, puis choisis son nom EXACT dans la liste Jira.",
+    '',
+    "Domaines email de l'expéditeur (hors iObeya, hors fournisseurs génériques):",
+    input.domains.length > 0 ? input.domains.map((d) => `- ${d}`).join('\n') : '- (aucun domaine exploitable)',
+    'Expéditeurs du thread:',
+    input.senders.length > 0 ? input.senders.map((s) => `- ${s}`).join('\n') : '- (aucun)',
+    'Signature / contenu (peut nommer précisément la filiale / division):',
+    input.signatureText.slice(0, 4000) || '(vide)',
+    '',
+    'MÉTHODE OBLIGATOIRE:',
+    '- Cherche sur le web à quelle organisation correspond chaque domaine.',
+    "- Lis la signature pour préciser l'entité exacte quand un domaine est partagé par un groupe (ex: plusieurs filiales).",
+    "- Choisis ENSUITE la valeur EXACTE de la liste ci-dessous qui correspond. Si rien ne correspond, renvoie \"TBD\".",
+    '',
+    'LISTE DES CLIENTS JIRA (valeurs autorisées):',
+    input.clientOptions.map((o) => `- ${o}`).join('\n'),
+    '',
+    'Réponds STRICTEMENT en JSON valide, sans markdown:',
+    '{"companyGuess":"...","client":"<valeur exacte de la liste ou TBD>","candidates":["...","...","..."],"confidence":0.0}',
+  ].join('\n')
+
+  const outputFile = path.join('/tmp', `jirayah-client-${Date.now()}-${Math.random().toString(16).slice(2)}.json`)
+  const modelArgs = await getModelArgs('tickets')
+  // `--search` AVANT `exec` : active l'outil web_search natif.
+  const result = await runCommand(
+    'codex',
+    ['--search', 'exec', '--skip-git-repo-check', '--color', 'never', ...modelArgs, '-o', outputFile, prompt],
+    APP_DIR,
+    180_000,
+  )
+
+  let raw = ''
+  try {
+    raw = (await readFile(outputFile, 'utf-8')).trim()
+  } catch {
+    raw = result.stdout.trim()
+  } finally {
+    void unlink(outputFile).catch(() => undefined)
+  }
+  if (result.code !== 0) {
+    throw new Error(sanitizeCodexError(result.stderr || raw))
+  }
+
+  const parsed = JSON.parse(extractJsonObject(raw)) as CodexClientId
+  const client = resolveClientOption(parsed.client, input.clientOptions)
+  if (client === 'TBD') return null
+  const candidates = normalizeClientCandidates([client, ...(parsed.candidates ?? [])], input.clientOptions)
+  const confidence = typeof parsed.confidence === 'number' ? parsed.confidence : 0.7
+  return { client, candidates: candidates.length > 0 ? candidates : [client], confidence, source: 'codex' }
+}
+
 export async function buildJiraProposal(input: JiraAnalyzeInput, identification: IdentificationCategory): Promise<JiraProposal> {
   const microsoftToken = await ensureMicrosoftAccessToken()
   const threadMessages = await listThreadMessages(input, microsoftToken)
@@ -586,6 +661,25 @@ export async function buildJiraProposal(input: JiraAnalyzeInput, identification:
   let clientCandidates = Array.from(
     new Set([client, ...heuristicHints.map((item) => item.option), ...shortlistedClients].filter(Boolean)),
   ).slice(0, 3)
+
+  // Identification client (Codex + recherche web + signature) — source primaire, remplace
+  // l'heuristique lexicale. La signature provient du corps COMPLET (non tronqué).
+  const senderDomains = extractClientDomains([sender, ...threadSenders])
+  const identified = await identifyClientWithCodex({
+    domains: senderDomains,
+    senders: threadSenders,
+    signatureText: stripHtml(bodyRaw),
+    clientOptions,
+  }).catch((err) => {
+    console.warn(`[jirayah] Identification client Codex échouée: ${err instanceof Error ? err.message : err}`)
+    return null
+  })
+  const identifiedClient = identified && identified.client !== 'TBD' ? identified.client : null
+  if (identified && identifiedClient) {
+    client = identifiedClient
+    clientCandidates = Array.from(new Set([identifiedClient, ...identified.candidates, ...clientCandidates].filter(Boolean))).slice(0, 3)
+  }
+
   const mapped = mapIdentificationToJira(identification)
   const subtypeOptions = mapped.subtypeOptions
   const subtypeField = mapped.subtypeField
@@ -601,15 +695,22 @@ export async function buildJiraProposal(input: JiraAnalyzeInput, identification:
       senderIsIobeya: isIobeyaSender(sender),
       clientOptions,
     })
-    client = strongHeuristicClient ?? classification.client
+    // L'identification dédiée (Codex + web + signature) reste prioritaire sur la classif générale.
+    client = identifiedClient ?? strongHeuristicClient ?? classification.client
     clientCandidates = Array.from(
-      new Set([client, ...classification.clientCandidates, ...heuristicHints.map((item) => item.option)].filter(Boolean)),
+      new Set([client, ...(identified?.candidates ?? []), ...classification.clientCandidates, ...heuristicHints.map((item) => item.option)].filter(Boolean)),
     ).slice(0, 3)
     warnings.push(...classification.warnings)
   }
 
-  if (!strongHeuristicClient && client !== 'TBD') {
-    warnings.push('Client prerempli rapidement: a verifier avant validation.')
+  if (identified) {
+    if (identified.source === 'map') {
+      warnings.push(`Client résolu depuis la table de correspondance (${senderDomains.join(', ')}).`)
+    } else if (identified.confidence < 0.6) {
+      warnings.push('Client détecté (web + signature) avec confiance faible — à vérifier.')
+    }
+  } else if (!strongHeuristicClient && client !== 'TBD') {
+    warnings.push('Client prerempli rapidement (heuristique): a verifier avant validation.')
   }
 
   if (mapped.issueType === 'Assistance') {

@@ -9,6 +9,7 @@ import {
   writeThreadJiraMap,
 } from '../services/jira.js'
 import { buildJiraProposal, identifyDemandWithCodex } from '../services/jirayah.js'
+import { extractClientDomains, learnClientDomains } from '../services/clientDomainMap.js'
 
 const ALLOWED_IDENTIFICATIONS: IdentificationCategory[] = [
   'Assistance',
@@ -118,6 +119,16 @@ export async function handleJirayahRoutes(req: IncomingMessage, res: ServerRespo
       const map = await readThreadJiraMap()
       map[threadId] = created.key
       await writeThreadJiraMap(map)
+    }
+
+    // Apprentissage : mémorise « domaine expéditeur → client validé » pour fiabiliser
+    // les prochaines détections (ignore génériques/ambigus en interne). Best effort.
+    try {
+      const sender = proposal.sender?.trim() || email?.sender?.trim() || ''
+      const domains = extractClientDomains([sender])
+      if (proposal.client) await learnClientDomains(domains, proposal.client)
+    } catch {
+      // ne bloque jamais la création
     }
 
     sendJson(res, 200, {

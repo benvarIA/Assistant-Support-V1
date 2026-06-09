@@ -17,6 +17,7 @@ export const JIRA_CLIENTS_REFERENCE_PATH = path.join(APP_DIR, 'data', 'jira-clie
 export const CLIENT_DEPLOYMENT_MAPPING_PATH = path.join(APP_DIR, 'data', 'client-deployment-jira-mapping-unique.csv')
 export const CLIENT_TECH_INFO_PATH = path.join(APP_DIR, 'data', 'client-technical-info.json')
 export const CLIENT_KNOWLEDGE_META_PATH = path.join(APP_DIR, 'data', 'client-knowledge-meta.json')
+export const CLIENT_DOMAIN_MAP_PATH = path.join(APP_DIR, 'data', 'client-domain-map.json')
 export const TREATMENTS_STORE_PATH = path.join(APP_DIR, 'data', 'treatments-progress.json')
 export const SETTINGS_PATH = path.join(APP_DIR, 'data', 'settings.json')
 export const ASSISTANCE_STORE_PATH = path.join(APP_DIR, 'data', 'assistance-progress.json')

@@ -41,11 +41,23 @@ export async function handleAssistanceRoutes(req: IncomingMessage, res: ServerRe
       return true
     }
 
+    const rawOptions = typeof body.options === 'object' && body.options && !Array.isArray(body.options)
+      ? body.options as { ignoreAuthErrors?: unknown; skipPatterns?: unknown }
+      : undefined
+
     const run = startAssistanceAgentRun(agentId, {
       jiraKey: typeof body.jiraKey === 'string' ? body.jiraKey.trim() : undefined,
       guidance: typeof body.guidance === 'string' ? body.guidance.trim() : undefined,
       config: typeof body.config === 'object' && body.config && !Array.isArray(body.config)
         ? body.config as { model?: string; effort?: 'low' | 'medium' | 'high' }
+        : undefined,
+      options: rawOptions
+        ? {
+            ignoreAuthErrors: rawOptions.ignoreAuthErrors === true,
+            skipPatterns: Array.isArray(rawOptions.skipPatterns)
+              ? rawOptions.skipPatterns.filter((p): p is string => typeof p === 'string' && p.trim().length > 0).map((p) => p.trim())
+              : undefined,
+          }
         : undefined,
     })
 
