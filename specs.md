@@ -3,7 +3,7 @@
 > Suite d'outils d'assistance au support client : traitement automatisé des emails Outlook → Jira, gestion de déploiements (RollOut Manager), et outillage QA (QAobeya). Conçue pour une équipe support gérant des tickets clients.
 
 **Date de rédaction :** 2026-06-03
-**Dernière MAJ :** 2026-06-09 — base de connaissances clients (export Salesforce hebdo → langue / type d'install / version, voir §2.10) + agents d'Assistance (Phase 5) + agent « Tickets Jira similaires »
+**Dernière MAJ :** 2026-06-10 — dossier `Persistant/` à la racine pour les tokens/configs (voir §7) ; base de connaissances clients (export Salesforce hebdo → langue / type d'install / version, voir §2.10) + agents d'Assistance (Phase 5) + agent « Tickets Jira similaires »
 **Statut :** Fonctionnel (V1 en production interne)
 **Périmètre :** 3 sous-apps + skills/agents internes
 
@@ -225,6 +225,24 @@ docker/     → Docker Compose
 | `jira-workspace` | Accès et opérations Jira via `jira_cli.py` : auth, issue create/edit/delete, comment, attachment, **+ read-only `search` (JQL) et `issue get`** |
 | `microsoft-365-workspace` | Emails Outlook via Graph API |
 | `panda` | (à documenter) |
+
+---
+
+## 7. Dossier `Persistant/` (tokens & configs locaux)
+
+Dossier à la **racine du projet** (`/Persistant/`) — exclu du git (`.gitignore`), jamais versionné.
+Contient les credentials persistants entre les sessions et les redémarrages de l'app.
+
+| Fichier | Rôle |
+|---|---|
+| `jira_config.json` | URL Jira, email et API token (`base_url`, `email`, `api_token`) |
+| `m365_config.json` | App registration Microsoft 365 (`client_id`, `tenant_id`) |
+| `m365_token.json` | Token OAuth M365 (access + refresh, expiry) — renouvelé automatiquement |
+| `jirayah_thread_jira_map.json` | Cache de correspondance thread email ↔ clé Jira (créé à la 1ère exécution) |
+
+Ces chemins sont centralisés dans [`ReactApp/Support Assistant/server/config.ts`](ReactApp/Support%20Assistant/server/config.ts) via la constante `PERSISTANT_DIR`.
+
+> Pour se (re)connecter : bouton **Jira** ou **Microsoft** dans l'UI → `scripts/connectors.sh login jira|outlook` → écrit dans ce dossier.
 
 ---
 

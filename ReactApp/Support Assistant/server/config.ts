@@ -7,10 +7,11 @@ const SERVER_DIR = fileURLToPath(new URL('.', import.meta.url))
 export const APP_DIR = path.resolve(SERVER_DIR, '..') // = Support Assistant/
 export const ASSISTANT_PRO_DIR = path.resolve(APP_DIR, '..', '..') // = Assistant-Pro/
 
-export const M365_CONFIG_CACHE = path.join(ASSISTANT_PRO_DIR, '.codex', 'persistant', 'token', 'm365_config.json')
-export const M365_TOKEN_CACHE = path.join(ASSISTANT_PRO_DIR, '.codex', 'persistant', 'token', 'm365_token.json')
-export const JIRA_CONFIG_CACHE = path.join(ASSISTANT_PRO_DIR, '.codex', 'persistant', 'token', 'jira_config.json')
-export const JIRAYAH_THREAD_JIRA_CACHE = path.join(ASSISTANT_PRO_DIR, '.codex', 'persistant', 'token', 'jirayah_thread_jira_map.json')
+export const PERSISTANT_DIR = path.join(ASSISTANT_PRO_DIR, 'Persistant')
+export const M365_CONFIG_CACHE = path.join(PERSISTANT_DIR, 'm365_config.json')
+export const M365_TOKEN_CACHE = path.join(PERSISTANT_DIR, 'm365_token.json')
+export const JIRA_CONFIG_CACHE = path.join(PERSISTANT_DIR, 'jira_config.json')
+export const JIRAYAH_THREAD_JIRA_CACHE = path.join(PERSISTANT_DIR, 'jirayah_thread_jira_map.json')
 export const JIRAYAH_RULES_PATH = path.join(APP_DIR, 'skills', 'jirayah', 'references', 'jira-mail-rules.md')
 export const TSUNADE_SKILL_PATH = path.join(APP_DIR, 'skills', 'tsunade')
 export const JIRA_CLIENTS_REFERENCE_PATH = path.join(APP_DIR, 'data', 'jira-clients-reference.json')

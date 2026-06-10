@@ -2,8 +2,7 @@
 .env
 .env.*
 !.env.example
-.codex/persistant/token/
-**/.codex/persistant/token/
+Persistant/
 
 # Dependencies
 node_modules/
